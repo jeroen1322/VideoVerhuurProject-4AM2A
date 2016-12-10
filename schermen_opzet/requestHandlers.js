@@ -320,18 +320,99 @@ function overzichtEigenaar(res){
              '</head>' +
              '<body>' +
              '<h1 style="text-align: center;">OVERZICHT EIGENAAR</h1>'+
-             '<form action="/beheren/video_toevoegen" method="POST">' +
-             '<input type="submit" value="Gegevens wijzigen"/>'+
+             '<form action="/eigenaar/video_toevoegen" method="POST">' +
+             '<input type="submit" value="Video toevoegen"/>'+
              '</form>'+
-             '<form action="/overzicht/gehuurde_films" method="POST">' +
-             '<input type="submit" value="Gehuurde films"/>'+
+             '<form action="/eigenaar/video_verwijderen" method="POST">' +
+             '<input type="submit" value="Video verwijderen"/>'+
+             '</form>'+
+             '<form action="/eigenaar/video_informatie_wijzigen" method="POST">' +
+             '<input type="submit" value="Video informatie wijzigen"/>'+
+             '</form>'+
+             '<form action="/eigenaar/klant_blokkeren" method="POST">' +
+             '<input type="submit" value="Klant blokkeren"/>'+
              '</form>'+
              '<form action="/" method="POST">' +
              '<input type="submit" value="Home"/>'+
              '</form>'+
              '</body>'+
              '</html>';
-   console.log("Betalen");
+   console.log("Overzicht Eigenaar");
+   res.writeHead(200, {"Content-Type":"text/html"});
+   res.write(body);
+   res.end();
+}
+function videoToevoegen(res){
+  var body = '<html>' +
+             '<head>' +
+             '<meta http-equiv="Content-Type" contact="text/html; charset=UTF-8"/>' +
+             '<title>VIDEO TOEVOEGEN</title>' +
+             '</head>' +
+             '<body>' +
+             '<h1 style="text-align: center;">VIDEO TOEVOEGEN</h1>'+
+             '<form action="/eigenaar/overzicht" method="POST">' +
+             '<input type="submit" value="Overzicht"/>'+
+             '</form>'+
+             '</body>'+
+             '</html>';
+   console.log("Overzicht Eigenaar");
+   res.writeHead(200, {"Content-Type":"text/html"});
+   res.write(body);
+   res.end();
+}
+
+function videoVerwijderen(res){
+  var body = '<html>' +
+             '<head>' +
+             '<meta http-equiv="Content-Type" contact="text/html; charset=UTF-8"/>' +
+             '<title>VIDEO VERWIJDEREN</title>' +
+             '</head>' +
+             '<body>' +
+             '<h1 style="text-align: center;">VIDEO VERWIJDEREN</h1>'+
+             '<form action="/eigenaar/overzicht" method="POST">' +
+             '<input type="submit" value="Overzicht"/>'+
+             '</form>'+
+             '</body>'+
+             '</html>';
+   console.log("Overzicht Eigenaar");
+   res.writeHead(200, {"Content-Type":"text/html"});
+   res.write(body);
+   res.end();
+}
+
+function videoInformatieWijzigen(res){
+  var body = '<html>' +
+             '<head>' +
+             '<meta http-equiv="Content-Type" contact="text/html; charset=UTF-8"/>' +
+             '<title>VIDEO INFORMATIE WIJZIGEN</title>' +
+             '</head>' +
+             '<body>' +
+             '<h1 style="text-align: center;">VIDEO INFORMATIE WIJZIGEN</h1>'+
+             '<form action="/eigenaar/overzicht" method="POST">' +
+             '<input type="submit" value="Overzicht"/>'+
+             '</form>'+
+             '</body>'+
+             '</html>';
+   console.log("Overzicht Eigenaar");
+   res.writeHead(200, {"Content-Type":"text/html"});
+   res.write(body);
+   res.end();
+}
+
+function klantBlokkeren(res){
+  var body = '<html>' +
+             '<head>' +
+             '<meta http-equiv="Content-Type" contact="text/html; charset=UTF-8"/>' +
+             '<title>KLANT BLOKKEREN</title>' +
+             '</head>' +
+             '<body>' +
+             '<h1 style="text-align: center;">KLANT BLOKKEREN</h1>'+
+             '<form action="/eigenaar/overzicht" method="POST">' +
+             '<input type="submit" value="Overzicht"/>'+
+             '</form>'+
+             '</body>'+
+             '</html>';
+   console.log("Overzicht Eigenaar");
    res.writeHead(200, {"Content-Type":"text/html"});
    res.write(body);
    res.end();
@@ -351,3 +432,8 @@ exports.winkelmandBetalen = winkelmandBetalen;
 exports.overzichtGebruiker = overzichtGebruiker;
 exports.gegevensWijzigen = gegevensWijzigen;
 exports.gehuurdeFilms = gehuurdeFilms;
+exports.overzichtEigenaar = overzichtEigenaar;
+exports.videoToevoegen = videoToevoegen;
+exports.videoVerwijderen = videoVerwijderen;
+exports.videoInformatieWijzigen = videoInformatieWijzigen;
+exports.klantBlokkeren = klantBlokkeren;

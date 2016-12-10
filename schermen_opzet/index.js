@@ -17,8 +17,11 @@ handle["/winkelmand/betalen"] = requestHandlers.winkelmandBetalen;
 handle['/overzicht'] = requestHandlers.overzichtGebruiker;
 handle['/overzicht/gegevens_wijzigen'] = requestHandlers.gegevensWijzigen;
 handle['/overzicht/gehuurde_films'] = requestHandlers.gehuurdeFilms;
-
-
+handle['/eigenaar/overzicht'] = requestHandlers.overzichtEigenaar;
+handle['/eigenaar/video_toevoegen'] = requestHandlers.videoToevoegen;
+handle['/eigenaar/video_verwijderen'] = requestHandlers.videoVerwijderen;
+handle['/eigenaar/video_informatie_wijzigen'] = requestHandlers.videoInformatieWijzigen;
+handle['/eigenaar/klant_blokkeren'] = requestHandlers.klantBlokkeren;
 console.log(handle);
 
 server.start(router.route, handle);
