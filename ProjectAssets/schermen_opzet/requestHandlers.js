@@ -1,45 +1,45 @@
 fs = require("fs");
 
 function home(res, ontvangenData){
-  var body = '<html>' +
-             '<head>' +
-             '<meta http-equiv="Content-Type" contact="text/html; charset=UTF-8"/>' +
-             '<title>HOME</title>' +
-             '</head>' +
-             '<body>' +
-             '<h1 style="text-align: center;">TempoVideo</h1>'+
-             '<form action="/winkelmand" method="POST" style="float: right;">' +
-             '<input type="submit" value="Winkelmand"/>'+
-             '</form>'+
-             '<form action="/filmaanbod" method="POST">' +
-             '<input type="submit" value="Filmaanbod"/>'+
-             '</form>'+
-             '<form action="/inschrijven" method="POST">' +
-             '<input type="submit" value="Inschrijven"/>'+
-             '</form>'+
-             '<form action="/inloggen" method="POST">' +
-             '<input type="submit" value="Inloggen"/>'+
-             '</form>'+
-             '<form action="/tarieven" method="POST">' +
-             '<input type="submit" value="Tarieven"/>'+
-             '</form>'+
-             '<form action="/over_ons" method="POST">' +
-             '<input type="submit" value="Over ons"/>'+
-             '</form>'+
-             '<form action="/contact" method="POST">' +
-             '<input type="submit" value="Contact"/>'+
-             '</form>'+
-             '</body>'+
-             '</html>';
-  //fs.readFile('../assets/home.php', function (err, data) {
-  //  if (err) {
-  //     return console.error(err);
-  //  }
+  // var body = '<html>' +
+  //            '<head>' +
+  //            '<meta http-equiv="Content-Type" contact="text/html; charset=UTF-8"/>' +
+  //            '<title>HOME</title>' +
+  //            '</head>' +
+  //            '<body>' +
+  //            '<h1 style="text-align: center;">TempoVideo</h1>'+
+  //            '<form action="/winkelmand" method="POST" style="float: right;">' +
+  //            '<input type="submit" value="Winkelmand"/>'+
+  //            '</form>'+
+  //            '<form action="/filmaanbod" method="POST">' +
+  //            '<input type="submit" value="Filmaanbod"/>'+
+  //            '</form>'+
+  //            '<form action="/inschrijven" method="POST">' +
+  //            '<input type="submit" value="Inschrijven"/>'+
+  //            '</form>'+
+  //            '<form action="/inloggen" method="POST">' +
+  //            '<input type="submit" value="Inloggen"/>'+
+  //            '</form>'+
+  //            '<form action="/tarieven" method="POST">' +
+  //            '<input type="submit" value="Tarieven"/>'+
+  //            '</form>'+
+  //            '<form action="/over_ons" method="POST">' +
+  //            '<input type="submit" value="Over ons"/>'+
+  //            '</form>'+
+  //            '<form action="/contact" method="POST">' +
+  //            '<input type="submit" value="Contact"/>'+
+  //            '</form>'+
+  //            '</body>'+
+  //            '</html>';
+  fs.readFile('./home.php', function (err, data) {
+   if (err) {
+      return console.error(err);
+   }
    console.log("Home");
    res.writeHead(200, {"Content-Type":"text/html"});
-   res.write(body);
+   res.write(data);
    res.end();
-//});
+});
 
 }
 function filmaanbod(res){
