@@ -5,6 +5,6 @@ require_once(TEMPLATES_PATH . "/footer.php");
 ?>
 <div class="container">
   <div class="content">
-    <p>test</p>
+    <p>test of dit nu goed gaat</p>
   </div>
 </div>
