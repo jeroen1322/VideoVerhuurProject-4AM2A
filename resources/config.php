@@ -18,7 +18,7 @@ $config = array(
         )
     ),
     "urls" => array(
-        "baseUrl" => "http://localhost"
+        "baseUrl" => "http://tempovideo.nl"
     ),
     "paths" => array(
         "resources" => "../resources/",
