@@ -6,7 +6,7 @@ require_once(TEMPLATES_PATH . "/footer.php");
 ?>
 <div class="container">
   <div class="content">
-    <p>test of dit nu goed gaat</p>
+
   </div>
 </div>
 
@@ -14,6 +14,9 @@ require_once(TEMPLATES_PATH . "/footer.php");
 
 $klein = new \Klein\Klein();
 
+$klein->respond('GET', '/', function () {
+    return("HOME");
+});
 $klein->respond('GET', '/filmaanbod', function () {
     return("FILMAANBOD");
 });
