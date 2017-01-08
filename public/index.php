@@ -9,9 +9,9 @@ require_once(TEMPLATES_PATH . "/footer.php");
     <p>test of dit nu goed gaat</p>
   </div>
 </div>
+
 <?php
 
-// print_r($_SERVER);
 $klein = new \Klein\Klein();
 
 $klein->respond('GET', '/test', function () {
@@ -19,4 +19,4 @@ $klein->respond('GET', '/test', function () {
 });
 
 $klein->dispatch();
- ?>
+?>
