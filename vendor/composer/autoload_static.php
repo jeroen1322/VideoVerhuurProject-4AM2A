@@ -4,15 +4,27 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit49982d2cdb788f776202e26139766a91
+class ComposerStaticInit2ccb1ee454282ad2d98a4f575358fab4
 {
-    public static $files = array (
-        'd1202270a288ef28b1d0aa3be46a52be' => __DIR__ . '/..' . '/klein/klein/klein.php',
+    public static $prefixLengthsPsr4 = array (
+        'K' => 
+        array (
+            'Klein\\' => 6,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Klein\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/klein/klein/src/Klein',
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2ccb1ee454282ad2d98a4f575358fab4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2ccb1ee454282ad2d98a4f575358fab4::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

@@ -1,5 +1,5 @@
 {
     "require": {
-        "klein/klein": "1.0.*"
+        "klein/klein": "^2.1"
     }
 }

@@ -1,6 +1,6 @@
 <?php
-require('../vendor/autoload.php');
-require_once('../resources/config.php');
+require(__dir__ . '/../vendor/autoload.php');
+require(__dir__ . '/../resources/config.php');
 require_once(TEMPLATES_PATH . "/head.php");
 require_once(TEMPLATES_PATH . "/footer.php");
 ?>
@@ -9,3 +9,14 @@ require_once(TEMPLATES_PATH . "/footer.php");
     <p>test of dit nu goed gaat</p>
   </div>
 </div>
+<?php
+
+// print_r($_SERVER);
+$klein = new \Klein\Klein();
+
+$klein->respond('GET', '/test', function () {
+    return("TEST");
+});
+
+$klein->dispatch();
+ ?>
