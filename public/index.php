@@ -14,8 +14,14 @@ require_once(TEMPLATES_PATH . "/footer.php");
 
 $klein = new \Klein\Klein();
 
-$klein->respond('GET', '/test', function () {
-    return("TEST");
+$klein->respond('GET', '/filmaanbod', function () {
+    return("FILMAANBOD");
+});
+$klein->respond('GET', '/over_ons', function () {
+    return("OVER ONS");
+});
+$klein->respond('GET', '/contact', function () {
+    return("CONTACT");
 });
 
 $klein->dispatch();

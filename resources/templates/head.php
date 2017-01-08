@@ -37,10 +37,10 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">HOME</a></li>
-            <li><a href="#">FILMAANBOD</a></li>
-            <li><a href="#">OVER ONS</a></li>
-            <li><a href="#">CONTACT</a><li>
+            <li class="active"><a href="/">HOME</a></li>
+            <li><a href="/filmaanbod">FILMAANBOD</a></li>
+            <li><a href="/over_ons">OVER ONS</a></li>
+            <li><a href="/contact">CONTACT</a><li>
           </ul>
         </div>
       </div>
