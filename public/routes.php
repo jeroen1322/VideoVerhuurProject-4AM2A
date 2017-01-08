@@ -44,14 +44,20 @@ $klein->respond('/over_ons', function ($request, $response, $service) {
 });
 
 // Contact view
-$klein->respond('/contact', function ($request, $response, $service) {
+$klein->respond('GET', '/contact', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Contact';
 
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/contact.php');
+});
+// Contact view
+$klein->respond('POST', '/contact', function ($request, $response, $service) {
+  // add some data to the view.
+  $service->pageTitle = 'Contact';
 
-
+  // This is the function that renders the view inside the layout.
+  $service->render(VIEWS.'/contact.php');
 });
 
 $klein->dispatch();
