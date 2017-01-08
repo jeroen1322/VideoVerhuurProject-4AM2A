@@ -34,7 +34,7 @@ $klein->respond('/filmaanbod', function ($request, $response, $service) {
     $service->render(VIEWS.'/filmaanbod.php');
 });
 
-// Filmaanbod view
+// Over Ons view
 $klein->respond('/over_ons', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Over ons';
@@ -43,13 +43,15 @@ $klein->respond('/over_ons', function ($request, $response, $service) {
     $service->render(VIEWS.'/over_ons.php');
 });
 
-// Filmaanbod view
+// Contact view
 $klein->respond('/contact', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Contact';
 
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/contact.php');
+
+
 });
 
 $klein->dispatch();
