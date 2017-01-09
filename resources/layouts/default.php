@@ -1,3 +1,7 @@
+<?php
+require(__DIR__ . '/../db.php');
+connectDB();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,11 +14,12 @@
     <title><?= $this->escape($this->pageTitle); ?></title>
 
     <!-- Bootstrap -->
-    <link href="./bootstrap/css/bootstrap.min.css " rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css " rel="stylesheet">
 
     <!-- Bootstrap Material Design -->
-    <link rel="stylesheet" type="text/css" href="./bootstrap-material/css/bootstrap-material-design.css">
-    <link rel="stylesheet" type="text/css" href="./bootstrap-material/css/ripples.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap-material/css/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap-material/css/ripples.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <!-- <link rel="stylesheet" type="text/css" href="dist/css/ripples.min.css"> -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -38,9 +43,13 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">HOME</a></li>
-            <li><a href="/filmaanbod">FILMAANBOD</a></li>
+            <li><a href="/film/aanbod">FILMAANBOD</a></li>
             <li><a href="/over_ons">OVER ONS</a></li>
             <li><a href="/contact">CONTACT</a><li>
+          </ul>
+          <ul class="nav navbar-nav menu_right">
+            <li><a href="/login">LOGIN</a></li>
+            <li><a href="/registreer">REGISTREER</a></li>
           </ul>
         </div>
       </div>

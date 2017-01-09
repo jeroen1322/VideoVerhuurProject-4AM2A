@@ -26,13 +26,14 @@ $klein->respond('/', function ($request, $response, $service) {
 });
 
 // Filmaanbod view
-$klein->respond('/filmaanbod', function ($request, $response, $service) {
+$klein->respond('/film/aanbod', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Filmaanbod';
 
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/filmaanbod.php');
 });
+
 
 // Over Ons view
 $klein->respond('/over_ons', function ($request, $response, $service) {
@@ -71,6 +72,14 @@ $klein->respond('GET', '/login', function ($request, $response, $service) {
 
 // Register view
 $klein->respond('GET', '/registreer', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Registreer';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/registreer.php');
+});
+// Register view
+$klein->respond('POST', '/registreer', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Registreer';
 
