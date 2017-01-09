@@ -60,6 +60,24 @@ $klein->respond('POST', '/contact', function ($request, $response, $service) {
   $service->render(VIEWS.'/contact.php');
 });
 
+// Login view
+$klein->respond('GET', '/login', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Login';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/login.php');
+});
+
+// Register view
+$klein->respond('GET', '/registreer', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Registreer';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/registreer.php');
+});
+
 // HTTP ERRORS
 $klein->onHttpError(function ($code, $router) {
     switch ($code) {
