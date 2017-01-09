@@ -24,13 +24,8 @@ if(!empty($_POST)){
   $wachtwoord = $_POST['wachtwoord'];
 
   // prepare and bind
-  $stmt = DB::conn()->prepare("INSERT INTO Klant (naam, adres, postcode, woonplaats, email) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssss", $naam, $adres, $postcode, $woonplaats, $email);
-
-  // set parameters and execute
-  // $naam = "Jeroen";
-  $adres = "Oeverstraat 21";
-  $email = "contact@jeroengrooten.nl";
+  $stmt = DB::conn()->prepare("INSERT INTO Klant (naam, adres, postcode, woonplaats, telefoonnummer, email) VALUES (?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssss", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email);
   $stmt->execute();
 
   echo "New records created successfully";
