@@ -60,4 +60,24 @@ $klein->respond('POST', '/contact', function ($request, $response, $service) {
   $service->render(VIEWS.'/contact.php');
 });
 
+// HTTP ERRORS
+$klein->onHttpError(function ($code, $router) {
+    switch ($code) {
+        case 404:
+            $router->response()->body(
+                '404 - Ik kan niet vinden waar u naar zoekt.'
+            );
+            break;
+        case 405:
+            $router->response()->body(
+                '405 - U heeft geen toestemming hier te komen.'
+            );
+            break;
+        default:
+            $router->response()->body(
+                'Oh nee, er is iets ergs gebeurt! Errorcode:'. $code
+            );
+    }
+});
+
 $klein->dispatch();
