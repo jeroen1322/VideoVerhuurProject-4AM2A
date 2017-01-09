@@ -13,10 +13,37 @@
 </form>
 
 <?php
-$naam = $_POST['naam'];
-$adres = $_POST['adres'];
-$postcode = $_POST['postcode'];
-$woonplaats = $_POST['woonplaats'];
-$telefoonnummer = $_POST['telefoonnummer'];
-$email = $_POST['email'];
-$wachtwoord = $_POST['wachtwoord'];
+
+if(!empty($_POST)){
+  $naam = $_POST['naam'];
+  $adres = $_POST['adres'];
+  $postcode = $_POST['postcode'];
+  $woonplaats = $_POST['woonplaats'];
+  $telefoonnummer = $_POST['telefoonnummer'];
+  $email = $_POST['email'];
+  $wachtwoord = $_POST['wachtwoord'];
+
+  // prepare and bind
+  $stmt = DB::conn()->prepare("INSERT INTO Klant (naam, adres, postcode, woonplaats, email) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssss", $naam, $adres, $postcode, $woonplaats, $email);
+
+  // set parameters and execute
+  // $naam = "Jeroen";
+  $adres = "Oeverstraat 21";
+  $email = "contact@jeroengrooten.nl";
+  $stmt->execute();
+
+  echo "New records created successfully";
+
+  $stmt->close();
+  DB::conn()->close();
+}
+// PASSWORD HASHEN
+ $hash = password_hash($wachtwoord, PASSWORD_DEFAULT);
+// $hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
+  echo $hash;
+// if (password_verify('rasmuslerdorf', $hash)) {
+//     echo 'Password is valid!';
+// } else {
+//     echo 'Invalid password.';
+// }

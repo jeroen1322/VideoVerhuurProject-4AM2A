@@ -1,15 +1,19 @@
 <?php
-function connectDB(){
-  //Server gegevens
-  $server = "localhost";
-  $username = "root2";
-  $passw = "root";
-  $dbname = "tempovideo";
-  $mysqli = new mysqli($server, $username, $passw);
+//use
+// DB::conn()->prepare(....
+class DB {
+    private static $mysqli;
+    private function __construct(){} //no instantiation
 
-  //Connectie met DB maken
-  if($mysqli->connect_error){
-    echo ("ERROR: " . $mysqli->connect_error);
-    die();
-  }
+    static function conn() {
+        if( !self::$mysqli ) {
+            //Server gegevens
+            $server = "localhost";
+            $username = "root2";
+            $passw = "root";
+            $dbname = "tempovideo";
+            self::$mysqli = new mysqli($server, $username, $passw, $dbname);
+        }
+        return self::$mysqli;
+    }
 }

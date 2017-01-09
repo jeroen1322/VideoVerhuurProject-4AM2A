@@ -1,6 +1,5 @@
 <?php
-require(__DIR__ . '/../db.php');
-connectDB();
+include(__DIR__ . '/../db.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

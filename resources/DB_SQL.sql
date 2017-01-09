@@ -3,7 +3,7 @@ use tempovideo;
 create table Rol(id int primary key, omschr varchar(45));
 create table Medewerker(id int primary key, rolid int, achternaam varchar(45), wachtwoordid int);
 create table Wachtwoord(id int primary key, wachtwoord varchar(45));
-create table Klant(id int primary key, naam varchar(50), adres varchar(50), postcode varchar(7), woonplaats varchar(25), email varchar(45), wachtwoordid int);
+create table Klant(id int auto_increment primary key, naam varchar(50), adres varchar(50), postcode varchar(7), woonplaats varchar(25), telefoonnummer varchar(10), email varchar(45), wachtwoordid int);
 ALTER TABLE `Medewerker`
 ADD FOREIGN KEY (rolid)
 REFERENCES Rol(id);
@@ -23,3 +23,4 @@ create table Film(id int primary key, titel varchar(50), acteur varchar(100), om
 ALTER TABLE `Exemplaar`
 ADD FOREIGN KEY (filmid)
 REFERENCES Film(id);
+SELECT * FROM Klant;
