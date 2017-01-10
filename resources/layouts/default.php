@@ -57,22 +57,13 @@ print_r($_SESSION);
             <li><a href="/over_ons">OVER ONS</a></li>
             <li><a href="/contact">CONTACT</a><li>
           </ul>
-          <?php
-          if($klantId !== $_SESSION['login']){
-            ?>
             <ul class="nav navbar-nav menu_right">
               <li><a href="/login">LOGIN</a></li>
               <li><a href="/registreer">REGISTREER</a></li>
             </ul>
-            <?php
-          }else{
-            ?>
             <ul class="nav navbar-nav menu_right">
               <li><a href="#">INGELOGD</a></li>
             </ul>
-            <?php
-          }
-          ?>
         </div>
       </div>
     </div>

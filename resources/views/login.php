@@ -23,11 +23,11 @@ if(!empty($_POST)){
   $stmt = DB::conn()->prepare("SELECT id FROM Klant WHERE email=?");
   $stmt->bind_param("s", $email);
   $stmt->execute();
-
+  
   $stmt->bind_result($klantId);
   $stmt->fetch();
   $stmt->close();
-
+  echo $klantId;
   //Pak de naam van de klant dat bij de ingevoerde email hoort
   $name_stmt = DB::conn()->prepare("SELECT naam FROM Klant WHERE id=?");
   $name_stmt->bind_param("s", $klantId);
