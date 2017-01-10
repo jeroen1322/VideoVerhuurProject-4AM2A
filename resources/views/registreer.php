@@ -1,4 +1,4 @@
-<h1>Registreer</h1>
+<h1>REGISTREER</h1>
 
 <form method="post">
   <input type="text" name="naam" placeholder="Naam" class="form-control">
@@ -15,6 +15,7 @@
 <?php
 
 if(!empty($_POST)){
+  //Ingevoerde gegevens aan variabelen assignen
   $naam = $_POST['naam'];
   $adres = $_POST['adres'];
   $postcode = $_POST['postcode'];
@@ -23,22 +24,26 @@ if(!empty($_POST)){
   $email = $_POST['email'];
   $wachtwoord = $_POST['wachtwoord'];
 
-  // prepare and bind
-  $stmt = DB::conn()->prepare("INSERT INTO Klant (naam, adres, postcode, woonplaats, telefoonnummer, email) VALUES (?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("ssssss", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email);
+  //Willekeurig id
+  $id = rand(1, 1100);
+
+  // WACHTWOORD
+  //Hash Wachtwoord
+  $hash = password_hash($wachtwoord, PASSWORD_DEFAULT);
+  //Wachtwoord invoeren in tabel Wachtwoord, met een random id
+  $passw_stmt = DB::conn()->prepare("INSERT INTO Wachtwoord (id, wachtwoord) VALUES (?, ?)");
+  $passw_stmt->bind_param("is", $id, $hash);
+  $passw_stmt->execute();
+  echo "Wachtwoord aangemaakt <br>";
+
+  //ACCOUNT GEGEVENS
+  //Gegevens invoeren in Klant tabel
+  $stmt = DB::conn()->prepare("INSERT INTO Klant (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssssi", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id);
   $stmt->execute();
+  echo "Account aangemaakt";
 
-  echo "New records created successfully";
-
+  //Connecties afsluiten
   $stmt->close();
   DB::conn()->close();
 }
-// PASSWORD HASHEN
- $hash = password_hash($wachtwoord, PASSWORD_DEFAULT);
-// $hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
-  echo $hash;
-// if (password_verify('rasmuslerdorf', $hash)) {
-//     echo 'Password is valid!';
-// } else {
-//     echo 'Invalid password.';
-// }

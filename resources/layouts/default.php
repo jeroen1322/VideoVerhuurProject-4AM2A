@@ -1,5 +1,16 @@
 <?php
 include(__DIR__ . '/../db.php');
+session_start();
+// session_unset($_SESSION['login']);
+// if($_SESSION['login'] == $klandId){
+//   echo "test";
+// }else{
+//   echo "nope";
+// }
+$klantId = $_SESSION['login'];
+echo $klantId;
+echo $naam;
+print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,10 +57,22 @@ include(__DIR__ . '/../db.php');
             <li><a href="/over_ons">OVER ONS</a></li>
             <li><a href="/contact">CONTACT</a><li>
           </ul>
-          <ul class="nav navbar-nav menu_right">
-            <li><a href="/login">LOGIN</a></li>
-            <li><a href="/registreer">REGISTREER</a></li>
-          </ul>
+          <?php
+          if($klantId !== $_SESSION['login']){
+            ?>
+            <ul class="nav navbar-nav menu_right">
+              <li><a href="/login">LOGIN</a></li>
+              <li><a href="/registreer">REGISTREER</a></li>
+            </ul>
+            <?php
+          }else{
+            ?>
+            <ul class="nav navbar-nav menu_right">
+              <li><a href="#">INGELOGD</a></li>
+            </ul>
+            <?php
+          }
+          ?>
         </div>
       </div>
     </div>

@@ -69,6 +69,14 @@ $klein->respond('GET', '/login', function ($request, $response, $service) {
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/login.php');
 });
+// Login view
+$klein->respond('POST', '/login', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Login';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/login.php');
+});
 
 // Register view
 $klein->respond('GET', '/registreer', function ($request, $response, $service) {
