@@ -30,7 +30,7 @@ if(!empty($_POST)){
   $genre = $_POST['genre'];
   $img = $_FILES['img'];
   $uploadName = $titel;
-  $uploadName = str_replace(' ', '', $uploadName);
+  $uploadName = str_replace(' ', '_', $uploadName);
   $uploadName = strtolower($uploadName);
 
   $target_dir = FOTO."/";
