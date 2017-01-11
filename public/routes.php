@@ -122,6 +122,27 @@ $klein->respond('GET', '/uitloggen', function ($request, $response, $service) {
     $service->render(VIEWS.'/uitloggen.php');
 });
 
+// COVER
+$klein->respond('GET', '/cover/[:naam]', function ($request, $response, $service) {
+    $naam = $request->naam;
+    $path = FOTO . "/" . $naam;
+
+    $filename = basename($path);
+    $file_extension = strtolower(substr(strrchr($filename,"."),1));
+
+    switch( $file_extension ) {
+        case "gif": $ctype="image/gif"; break;
+        case "png": $ctype="image/png"; break;
+        case "jpeg":
+        case "jpg": $ctype="image/jpeg"; break;
+        default:
+    }
+
+    header('Content-Type:'.$ctype);
+    header('Content-Length: ' . filesize($path));
+    readfile($path);
+});
+
 // HTTP ERRORS
 $klein->onHttpError(function ($code, $router) {
     switch ($code) {

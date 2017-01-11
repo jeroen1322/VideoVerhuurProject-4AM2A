@@ -49,7 +49,6 @@ if(!empty($_POST)){
   $stmt->bind_param("sssss", $titel, $acteur, $oms, $genre, $uploadName);
   $stmt->execute();
 
-
   $stmt->close();
   DB::conn()->close();
 }
