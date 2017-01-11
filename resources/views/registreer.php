@@ -1,16 +1,19 @@
-<h1>REGISTREER</h1>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h1>REGISTREER</h1>
+    <form method="post">
+      <input type="text" name="naam" placeholder="Naam" class="form-control">
+      <input type="text" name="adres" placeholder="Adres" class="form-control">
+      <input type="text" name="postcode" placeholder="Postcode" class="form-control">
+      <input type="text" name="woonplaats" placeholder="Woonplaats" class="form-control">
+      <input type="text" name="telefoonnummer" placeholder="Telefoonnummer" class="form-control">
+      <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control">
+      <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control">
 
-<form method="post">
-  <input type="text" name="naam" placeholder="Naam" class="form-control">
-  <input type="text" name="adres" placeholder="Adres" class="form-control">
-  <input type="text" name="postcode" placeholder="Postcode" class="form-control">
-  <input type="text" name="woonplaats" placeholder="Woonplaats" class="form-control">
-  <input type="text" name="telefoonnummer" placeholder="Telefoonnummer" class="form-control">
-  <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control">
-  <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control">
-
-  <input type="submit" name="submit" value="REGISTREER">
-</form>
+      <input type="submit" name="submit" value="REGISTREER">
+    </form>
+  </div>
+</div>
 
 <?php
 
