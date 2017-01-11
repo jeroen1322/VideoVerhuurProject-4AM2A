@@ -34,6 +34,15 @@ $klein->respond('/film/aanbod', function ($request, $response, $service) {
     $service->render(VIEWS.'/filmaanbod.php');
 });
 
+// EIGENAAR film toevoegen
+$klein->respond('/eigenaar/film_toevoegen', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Filmtoevoegen';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/filmtoevoegen.php');
+});
+
 
 // Over Ons view
 $klein->respond('/over_ons', function ($request, $response, $service) {
@@ -93,6 +102,15 @@ $klein->respond('POST', '/registreer', function ($request, $response, $service) 
 
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/registreer.php');
+});
+
+// Register view
+$klein->respond('GET', '/uitloggen', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Uitloggen';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/uitloggen.php');
 });
 
 // HTTP ERRORS

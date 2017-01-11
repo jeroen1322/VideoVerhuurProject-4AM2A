@@ -23,14 +23,14 @@ if(!empty($_POST)){
   $stmt = DB::conn()->prepare("SELECT id FROM Klant WHERE email=?");
   $stmt->bind_param("s", $email);
   $stmt->execute();
-  
+
   $stmt->bind_result($klantId);
   $stmt->fetch();
   $stmt->close();
-  echo $klantId;
+
   //Pak de naam van de klant dat bij de ingevoerde email hoort
   $name_stmt = DB::conn()->prepare("SELECT naam FROM Klant WHERE id=?");
-  $name_stmt->bind_param("s", $klantId);
+  $name_stmt->bind_param("i", $klantId);
   $name_stmt->execute();
 
   $name_stmt->bind_result($naam);
@@ -48,7 +48,9 @@ if(!empty($_POST)){
 
   //Controlleer het opgehaalde wachtwoord met het ingevoerde wachtwoord overeenkomt
   if (password_verify($wachtwoord, $ww)) {
-      $_SESSION['login'] = $klantId; //Zet de session die we kunnen checken in de functie isIngelogd();
+      $_SESSION['login'] = array();
+      $_SESSION['login'][] = $klantId; //Zet de session die we kunnen checken in de functie isIngelogd();
+      $_SESSION['login'][] = $naam;
       ?>
       <script>window.location.replace("/");</script>
       <?php
