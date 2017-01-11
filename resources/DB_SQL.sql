@@ -24,4 +24,8 @@ ALTER TABLE `Exemplaar`
 ADD FOREIGN KEY (filmid)
 REFERENCES Film(id);
 
+ALTER TABLE Film
+ADD genre varchar(50);
+SELECT * FROM Film;
 SELECT * FROM Klant;
+SELECT * FROM Wachtwoord;
