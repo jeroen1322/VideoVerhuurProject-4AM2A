@@ -35,7 +35,16 @@ $klein->respond('/film/aanbod', function ($request, $response, $service) {
 });
 
 // EIGENAAR film toevoegen
-$klein->respond('/eigenaar/film_toevoegen', function ($request, $response, $service) {
+$klein->respond('GET', '/eigenaar/film_toevoegen', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Filmtoevoegen';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/filmtoevoegen.php');
+});
+
+// EIGENAAR film toevoegen
+$klein->respond('POST', '/eigenaar/film_toevoegen', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Filmtoevoegen';
 
