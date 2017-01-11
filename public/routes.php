@@ -122,7 +122,7 @@ $klein->respond('GET', '/uitloggen', function ($request, $response, $service) {
     $service->render(VIEWS.'/uitloggen.php');
 });
 
-// COVER
+// COVER API
 $klein->respond('GET', '/cover/[:naam]', function ($request, $response, $service) {
     $naam = $request->naam;
     $path = FOTO . "/" . $naam;

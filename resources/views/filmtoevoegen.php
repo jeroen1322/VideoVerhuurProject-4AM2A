@@ -31,12 +31,13 @@ if(!empty($_POST)){
   $img = $_FILES['img'];
   $uploadName = $titel;
   $uploadName = str_replace(' ', '', $uploadName);
+  $uploadName = strtolower($uploadName);
 
   $target_dir = FOTO."/";
   $target_file = basename($_FILES["img"]["name"]);
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-  $target_place = $target_dir . $uploadName . "." . $imageFileType;
+  $name = $uploadName . "." . $imageFileType;
+  $target_place = $target_dir . $name;
 
   if(move_uploaded_file($_FILES['img']['tmp_name'], $target_place)){
 
@@ -46,8 +47,10 @@ if(!empty($_POST)){
 
   //Gegevens invoeren in Film tabel
   $stmt = DB::conn()->prepare("INSERT INTO Film (titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssss", $titel, $acteur, $oms, $genre, $uploadName);
+  $stmt->bind_param("sssss", $titel, $acteur, $oms, $genre, $name);
   $stmt->execute();
+
+  echo "FILM TOEGEVOEGD!";
 
   $stmt->close();
   DB::conn()->close();
