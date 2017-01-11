@@ -7,10 +7,9 @@ session_start();
 // }else{
 //   echo "nope";
 // }
-$klantId = $_SESSION['login'];
-echo $klantId;
-echo $naam;
-print_r($_SESSION);
+
+$klantId = $_SESSION['login'][0];
+$klantNaam = $_SESSION['login'][1];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,18 +51,27 @@ print_r($_SESSION);
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/">HOME</a></li>
             <li><a href="/film/aanbod">FILMAANBOD</a></li>
             <li><a href="/over_ons">OVER ONS</a></li>
             <li><a href="/contact">CONTACT</a><li>
           </ul>
-            <ul class="nav navbar-nav menu_right">
-              <li><a href="/login">LOGIN</a></li>
-              <li><a href="/registreer">REGISTREER</a></li>
-            </ul>
-            <ul class="nav navbar-nav menu_right">
-              <li><a href="#">INGELOGD</a></li>
-            </ul>
+            <?php
+            if(!empty($_SESSION['login'])){
+              ?>
+              <ul class="nav navbar-nav menu_right">
+                <li><a href="#" class="naam"><?php echo $klantNaam ?></a></li>
+                <li><a href="/uitloggen">UITLOGGEN</a></li>
+              </ul>
+              <?php
+            }else{
+              ?>
+              <ul class="nav navbar-nav menu_right">
+                <li><a href="/login">LOGIN</a></li>
+                <li><a href="/registreer">REGISTREER</a></li>
+              </ul>
+              <?php
+            }
+            ?>
         </div>
       </div>
     </div>
