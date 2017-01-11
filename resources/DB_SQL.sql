@@ -26,6 +26,9 @@ REFERENCES Film(id);
 
 ALTER TABLE Film
 ADD genre varchar(50);
+ALTER TABLE Film
+ADD img varchar(50);
+
 SELECT * FROM Film;
 SELECT * FROM Klant;
 SELECT * FROM Wachtwoord;
