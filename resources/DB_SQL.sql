@@ -19,7 +19,7 @@ create table Exemplaar(id int primary key, filmid int, statusid int, aantalVerhu
 ALTER TABLE `Orderregel`
 ADD FOREIGN KEY (exemplaarid)
 REFERENCES Exemplaar(id);
-create table Film(id int primary key, titel varchar(50), acteur varchar(100), omschr varchar(200));
+create table Film(id int auto_increment primary key, titel varchar(50), acteur varchar(100), omschr varchar(200));
 ALTER TABLE `Exemplaar`
 ADD FOREIGN KEY (filmid)
 REFERENCES Film(id);
