@@ -8,13 +8,25 @@ $stmt->execute();
 $stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
 $stmt->fetch();
 $stmt->close();
-$stmt->close();
 
 $cover = "/cover/" . $img;
 $titel = str_replace('_', ' ', $titel);
 $titel = strtoupper($titel);
 
 DB::conn()->close();
+
+// print_r($_GET);
+
+$_SESSION['cart_item'] = array();
+$_SESSION['cart_item']['id'] = $_GET['code'];
+
+echo $_SESSION['cart_item']['id'];
+
+
+// case "add":
+//   if(!empty($_POST["quantity"])) {
+//
+
 
 ?>
 <div class="row">
@@ -33,10 +45,9 @@ DB::conn()->close();
               <p><?php echo $acteur ?></p>
               <h3>Genre</h3>
               <p><?php echo $genre ?></p>
-
-              <a class="btn btn-success bestel" href="#">
-                <li class="fa fa-plus bestel-plus"></li>Bestel
-              </a>
+              <form method="post" action="?action=add&code=<?php echo $id ?>">
+                <input type="submit" class="btn btn-success bestel" value="Bestel">
+              </form>
             </div>
           </div>
       </div>

@@ -73,6 +73,6 @@ if(!empty($_POST)){
 
   DB::conn()->close();
   ?>
-  <!-- <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script> -->
+  <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script>
   <?php
 }
