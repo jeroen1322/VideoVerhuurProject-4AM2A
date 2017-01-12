@@ -37,7 +37,10 @@ $klein->respond('/film/aanbod', function ($request, $response, $service) {
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     // add some data to the view.
     $naam = $request->naam;
-    $service->pageTitle = $naam;
+    $titelNaam = $naam;
+    $titelNaam = str_replace('_', ' ', $titelNaam);
+    $titelNaam = strtoupper($titelNaam);
+    $service->pageTitle = $titelNaam;
     $service->filmNaam = $naam;
 
     // This is the function that renders the view inside the layout.

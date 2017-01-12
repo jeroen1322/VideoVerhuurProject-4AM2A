@@ -20,6 +20,7 @@ $klantNaam = $_SESSION['login'][1];
     <!-- Material Design fonts -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
     <title><?= $this->escape($this->pageTitle); ?></title>
 
     <!-- Bootstrap -->
