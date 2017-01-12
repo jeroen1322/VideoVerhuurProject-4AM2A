@@ -50,7 +50,7 @@ if(!empty($_POST)){
   $stmt->bind_param("sssss", $uploadName, $acteur, $oms, $genre, $name);
   $stmt->execute();
 
-  echo "FILM TOEGEVOEGD!";
+  echo "<div class='succes'>FILM TOEGEVOEGD!</div>";
 
   $stmt->close();
 
