@@ -47,7 +47,7 @@ if(!empty($_POST)){
 
   //Gegevens invoeren in Film tabel
   $stmt = DB::conn()->prepare("INSERT INTO Film (titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssss", $titel, $acteur, $oms, $genre, $name);
+  $stmt->bind_param("sssss", $uploadName, $acteur, $oms, $genre, $name);
   $stmt->execute();
 
   echo "FILM TOEGEVOEGD!";

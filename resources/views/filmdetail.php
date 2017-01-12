@@ -11,6 +11,8 @@ $stmt->close();
 $stmt->close();
 
 $cover = "/cover/" . $img;
+$titel = str_replace('_', ' ', $titel);
+$titel = strtoupper($titel);
 
 DB::conn()->close();
 
