@@ -3,7 +3,7 @@
     <h1>LOGIN</h1>
     <form method="post">
       <input type="email" name="email" placeholder="Email" class="form-control">
-      <input type="Wachtwoord" name="wachtwoord" placeholder="Wachtwoord" class="form-control">
+      <input type="password" name="wachtwoord" placeholder="Wachtwoord" class="form-control">
       <input type="submit" name="submit" value="REGISTREER">
     </form>
   </div>
