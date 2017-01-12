@@ -60,3 +60,14 @@ img.img-responsive.cover {
   background-color: rgba(153, 153, 153, 0.2) !important;
   color: rgba(0, 150, 136, 1) !important;
 }
+.alert{
+  background-color: rgba(225,30,1, 0.84) !important;
+}
+.succes {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 0;
+    background-color: rgba(-7,204,11, 0.84) !important;
+    color: rgba(255,255,255,1);
+}
