@@ -10,11 +10,11 @@
     -Img
     -->
     <form method="post" enctype="multipart/form-data">
-      <input type="text" name="titel" placeholder="Titel" class="form-control">
-      <input type="text" name="acteur" placeholder="Acteurs" class="form-control">
-      <input type="text" name="oms" placeholder="Omschrijving" class="form-control">
-      <input type="text" name="genre" placeholder="Genre" class="form-control">
-      <input type="file" name="img" placeholder="FOTO" class="form-control">
+      <input type="text" name="titel" placeholder="Titel" class="form-control" autocomplete="off">
+      <input type="text" name="acteur" placeholder="Acteurs" class="form-control" autocomplete="off">
+      <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off">
+      <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off">
+      <input type="file" name="img" placeholder="FOTO" class="form-control" autocomplete="off">
 
       <input type="submit" name="submit" value="VOEG TOE">
     </form>
@@ -54,4 +54,7 @@ if(!empty($_POST)){
 
   $stmt->close();
   DB::conn()->close();
+  ?>
+  <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script>
+  <?php
 }
