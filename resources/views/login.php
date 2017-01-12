@@ -1,10 +1,10 @@
 <div class="panel panel-default">
-  <div class="panel-body">
+  <div class="panel-body login-panel">
     <h1>LOGIN</h1>
     <form method="post">
       <input type="email" name="email" placeholder="Email" class="form-control">
       <input type="password" name="wachtwoord" placeholder="Wachtwoord" class="form-control">
-      <input type="submit" name="submit" value="REGISTREER">
+      <input type="submit" name="submit" class="btn btn-primary" value="LOGIN">
     </form>
   </div>
 </div>

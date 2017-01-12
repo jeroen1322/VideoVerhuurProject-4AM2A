@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-  <div class="panel-body">
+  <div class="panel-body registreer-panel">
     <h1>REGISTREER</h1>
     <form method="post">
       <input type="text" name="naam" placeholder="Naam" class="form-control">
@@ -10,7 +10,7 @@
       <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control">
       <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control">
 
-      <input type="submit" name="submit" value="REGISTREER">
+      <input type="submit" name="submit" class="btn btn-primary" value="REGISTREER">
     </form>
   </div>
 </div>

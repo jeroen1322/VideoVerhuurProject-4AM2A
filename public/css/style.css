@@ -44,3 +44,11 @@ img.img-responsive.cover {
 .bestel-plus{
   padding-right: 5px;
 }
+.registreer-panel{
+  width: 50%;
+  margin: 0 auto;
+}
+.login-panel{
+  width: 50%;
+  margin: 0 auto;
+}
