@@ -21,7 +21,7 @@ DB::conn()->close();
 <div class="row">
     <div class="col-md-10 col-md-offset-1 details">
       <a class="btn btn-success terug_button" href="/film/aanbod">
-        <li class="fa fa-arrow-left">Filmaabod</li>
+        <li class="fa fa-arrow-left filmaanbod-terug"></li>Filmaanbod
       </a>
         <div class="filmDetails">
           <div class="panel panel-default">
