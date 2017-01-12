@@ -52,3 +52,11 @@ img.img-responsive.cover {
   width: 50%;
   margin: 0 auto;
 }
+.form-knop{
+  color: #fff !important;
+  background-color: rgba(0, 150, 136, 1) !important;
+}
+.form-knop:hover{
+  background-color: rgba(153, 153, 153, 0.2) !important;
+  color: rgba(0, 150, 136, 1) !important;
+}

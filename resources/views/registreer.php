@@ -10,7 +10,7 @@
       <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control">
       <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control">
 
-      <input type="submit" name="submit" class="btn btn-primary" value="REGISTREER">
+      <input type="submit" name="submit" class="btn btn-primary form-knop" value="REGISTREER">
     </form>
   </div>
 </div>

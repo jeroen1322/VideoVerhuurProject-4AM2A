@@ -4,7 +4,7 @@
     <form method="post">
       <input type="email" name="email" placeholder="Email" class="form-control">
       <input type="password" name="wachtwoord" placeholder="Wachtwoord" class="form-control">
-      <input type="submit" name="submit" class="btn btn-primary" value="LOGIN">
+      <input type="submit" name="submit" class="btn btn-primary form-knop" value="LOGIN">
     </form>
   </div>
 </div>
