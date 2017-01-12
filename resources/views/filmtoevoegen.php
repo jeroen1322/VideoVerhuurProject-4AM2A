@@ -53,8 +53,26 @@ if(!empty($_POST)){
   echo "FILM TOEGEVOEGD!";
 
   $stmt->close();
+
+  //EXEMPLAAR
+  $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=?");
+  $ex_stmt->bind_param("s", $uploadName);
+  $ex_stmt->execute();
+  $ex_stmt->bind_result($id);
+  $ex_stmt->fetch();
+  $ex_stmt->close();
+
+  for($i = 1; $i < 10; $i++){
+    $statusid = 1;
+    $aantalVerhuur = 0;
+    $add_ex_stmt = DB::conn()->prepare("INSERT INTO Exemplaar (filmid, statusid, aantalVerhuur) VALUES (?, ?, ?)");
+    $add_ex_stmt->bind_param("iii", $id, $statusid, $aantalVerhuur);
+    $add_ex_stmt->execute();
+    $add_ex_stmt->close();
+  }
+
   DB::conn()->close();
   ?>
-  <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script>
+  <!-- <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script> -->
   <?php
 }

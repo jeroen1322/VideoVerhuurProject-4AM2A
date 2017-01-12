@@ -15,7 +15,7 @@ create table Orderregel(exemplaarid int, orderid int, primary key(exemplaarid, o
 ALTER TABLE `Order`
 ADD FOREIGN KEY (klantid)
 REFERENCES Klant(id);
-create table Exemplaar(id int primary key, filmid int, statusid int, aantalVerhuur int);
+create table Exemplaar(id int auto_increment primary key, filmid int, statusid int, aantalVerhuur int);
 ALTER TABLE `Orderregel`
 ADD FOREIGN KEY (exemplaarid)
 REFERENCES Exemplaar(id);
@@ -28,4 +28,12 @@ ALTER TABLE Film
 ADD genre varchar(50);
 ALTER TABLE Film
 ADD img varchar(50);
+
+
+#INSERT INTO Exemplaar (`filmid`, `statusid`, `aantalVerhuur`) VALUES (1, 1, 1);
+
+
+SELECT * FROM Film;
+SELECT * FROM Exemplaar;
+
 
