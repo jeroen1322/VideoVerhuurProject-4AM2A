@@ -26,7 +26,7 @@ DB::conn()->close();
         <div class="filmDetails">
           <div class="panel panel-default">
             <div class="panel-body">
-              <img src="<?php echo $cover ?>" class="img-responsive cover" />
+              <img src="<?php echo $cover ?>" class="img-responsive cover"/>
               <h1><b><?php echo $titel ?></b></h1>
               <h3>Omschrijving</h3>
               <p><?php echo $omschr ?></p>
@@ -34,6 +34,10 @@ DB::conn()->close();
               <p><?php echo $acteur ?></p>
               <h3>Genre</h3>
               <p><?php echo $genre ?></p>
+
+              <a class="btn btn-success bestel" href="#">
+                <li class="fa fa-plus bestel-plus"></li>Bestel
+              </a>
             </div>
           </div>
       </div>

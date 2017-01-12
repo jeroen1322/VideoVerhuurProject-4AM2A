@@ -32,3 +32,15 @@ img.img-responsive.cover {
 .filmaanbod-terug{
   padding-right: 5px;
 }
+.bestel{
+  float: left;
+  background-color: rgb(0, 150, 136) !important;
+  color: #f2f2f2 !important;
+}
+.bestel:hover{
+  background-color: rgba(150,153,153,.6) !important;
+  color: white !important;
+}
+.bestel-plus{
+  padding-right: 5px;
+}
