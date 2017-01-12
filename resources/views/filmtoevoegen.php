@@ -62,7 +62,7 @@ if(!empty($_POST)){
   $ex_stmt->fetch();
   $ex_stmt->close();
 
-  for($i = 1; $i < 10; $i++){
+  for($i = 1; $i < 11; $i++){
     $statusid = 1;
     $aantalVerhuur = 0;
     $add_ex_stmt = DB::conn()->prepare("INSERT INTO Exemplaar (filmid, statusid, aantalVerhuur) VALUES (?, ?, ?)");
