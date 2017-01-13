@@ -7,21 +7,20 @@ session_start();
 // }else{
 //   echo "nope";
 // }
-// $if(!empty($_SESSION)){
-//   $klantId = $_SESSION['login'][0];
-//   $klantNaam = $_SESSION['login'][1];
-//
-// }
-
-function isEigenaar($klantId){
-  if($klantId === 1){
-    return true;
-  }else{
-    return false;
+if(!empty($_SESSION['login'])){
+  $klantId = $_SESSION['login'][0];
+  $klantNaam = $_SESSION['login'][1];
+  function isEigenaar($klantId){
+    if($klantId === 1){
+      return true;
+    }else{
+      return false;
+    }
   }
+
+  isEigenaar($klantId);
 }
 
-isEigenaar($klantId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
