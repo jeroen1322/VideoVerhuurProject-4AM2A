@@ -17,14 +17,16 @@ DB::conn()->close();
 
 
 if(!empty($_GET)){
+
+  $ophaaldatum = "13-01-2017";
+  $afhaalDatum = "20-01-2017";
+  
   $_SESSION['cart_item'] = array();
   $_SESSION['cart_item']['id'] = $_GET['code'];
 
   echo $_SESSION['cart_item']['id'];
 }
-if(!empty($_POST)){
-  //Doe dingen
-}
+
 
 
 // case "add":
