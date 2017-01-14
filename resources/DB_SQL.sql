@@ -10,7 +10,10 @@ REFERENCES Rol(id);
 ALTER TABLE `Medewerker`
 ADD FOREIGN KEY (wachtwoordid)
 REFERENCES Wachtwoord(id);
-create table `Order`(id int auto_increment primary key, klantid int, afleverdatum datetime, ophaaldatum datetime, bedrag float);
+
+create table `Order`(id int primary key, klantid int, 
+afleverdatum DATETIME DEFAULT CURRENT_TIMESTAMP, ophaaldatum DATETIME DEFAULT CURRENT_TIMESTAMP, bedrag float);
+
 create table Orderregel(exemplaarid int, orderid int, primary key(exemplaarid, orderid));
 ALTER TABLE `Order`
 ADD FOREIGN KEY (klantid)
@@ -51,3 +54,6 @@ INSERT INTO Rol (id, omschr) VALUES (4, "eigenaar");
 
 INSERT INTO `Status`(id, omschr) VALUES(1, "Beschikbaar");
 INSERT INTO `Status`(id, omschr) VALUES(2, "NIET Beschikbaar");
+INSERT INTO `Order` (id, klantid,bedrag) 
+VALUES (123, 1, 1);
+SELECT * FROM `Order`;

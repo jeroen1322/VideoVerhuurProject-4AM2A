@@ -13,20 +13,31 @@ $cover = "/cover/" . $img;
 $titel = str_replace('_', ' ', $titel);
 $titel = strtoupper($titel);
 
-DB::conn()->close();
 
 
 if(!empty($_GET)){
 
-  $ophaaldatum = "13-01-2017";
-  $afhaalDatum = "20-01-2017";
-  
+  $ophaalDatum = "13-01-2017";
+  $afleverDatum = "20-01-2017";
+
   $_SESSION['cart_item'] = array();
   $_SESSION['cart_item']['id'] = $_GET['code'];
+  $product_cart_id = $_SESSION['cart_item']['id'];
+  // echo $product_cart_id;
 
-  echo $_SESSION['cart_item']['id'];
+  $order_id = rand(1, 2100);
+  $bedrag = 1;
+  $klant = $_SESSION['login']['0'];
+
+  $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag) VALUES (?, ?, ?)");
+  $cart_stmt->bind_param("iii", $order_id, $klant, $bedrag);
+  $cart_stmt->execute();
+
+  $cart_stmt->close();
+  echo $order_id . "<br>";
+  echo "Toegevoegd";
 }
-
+DB::conn()->close();
 
 
 // case "add":
