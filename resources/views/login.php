@@ -28,13 +28,7 @@ if(!empty($_POST)){
     //Pak het id van de klant dat bij de ingevoerde email hoort
     $stmt = DB::conn()->prepare("SELECT id FROM Persoon WHERE email=?");
     $stmt->bind_param("s", $email);    //RolId
-        // 1 = klant
-        // 2 = bezorger
-        // 3 = baliemedewerker
-        // 4 = eigenaar
 
-        //RolId
-        $rolId = 1;
 
     $stmt->execute();
 

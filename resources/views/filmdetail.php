@@ -15,12 +15,16 @@ $titel = strtoupper($titel);
 
 DB::conn()->close();
 
-// print_r($_GET);
 
-$_SESSION['cart_item'] = array();
-$_SESSION['cart_item']['id'] = $_GET['code'];
+if(!empty($_GET)){
+  $_SESSION['cart_item'] = array();
+  $_SESSION['cart_item']['id'] = $_GET['code'];
 
-echo $_SESSION['cart_item']['id'];
+  echo $_SESSION['cart_item']['id'];
+}
+if(!empty($_POST)){
+  //Doe dingen
+}
 
 
 // case "add":
