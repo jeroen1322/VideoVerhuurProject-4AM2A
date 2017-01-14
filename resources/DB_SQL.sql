@@ -48,3 +48,6 @@ INSERT INTO Rol (id, omschr) VALUES (1, "Klant");
 INSERT INTO Rol (id, omschr) VALUES (2, "Bezorger");
 INSERT INTO Rol (id, omschr) VALUES (3, "baliemedewerker");
 INSERT INTO Rol (id, omschr) VALUES (4, "eigenaar");
+
+INSERT INTO `Status`(id, omschr) VALUES(1, "Beschikbaar");
+INSERT INTO `Status`(id, omschr) VALUES(2, "NIET Beschikbaar");
