@@ -54,6 +54,6 @@ INSERT INTO Rol (id, omschr) VALUES (4, "eigenaar");
 
 INSERT INTO `Status`(id, omschr) VALUES(1, "Beschikbaar");
 INSERT INTO `Status`(id, omschr) VALUES(2, "NIET Beschikbaar");
-INSERT INTO `Order` (id, klantid,bedrag) 
-VALUES (123, 1, 1);
+
 SELECT * FROM `Order`;
+SELECT * FROM `Orderregel`;
