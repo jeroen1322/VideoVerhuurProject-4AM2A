@@ -1,12 +1,7 @@
 <?php
 include(__DIR__ . '/../db.php');
 session_start();
-// session_unset($_SESSION['login']);
-// if($_SESSION['login'] == $klandId){
-//   echo "test";
-// }else{
-//   echo "nope";
-// }
+
 if(!empty($_SESSION['login'])){
   $klantId = $_SESSION['login'][0];
   $klantNaam = $_SESSION['login'][1];
@@ -20,6 +15,7 @@ if(!empty($_SESSION['login'])){
 
   isEigenaar($klantId);
 }
+
 
 ?>
 <!DOCTYPE html>

@@ -17,7 +17,7 @@ $wachtwoord = $_POST['wachtwoord'];
 if(!empty($_POST)){
   if($email && $wachtwoord != ''){
     //Pak het wachtwoordid dat bij de ingevoerde email hoort
-    $stmt = DB::conn()->prepare("SELECT wachtwoordid FROM Klant WHERE email=?");
+    $stmt = DB::conn()->prepare("SELECT wachtwoordid FROM Persoon WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
 
@@ -26,8 +26,16 @@ if(!empty($_POST)){
     $stmt->close();
 
     //Pak het id van de klant dat bij de ingevoerde email hoort
-    $stmt = DB::conn()->prepare("SELECT id FROM Klant WHERE email=?");
-    $stmt->bind_param("s", $email);
+    $stmt = DB::conn()->prepare("SELECT id FROM Persoon WHERE email=?");
+    $stmt->bind_param("s", $email);    //RolId
+        // 1 = klant
+        // 2 = bezorger
+        // 3 = baliemedewerker
+        // 4 = eigenaar
+
+        //RolId
+        $rolId = 1;
+
     $stmt->execute();
 
     $stmt->bind_result($klantId);
@@ -35,7 +43,7 @@ if(!empty($_POST)){
     $stmt->close();
 
     //Pak de naam van de klant dat bij de ingevoerde email hoort
-    $name_stmt = DB::conn()->prepare("SELECT naam FROM Klant WHERE id=?");
+    $name_stmt = DB::conn()->prepare("SELECT naam FROM Persoon WHERE id=?");
     $name_stmt->bind_param("i", $klantId);
     $name_stmt->execute();
 

@@ -40,10 +40,21 @@ if(!empty($_POST)){
     $passw_stmt->execute();
 
     //ACCOUNT GEGEVENS
-    //Gegevens invoeren in Klant tabel
-    $stmt = DB::conn()->prepare("INSERT INTO Klant (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssi", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id);
+
+    //RolId
+    // 1 = klant
+    // 2 = bezorger
+    // 3 = baliemedewerker
+    // 4 = eigenaar
+
+    //RolId
+    $rolid = 1;
+
+    //Gegevens invoeren in Persoon tabel
+    $stmt = DB::conn()->prepare("INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssii", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id, $rolid);
     $stmt->execute();
+
     echo "<div class='succes'>Account aangemaakt.</div>";
     ?>
     <script>window.location.replace("/login");</script>

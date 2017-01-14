@@ -29,11 +29,22 @@ ADD genre varchar(50);
 ALTER TABLE Film
 ADD img varchar(50);
 
+drop table Medewerker;
+rename table Klant to Persoon;
+ALTER TABLE Persoon
+ADD rolid int;
+ALTER TABLE `Persoon`
+ADD FOREIGN KEY (rolid)
+REFERENCES Rol(id);
+ALTER TABLE Film
+ADD afbeelding varchar(50);
 
-#INSERT INTO Exemplaar (`filmid`, `statusid`, `aantalVerhuur`) VALUES (1, 1, 1);
+create table Status(id int primary key, omschr varchar(50));
+ALTER TABLE `Exemplaar`
+ADD FOREIGN KEY (statusid)
+REFERENCES Status(id);
 
-
-SELECT * FROM Film;
-SELECT * FROM Exemplaar;
-
-
+INSERT INTO Rol (id, omschr) VALUES (1, "Klant");
+INSERT INTO Rol (id, omschr) VALUES (2, "Bezorger");
+INSERT INTO Rol (id, omschr) VALUES (3, "baliemedewerker");
+INSERT INTO Rol (id, omschr) VALUES (4, "eigenaar");
