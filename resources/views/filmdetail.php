@@ -25,6 +25,7 @@ if(!empty($_GET)){
   $product_cart_id = $_SESSION['cart_item']['id'];
   // echo $product_cart_id;
 
+  //VOEG TO AAN `ORDER`
   $order_id = rand(1, 2100);
   $bedrag = 1;
   $klant = $_SESSION['login']['0'];
@@ -32,9 +33,15 @@ if(!empty($_GET)){
   $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag) VALUES (?, ?, ?)");
   $cart_stmt->bind_param("iii", $order_id, $klant, $bedrag);
   $cart_stmt->execute();
-
   $cart_stmt->close();
-  echo $order_id . "<br>";
+
+  //VOEG TOE AAN `ORDERREGEL`
+  $exemplaar_id = 1;
+  $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
+  $or_stmt->bind_param("ii", $exemplaar_id, $order_id);
+  $or_stmt->execute();
+  $or_stmt->close();
+
   echo "Toegevoegd";
 }
 DB::conn()->close();
