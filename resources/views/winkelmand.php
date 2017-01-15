@@ -64,9 +64,10 @@ if(!empty($_SESSION['login'])){
 
     if(!empty($film_id)){
       $cover = "/cover/" . $img;
+      $URL = "/film/" . $titel;
       ?>
         <tr>
-          <td><img src="<?php echo $cover ?>" class="winkelmand_img"></td>
+          <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
           <td><?php echo $titel ?></td>
           <td><?php echo $omschr ?></td>
         </tr>
