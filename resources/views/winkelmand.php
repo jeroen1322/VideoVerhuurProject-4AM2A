@@ -55,8 +55,28 @@ if(!empty($_SESSION['login'])){
     $exm_film_stmt->close();
 
     if(!empty($film_id)){
-      echo "FILM ID: " . $film_id . "<br>";
-      echo "TITEL: " . $titel . "<br>";
+      $cover = "/cover/" . $img;
+      ?>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Titel</th>
+            <th>Omschrijving</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><img src="<?php echo $cover ?>" class="winkelmand_img"></td>
+            <td><?php echo $titel ?></td>
+            <td><?php echo $omschr ?></td>
+          </t>
+        </tbody>
+      </table>
+
+      <?php
+      // echo "FILM ID: " . $film_id . "<br>";
+      // echo "TITEL: " . $titel . "<br>";
     }else{
       echo "UW WINKELMAND IS LEEG";
     }
