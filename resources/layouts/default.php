@@ -16,7 +16,6 @@ if(!empty($_SESSION['login'])){
   isEigenaar($klantId);
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

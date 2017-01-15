@@ -66,6 +66,15 @@ $klein->respond('POST', '/eigenaar/film_toevoegen', function ($request, $respons
     $service->render(VIEWS.'/filmtoevoegen.php');
 });
 
+// EIGENAAR film toevoegen
+$klein->respond('/winkelmand', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Winkelmand';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/winkelmand.php');
+});
+
 
 // Over Ons view
 $klein->respond('/over_ons', function ($request, $response, $service) {
