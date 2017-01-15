@@ -57,6 +57,28 @@ if(!empty($_SESSION['login'])){
             if(!empty($_SESSION['login'])){
               ?>
               <ul class="nav navbar-nav menu_right">
+                <?php
+                //Haal id op van Order op
+                $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=?");
+                $stmt->bind_param("i", $klantId);
+                $stmt->execute();
+
+                $stmt->bind_result($order_id);
+
+                $orderIdResult = array();
+
+                while($stmt->fetch()){
+                  $orderIdResult[] = $order_id;
+                }
+
+                $stmt->close();
+
+                if(!empty($orderIdResult)){
+                  ?>
+                  <li><a href="/winkelmand">WINKELMAND</a></li>
+                  <?php
+                }
+                ?>
                 <li class="dropdown">
                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $klantNaam ?>
                    <span class="caret"></span></a>
