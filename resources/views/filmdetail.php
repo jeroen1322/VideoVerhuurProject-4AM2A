@@ -1,3 +1,5 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 details">
 <?php
 
 //Pak de foto van de film
@@ -50,13 +52,11 @@ if(!empty($_GET)){
   $or_stmt->execute();
   $or_stmt->close();
 
-  echo "Toegevoegd";
+  echo "<div class='succes'>FILM TOEGEVOEGD AAN UW <a href='/winkelmand'>WINKELMAND</a></div>";
 }
 DB::conn()->close();
 
 ?>
-<div class="row">
-    <div class="col-md-10 col-md-offset-1 details">
       <a class="btn btn-success terug_button" href="/film/aanbod">
         <li class="fa fa-arrow-left filmaanbod-terug"></li>Filmaanbod
       </a>

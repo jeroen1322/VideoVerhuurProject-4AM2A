@@ -75,6 +75,7 @@ if(!empty($_SESSION['login'])){
       </table>
 
       <?php
+
       // echo "FILM ID: " . $film_id . "<br>";
       // echo "TITEL: " . $titel . "<br>";
     }else{
