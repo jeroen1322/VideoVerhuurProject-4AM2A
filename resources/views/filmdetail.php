@@ -27,7 +27,7 @@ if(!empty($_GET)){
 
   //VOEG TO AAN `ORDER`
   $order_id = rand(1, 2100);
-  $bedrag = 7.5; 
+  $bedrag = 7.5;
   $klant = $_SESSION['login']['0'];
 
   $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag) VALUES (?, ?, ?)");
@@ -36,15 +36,13 @@ if(!empty($_GET)){
   $cart_stmt->close();
 
   //VOEG TOE AAN `ORDERREGEL`
-  // $exemplaar_id = 1;
   $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=?");
   $exm_stmt->bind_param("i", $id);
   $exm_stmt->execute();
-
   $exm_stmt->bind_result($exemplaar_id);
   $exm_stmt->fetch();
   $exm_stmt->close();
-  //
+
   $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
   $or_stmt->bind_param("ii", $exemplaar_id, $order_id);
   $or_stmt->execute();
@@ -70,6 +68,8 @@ if(!empty($id)){
               <p><?php echo $acteur ?></p>
               <h3>Genre</h3>
               <p><?php echo $genre ?></p>
+              <h2>Prijs</h2>
+              <p><b>€7,50</b></p>
               <form method="post" action="?action=add&code=<?php echo $id ?>">
                 <input type="submit" class="btn btn-success bestel" value="Bestel">
               </form>
