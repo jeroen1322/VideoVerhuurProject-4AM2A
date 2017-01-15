@@ -61,7 +61,6 @@ if(!empty($_SESSION['login'])){
                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $klantNaam ?>
                    <span class="caret"></span></a>
                    <ul class="dropdown-menu">
-                     <li><a href="/uitloggen">UITLOGGEN</a></li>
                      <?php
                      if($_SESSION['login'][0] == 1){
                        ?>
@@ -69,6 +68,7 @@ if(!empty($_SESSION['login'])){
                        <?php
                      }
                      ?>
+                     <li><a href="/uitloggen">UITLOGGEN</a></li>
                    </ul>
                  </li>
               </ul>
