@@ -54,12 +54,6 @@ if(!empty($_GET)){
 }
 DB::conn()->close();
 
-
-// case "add":
-//   if(!empty($_POST["quantity"])) {
-//
-
-
 ?>
 <div class="row">
     <div class="col-md-10 col-md-offset-1 details">
