@@ -15,8 +15,6 @@ $cover = "/cover/" . $img;
 $titel = str_replace('_', ' ', $titel);
 $titel = strtoupper($titel);
 
-
-
 if(!empty($_GET)){
 
   $ophaalDatum = "13-01-2017";
@@ -56,6 +54,7 @@ if(!empty($_GET)){
 }
 DB::conn()->close();
 
+if(!empty($id)){
 ?>
       <a class="btn btn-success terug_button" href="/film/aanbod">
         <li class="fa fa-arrow-left filmaanbod-terug"></li>Filmaanbod
@@ -79,3 +78,7 @@ DB::conn()->close();
       </div>
     </div>
 </div>
+<?php
+}else{
+  echo "404 - FILM NIET GEVONDEN";
+}
