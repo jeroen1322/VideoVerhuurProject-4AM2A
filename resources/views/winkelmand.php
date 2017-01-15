@@ -79,12 +79,13 @@ if(!empty($_SESSION['login'])){
         $URL = "/film/" . $titel;
         $titel = strtoupper($titel);
         $titel = str_replace('_', ' ', $titel);
+        // $bedrag = $bedrag / 100;
         ?>
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
             <td><?php echo $titel ?></td>
             <td><?php echo $omschr ?></td>
-            <td>€<?php echo $bedrag ?>0<td>
+            <td>€<?php echo $bedrag ?><td>
           </tr>
         <?php
       }
