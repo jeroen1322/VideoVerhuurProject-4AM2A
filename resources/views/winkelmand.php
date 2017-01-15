@@ -78,7 +78,7 @@ if(!empty($_SESSION['login'])){
         $cover = "/cover/" . $img;
         $URL = "/film/" . $titel;
         $titel = strtoupper($titel);
-        // $titel = $str_replace('_', ' ', $titel);
+        $titel = str_replace('_', ' ', $titel);
         ?>
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
