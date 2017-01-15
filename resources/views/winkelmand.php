@@ -33,7 +33,7 @@ if(!empty($_SESSION['login'])){
       $exm_id[] = $OR_id;
     }
     $or_stmt->close();
-    print_r($exm_id);
+    // print_r($exm_id);
 
     //HIER ZIT NOG EEN BUG!
     //Haal de Filmid op van het exemplaar op
@@ -54,12 +54,12 @@ if(!empty($_SESSION['login'])){
     $exm_film_stmt->fetch();
     $exm_film_stmt->close();
 
-    // if(!empty($film_id)){
-    //   echo "FILM ID: " . $film_id . "<br>";
-    //   echo "TITEL: " . $titel . "<br>";
-    // }else{
-    //   echo "UW WINKELMAND IS LEEG";
-    // }
+    if(!empty($film_id)){
+      echo "FILM ID: " . $film_id . "<br>";
+      echo "TITEL: " . $titel . "<br>";
+    }else{
+      echo "UW WINKELMAND IS LEEG";
+    }
   }
 
   // //Haal exemplaarid van Orderregel dat bij de Order hoort op
@@ -95,7 +95,6 @@ if(!empty($_SESSION['login'])){
   // }else{
   //   echo "UW WINKELMAND IS LEEG";
   // }
-
 
 
   DB::conn()->close();
