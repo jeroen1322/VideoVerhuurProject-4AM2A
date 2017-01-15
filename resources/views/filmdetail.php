@@ -27,11 +27,11 @@ if(!empty($_GET)){
 
   //VOEG TO AAN `ORDER`
   $order_id = rand(1, 2100);
-  $bedrag = 1;
+  $bedrag = 7.5; 
   $klant = $_SESSION['login']['0'];
 
   $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag) VALUES (?, ?, ?)");
-  $cart_stmt->bind_param("iii", $order_id, $klant, $bedrag);
+  $cart_stmt->bind_param("iid", $order_id, $klant, $bedrag);
   $cart_stmt->execute();
   $cart_stmt->close();
 
