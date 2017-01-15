@@ -74,3 +74,7 @@ img.img-responsive.cover {
 img.winkelmand_img {
     max-height: 155px;
 }
+.winkelmand_onder{
+  float:right;
+  padding-right: 20px;
+}
