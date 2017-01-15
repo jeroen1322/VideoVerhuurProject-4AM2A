@@ -91,7 +91,7 @@ if(!empty($_SESSION['login'])){
     }
     DB::conn()->close();
   }else{
-    echo "UW WINKELWAGEN IS NOG LEEG";
+    echo "<div class='warning'>UW WINKELMAND IS NOG LEEG</div>";
   }
 
 
