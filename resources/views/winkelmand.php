@@ -15,7 +15,6 @@ if(!empty($_SESSION['login'])){
   $stmt->fetch();
   $stmt->close();
 
-
   //Haal exemplaarid van Orderregel dat bij de Order hoort op
   $or_stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
   $or_stmt->bind_param("i", $order_id);
@@ -43,8 +42,14 @@ if(!empty($_SESSION['login'])){
   $exm_film_stmt->fetch();
   $exm_film_stmt->close();
 
-  echo "FILM ID: " . $film_id . "<br>";
-  echo "TITEL: " . $titel . "<br>";
+  if(!empty($film_id)){
+    echo "FILM ID: " . $film_id . "<br>";
+    echo "TITEL: " . $titel . "<br>";
+  }else{
+    echo "UW WINKELMAND IS LEEG";
+  }
+
+
 
   DB::conn()->close();
 
