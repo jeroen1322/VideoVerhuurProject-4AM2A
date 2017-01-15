@@ -55,17 +55,22 @@ if(!empty($_SESSION['login'])){
           </ul>
             <?php
             if(!empty($_SESSION['login'])){
-              if($_SESSION['login'][0] == 1){
-                ?>
-                <ul class="nav navbar-nav menu_right">
-                  <li><a href="/eigenaar/film_toevoegen" class="naam">VIDEO TOEVOEGEN</a></li>
-                </ul>
-                <?php
-              }
               ?>
               <ul class="nav navbar-nav menu_right">
-                <li><a href="#" class="naam"><?php echo $klantNaam ?></a></li>
-                <li><a href="/uitloggen">UITLOGGEN</a></li>
+                <li class="dropdown">
+                   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $klantNaam ?>
+                   <span class="caret"></span></a>
+                   <ul class="dropdown-menu">
+                     <li><a href="/uitloggen">UITLOGGEN</a></li>
+                     <?php
+                     if($_SESSION['login'][0] == 1){
+                       ?>
+                         <li><a href="/eigenaar/film_toevoegen" class="naam">VIDEO TOEVOEGEN</a></li>
+                       <?php
+                     }
+                     ?>
+                   </ul>
+                 </li>
               </ul>
               <?php
             }else{
