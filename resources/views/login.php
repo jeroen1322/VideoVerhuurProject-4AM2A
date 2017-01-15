@@ -1,15 +1,3 @@
-<div class="panel panel-default">
-  <div class="panel-body login-panel">
-    <h1>LOGIN</h1>
-    <form method="post">
-      <input type="email" name="email" placeholder="Email" class="form-control">
-      <input type="password" name="wachtwoord" placeholder="Wachtwoord" class="form-control">
-      <input type="submit" name="submit" class="btn btn-primary form-knop" value="LOGIN">
-    </form>
-  </div>
-</div>
-
-
 <?php
 $email = $_POST['email'];
 $wachtwoord = $_POST['wachtwoord'];
@@ -71,3 +59,14 @@ if(!empty($_POST)){
     echo '<div class="alert">Controlleer of u alle velden correct heeft ingevuld.</div>';
   }
 }
+?>
+<div class="panel panel-default">
+  <div class="panel-body login-panel">
+    <h1>LOGIN</h1>
+    <form method="post">
+      <input type="email" name="email" placeholder="Email" class="form-control">
+      <input type="password" name="wachtwoord" placeholder="Wachtwoord" class="form-control">
+      <input type="submit" name="submit" class="btn btn-primary form-knop" value="LOGIN">
+    </form>
+  </div>
+</div>

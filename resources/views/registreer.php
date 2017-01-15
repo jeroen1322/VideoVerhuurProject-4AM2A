@@ -1,22 +1,4 @@
-<div class="panel panel-default">
-  <div class="panel-body registreer-panel">
-    <h1>REGISTREER</h1>
-    <form method="post">
-      <input type="text" name="naam" placeholder="Naam" class="form-control">
-      <input type="text" name="adres" placeholder="Adres" class="form-control">
-      <input type="text" name="postcode" placeholder="Postcode" class="form-control">
-      <input type="text" name="woonplaats" placeholder="Woonplaats" class="form-control">
-      <input type="text" name="telefoonnummer" placeholder="Telefoonnummer" class="form-control">
-      <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control">
-      <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control">
-
-      <input type="submit" name="submit" class="btn btn-primary form-knop" value="REGISTREER">
-    </form>
-  </div>
-</div>
-
 <?php
-
 if(!empty($_POST)){
   if($_POST['naam'] && $_POST['adres'] && $_POST['postcode']  && $_POST['woonplaats'] && $_POST['telefoonnummer'] && $_POST['email'] && $_POST['wachtwoord'] != ''){
     //Ingevoerde gegevens aan variabelen assignen
@@ -66,3 +48,21 @@ if(!empty($_POST)){
     echo "<div class='alert'>Controlleer of u alle informatie correct heeft ingevuld.</div>";
   }
 }
+?>
+
+<div class="panel panel-default">
+  <div class="panel-body registreer-panel">
+    <h1>REGISTREER</h1>
+    <form method="post">
+      <input type="text" name="naam" placeholder="Naam" class="form-control">
+      <input type="text" name="adres" placeholder="Adres" class="form-control">
+      <input type="text" name="postcode" placeholder="Postcode" class="form-control">
+      <input type="text" name="woonplaats" placeholder="Woonplaats" class="form-control">
+      <input type="text" name="telefoonnummer" placeholder="Telefoonnummer" class="form-control">
+      <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control">
+      <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control">
+
+      <input type="submit" name="submit" class="btn btn-primary form-knop" value="REGISTREER">
+    </form>
+  </div>
+</div>
