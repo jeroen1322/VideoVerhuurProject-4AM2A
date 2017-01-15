@@ -27,7 +27,7 @@ if(!empty($_GET)){
 
   //VOEG TO AAN `ORDER`
   $order_id = rand(1, 2100);
-  $bedrag = 7.5;
+  $bedrag = 7.50;
   $klant = $_SESSION['login']['0'];
 
   $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag) VALUES (?, ?, ?)");
@@ -68,7 +68,7 @@ if(!empty($id)){
               <p><?php echo $acteur ?></p>
               <h3>Genre</h3>
               <p><?php echo $genre ?></p>
-              <h2>Prijs</h2>
+              <h3><b>Prijs</b></h3>
               <p><b>€7,50</b></p>
               <form method="post" action="?action=add&code=<?php echo $id ?>">
                 <input type="submit" class="btn btn-success bestel" value="Bestel">

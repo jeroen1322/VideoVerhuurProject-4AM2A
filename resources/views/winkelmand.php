@@ -7,6 +7,7 @@
           <th>Foto</th>
           <th>Titel</th>
           <th>Omschrijving</th>
+          <th>Prijs</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,13 @@ if(!empty($_SESSION['login'])){
   }
 
   $stmt->close();
+
+  $bedr_stmt = DB::conn()->prepare("SELECT bedrag FROM `Order` WHERE klantid=?");
+  $bedr_stmt->bind_param("i", $klant);
+  $bedr_stmt->execute();
+  $bedr_stmt->bind_result($bedrag);
+  $bedr_stmt->fetch();
+  $bedr_stmt->close();
 
   foreach($orderIdResult as $i){
     //Haal exemplaarid van Orderregel dat bij de Order hoort op
@@ -65,11 +73,14 @@ if(!empty($_SESSION['login'])){
     if(!empty($film_id)){
       $cover = "/cover/" . $img;
       $URL = "/film/" . $titel;
+      $titel = strtoupper($titel);
+      // $titel = $str_replace('_', ' ', $titel);
       ?>
         <tr>
           <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
           <td><?php echo $titel ?></td>
           <td><?php echo $omschr ?></td>
+          <td><?php echo $bedrag ?><td>
         </tr>
       <?php
     }else{
