@@ -72,11 +72,11 @@ if(!empty($_SESSION['login'])){
                 }
 
                 $stmt->close();
-
                 if(!empty($orderIdResult)){
                   ?>
-                  <li><a href="/winkelmand">WINKELMAND</a></li>
+                  <li><a href="/winkelmand">WINKELMAND(<?php echo(count($orderIdResult)); ?>)</a></li>
                   <?php
+
                 }
                 ?>
                 <li class="dropdown">
