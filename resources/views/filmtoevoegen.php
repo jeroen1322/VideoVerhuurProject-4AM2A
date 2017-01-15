@@ -50,7 +50,7 @@ if(!empty($_POST)){
   $stmt->bind_param("sssss", $uploadName, $acteur, $oms, $genre, $name);
   $stmt->execute();
 
-  echo "<div class='succes'>FILM TOEGEVOEGD!</div>";
+
 
   $stmt->close();
 
@@ -70,7 +70,7 @@ if(!empty($_POST)){
     $add_ex_stmt->execute();
     $add_ex_stmt->close();
   }
-
+  echo "<div class='succes'>FILM TOEGEVOEGD!</div>";
   DB::conn()->close();
   ?>
   <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script>
