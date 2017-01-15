@@ -1,27 +1,37 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <h1>FILM TOEVOEGEN</h1>
-
-    <!--
-    -Titel
-    -Acteur(s)
-    -Omschrijving
-    -Genre
-    -Img
-    -->
-    <form method="post" enctype="multipart/form-data">
-      <input type="text" name="titel" placeholder="Titel" class="form-control" autocomplete="off">
-      <input type="text" name="acteur" placeholder="Acteurs" class="form-control" autocomplete="off">
-      <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off">
-      <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off">
-      <input type="file" name="img" placeholder="FOTO" class="form-control" autocomplete="off">
-
-      <input type="submit" name="submit" value="VOEG TOE">
-    </form>
-  </div>
-</div>
-
 <?php
+if(!empty($_SESSION['login'])){
+  $klantId = $_SESSION['login'][0];
+  $klantNaam = $_SESSION['login'][1];
+  function isEigenaar($klantId){
+    if($klantId === 1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  if(isEigenaar($klantId)){
+    ?>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1>FILM TOEVOEGEN</h1>
+
+        <form method="post" enctype="multipart/form-data">
+          <input type="text" name="titel" placeholder="Titel" class="form-control" autocomplete="off">
+          <input type="text" name="acteur" placeholder="Acteurs" class="form-control" autocomplete="off">
+          <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off">
+          <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off">
+          <input type="file" name="img" placeholder="FOTO" class="form-control" autocomplete="off">
+
+          <input type="submit" name="submit" value="VOEG TOE">
+        </form>
+      </div>
+    </div>
+    <?php
+  }else{
+    echo "404";
+  }
+}
+
 
 if(!empty($_POST)){
   $titel = $_POST['titel'];
