@@ -30,6 +30,8 @@ if(!empty($_SESSION['login'])){
   }else{
     echo "404";
   }
+}else{
+  echo "404";
 }
 
 

@@ -90,3 +90,21 @@ i.fa.fa-times-circle-o {
     font-size: 23px !important;
     color: red !important;
 }
+a.menu_winkelmand {
+    font-size: 20px;
+    font-weight: bold;
+}
+.dummy {
+    margin-top: 100%;
+}
+.thumbnail {
+    position: absolute;
+    top: 15px;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    text-align:center;
+    padding-top:calc(43% - 30px);
+    display:table-cell;
+    vertical-align: middle;
+}

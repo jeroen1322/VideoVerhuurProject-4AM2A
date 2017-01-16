@@ -86,7 +86,7 @@ if(!empty($_SESSION['login'])){
                      <?php
                      if($_SESSION['login'][0] == 1){
                        ?>
-                         <li><a href="/eigenaar/film_toevoegen" class="naam">VIDEO TOEVOEGEN</a></li>
+                         <li><a href="/eigenaar/overzicht" class="naam">OVERZICHT</a></li>
                        <?php
                      }
                      ?>

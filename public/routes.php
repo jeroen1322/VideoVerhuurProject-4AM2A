@@ -48,6 +48,16 @@ $klein->respond('/film/[:naam]', function ($request, $response, $service) {
 });
 
 
+
+// EIGENAAR film toevoegen
+$klein->respond('/eigenaar/overzicht', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Filmtoevoegen';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/eigenaar_overzicht.php');
+});
+
 // EIGENAAR film toevoegen
 $klein->respond('GET', '/eigenaar/film_toevoegen', function ($request, $response, $service) {
     // add some data to the view.
@@ -66,7 +76,19 @@ $klein->respond('POST', '/eigenaar/film_toevoegen', function ($request, $respons
     $service->render(VIEWS.'/filmtoevoegen.php');
 });
 
-// EIGENAAR film toevoegen
+// EIGENAAR film verwijderen
+$klein->respond('/eigenaar/film_verwijderen', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Film Verwijderen';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/filmverwijderen.php');
+});
+
+
+
+
+// WINKELMAND
 $klein->respond('/winkelmand', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Winkelmand';
