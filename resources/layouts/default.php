@@ -74,7 +74,7 @@ if(!empty($_SESSION['login'])){
                 $stmt->close();
                 if(!empty($orderIdResult)){
                   ?>
-                  <li><a href="/winkelmand">WINKELMAND(<?php echo(count($orderIdResult)); ?>)</a></li>
+                  <li><a href="/winkelmand" class="menu_winkelmand"><i class="fa fa-shopping-cart" aria-hidden="true"></i>(<?php echo(count($orderIdResult)); ?>)</a></li>
                   <?php
 
                 }
