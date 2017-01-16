@@ -22,7 +22,7 @@ if(!empty($_SESSION['login'])){
           <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off">
           <input type="file" name="img" placeholder="FOTO" class="form-control" autocomplete="off">
 
-          <input type="submit" name="submit" value="VOEG TOE">
+          <input type="submit" class="btn btn-succes form-knop" name="submit" value="VOEG TOE">
         </form>
       </div>
     </div>
