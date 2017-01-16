@@ -5,11 +5,15 @@
 $stmt = DB::conn()->prepare("SELECT img FROM Film");
 $stmt->execute();
 
-$stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
+$stmt->bind_result($img);
 $stmt->fetch();
 $stmt->close();
 
-$cover = "/cover/" . $titel;
+
+$cover = "/cover/" . $img;
+$titel = str_replace('_', ' ', $titel);
+$titel = strtoupper($titel);
+
 DB::conn()->close();
 ?>
 
