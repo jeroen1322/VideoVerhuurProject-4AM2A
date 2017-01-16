@@ -2,16 +2,14 @@
 <?php
 
 //Pak de foto van de film
-$stmt = DB::conn()->prepare("SELECT * FROM Film");
+$stmt = DB::conn()->prepare("SELECT img FROM Film");
 $stmt->execute();
 
 $stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
 $stmt->fetch();
 $stmt->close();
 
-$cover = "../resources/storage/film_foto/" . $img. ".jpg";
-$titel = str_replace('_', ' ', $titel);
-$titel = strtoupper($titel);
+$cover = "/cover/" . $titel;
 DB::conn()->close();
 ?>
 
