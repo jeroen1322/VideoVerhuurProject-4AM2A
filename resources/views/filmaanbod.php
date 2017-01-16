@@ -1,6 +1,6 @@
 
 <?php
-
+//test
 //Pak de foto van de film
 $stmt = DB::conn()->prepare("SELECT img FROM Film");
 $stmt->execute();

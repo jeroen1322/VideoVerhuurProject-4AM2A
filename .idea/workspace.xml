@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3015a49-34b2-4977-bb6e-cc91acb1fa1b" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/storage/film_foto/captainamerica.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/filmaanbod.php" afterPath="$PROJECT_DIR$/resources/views/filmaanbod.php" />
     </list>
@@ -110,13 +111,13 @@
       <file leaf-file-name="filmaanbod.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/filmaanbod.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            <state relative-caret-position="34">
+              <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
               <folding>
-                <marker date="1484559397936" expanded="true" signature="63:76" ph="SELECT * FRO... Film" />
-                <marker date="1484559397936" expanded="true" signature="63:81" ph="SELECT * FRO... Film" />
-                <marker date="1484559397936" expanded="true" signature="63:83" ph="SELECT * FRO... Film" />
-                <marker date="1484559397936" expanded="true" signature="494:520" ph="..." />
+                <marker date="1484560678911" expanded="true" signature="69:84" ph="SELECT * FRO... Film" />
+                <marker date="1484560678911" expanded="true" signature="69:89" ph="SELECT img F... Film" />
+                <marker date="1484560678911" expanded="true" signature="69:91" ph="SELECT * FRO... Film" />
+                <marker date="1484560678911" expanded="true" signature="403:429" ph="..." />
               </folding>
             </state>
           </provider>
@@ -288,12 +289,12 @@
       <updated>1484242909814</updated>
       <workItem from="1484242911226" duration="44000" />
       <workItem from="1484293192322" duration="3170000" />
-      <workItem from="1484555378587" duration="3300000" />
+      <workItem from="1484555378587" duration="4577000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6514000" />
+    <option name="totallyTimeSpent" value="7791000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1612" height="867" extended-state="0" />
@@ -376,10 +377,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1484559397936" expanded="true" signature="63:76" ph="SELECT * FRO... Film" />
-            <marker date="1484559397936" expanded="true" signature="63:81" ph="SELECT * FRO... Film" />
-            <marker date="1484559397936" expanded="true" signature="63:83" ph="SELECT * FRO... Film" />
-            <marker date="1484559397936" expanded="true" signature="494:520" ph="..." />
+            <marker date="1484560678911" expanded="true" signature="69:84" ph="SELECT * FRO... Film" />
+            <marker date="1484560678911" expanded="true" signature="69:89" ph="SELECT img F... Film" />
+            <marker date="1484560678911" expanded="true" signature="69:91" ph="SELECT * FRO... Film" />
+            <marker date="1484560678911" expanded="true" signature="403:429" ph="..." />
           </folding>
         </state>
       </provider>
@@ -467,13 +468,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/filmaanbod.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        <state relative-caret-position="34">
+          <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
           <folding>
-            <marker date="1484559397936" expanded="true" signature="63:76" ph="SELECT * FRO... Film" />
-            <marker date="1484559397936" expanded="true" signature="63:81" ph="SELECT * FRO... Film" />
-            <marker date="1484559397936" expanded="true" signature="63:83" ph="SELECT * FRO... Film" />
-            <marker date="1484559397936" expanded="true" signature="494:520" ph="..." />
+            <marker date="1484560678911" expanded="true" signature="69:84" ph="SELECT * FRO... Film" />
+            <marker date="1484560678911" expanded="true" signature="69:89" ph="SELECT img F... Film" />
+            <marker date="1484560678911" expanded="true" signature="69:91" ph="SELECT * FRO... Film" />
+            <marker date="1484560678911" expanded="true" signature="403:429" ph="..." />
           </folding>
         </state>
       </provider>
