@@ -18,11 +18,11 @@ DB::conn()->close();
 <div class="panel panel-default">
   <div class="panel-body">
     <h1></h1>
-
       <div class="filmThumbnail col-md-3">
           <a href="/">
               <div class="thumb">
-                  <img src=<?php echo"$cover" ?> class="thumb_img"/>
+                  <a href="#">
+                  <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
                   <h2><?php echo "$titel"?></h2>
               </div>
           </a>
