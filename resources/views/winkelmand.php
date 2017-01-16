@@ -28,8 +28,8 @@ if(!empty($_SESSION['login'])){
         <tr>
           <th>Foto</th>
           <th>Titel</th>
-          <th>Omschrijving</th>
           <th>Prijs</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -55,7 +55,6 @@ if(!empty($_SESSION['login'])){
       $or_stmt->close();
       // print_r($exm_id);
 
-      //HIER ZIT NOG EEN BUG!
       //Haal de Filmid op van het exemplaar op
       $exm_stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
       $exm_stmt->bind_param("i", $OR_id);
@@ -74,6 +73,7 @@ if(!empty($_SESSION['login'])){
       $exm_film_stmt->fetch();
       $exm_film_stmt->close();
 
+
       if(!empty($film_id)){
         $cover = "/cover/" . $img;
         $URL = "/film/" . $titel;
@@ -84,12 +84,49 @@ if(!empty($_SESSION['login'])){
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
             <td><?php echo $titel ?></td>
-            <td><?php echo $omschr ?></td>
             <td>€<?php echo $bedrag ?><td>
+            <td>
+              <form method="post" action="?action=delete&code=<?php echo $film_id ?>">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                </button>
+              </form>
+            </td>
           </tr>
         <?php
       }
     }
+
+    if(!empty($_GET)){
+
+      $code = $_GET['code'];
+      $exm_order_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=?");
+      $exm_order_stmt->bind_param("i", $code);
+      $exm_order_stmt->execute();
+      $exm_order_stmt->bind_result($exm_order_id);
+      $exm_order_stmt->fetch();
+      $exm_order_stmt->close();
+
+      $exm_order_stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
+      $exm_order_stmt->bind_param("i", $exm_order_id);
+      $exm_order_stmt->execute();
+      $exm_order_stmt->bind_result($OR_order_id);
+      $exm_order_stmt->fetch();
+      $exm_order_stmt->close();
+
+      $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Order` WHERE id=?");
+      $exm_order_stmt->bind_param("i", $OR_order_id);
+      $exm_order_stmt->execute();
+      $exm_order_stmt->close();
+
+      $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Orderregel` WHERE orderid=?");
+      $exm_order_stmt->bind_param("i", $OR_order_id);
+      $exm_order_stmt->execute();
+      $exm_order_stmt->close();
+
+      // echo $orderId;
+    }
+
     DB::conn()->close();
   }else{
     echo "<div class='warning'>UW WINKELMAND IS NOG LEEG</div>";
