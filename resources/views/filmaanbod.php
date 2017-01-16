@@ -3,7 +3,6 @@
 
 //Pak de foto van de film
 $stmt = DB::conn()->prepare("SELECT * FROM Film");
-$stmt->bind_param("s", $this->filmNaam);
 $stmt->execute();
 
 $stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
@@ -21,13 +20,12 @@ DB::conn()->close();
     <h1></h1>
 
       <div class="filmThumbnail col-md-3">
-          <a href=#>
+          <a href="/">
               <div class="thumb">
                   <img src=<?php echo"$cover" ?> class="thumb_img"/>
                   <h2><?php echo "$titel"?></h2>
               </div>
           </a>
       </div>
-
   </div>
 </div>
