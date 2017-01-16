@@ -124,8 +124,7 @@ if(!empty($_SESSION['login'])){
       $exm_order_stmt->execute();
       $exm_order_stmt->close();
 
-      // echo $orderId;
-      header("Refresh:0");
+      // header("Refresh:0");
     }
 
     DB::conn()->close();
