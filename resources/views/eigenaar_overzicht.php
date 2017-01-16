@@ -13,7 +13,7 @@ if(!empty($_SESSION['login'])){
     ?>
     <div class="panel panel-default">
       <div class="panel-body">
-        <h1>EIGENAAR OVERZICZHT</h1>
+        <h1>EIGENAAR OVERZICHT</h1>
         <div class="col-md-3 col-sm-4 col-xs-6">
             <div class="dummy"></div>
             <a href="/eigenaar/film_toevoegen" class="thumbnail purple">FILM TOEVOEGEN</a>
