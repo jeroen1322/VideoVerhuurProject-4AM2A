@@ -97,7 +97,7 @@ if(!empty($_SESSION['login'])){
       }
     }
 
-    if(!empty($_GET)){
+    if(!empty($_GET['action'])){
 
       $code = $_GET['code'];
       $exm_order_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=?");
@@ -124,7 +124,7 @@ if(!empty($_SESSION['login'])){
       $exm_order_stmt->execute();
       $exm_order_stmt->close();
 
-      // header("Refresh:0");
+      header("Refresh:0; url=/winkelmand");
     }
 
     DB::conn()->close();
