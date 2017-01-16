@@ -125,11 +125,12 @@ if(!empty($_SESSION['login'])){
       $exm_order_stmt->close();
 
       // echo $orderId;
+      header("Refresh:0");
     }
 
     DB::conn()->close();
   }else{
-    echo "<div class='warning'>UW WINKELMAND IS NOG LEEG</div>";
+    echo "<div class='warning'>UW WINKELMAND IS LEEG</div>";
   }
 
 
