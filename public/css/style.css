@@ -123,3 +123,10 @@ a.menu_winkelmand {
 .textfilmaanbod {
     font-size:22px;
 }
+.fa-ban{
+  font-size: 22px;
+  color: red;
+}
+.unblock{
+  color: green;
+}

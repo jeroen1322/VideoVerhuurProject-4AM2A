@@ -11,6 +11,27 @@ if(!empty($_SESSION['login'])){
     }
   }
   if(isEigenaar($klantRolId)){
+    if(!empty($_GET)){
+      $code = $_GET['code'];
+      $action = $_GET['action'];
+      if($action == 'block'){
+        $blockRol = 5;
+
+        $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=? WHERE id=?;");
+        $stmt->bind_param("ii", $blockRol, $code);
+        $stmt->execute();
+        $stmt->close();
+        header("Refresh:0; url=/eigenaar/klant_blokkeren");
+      }elseif($action == 'unblock'){
+        $unblockRol = 1;
+
+        $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=? WHERE id=?;");
+        $stmt->bind_param("ii", $unblockRol, $code);
+        $stmt->execute();
+        $stmt->close();
+        header("Refresh:0; url=/eigenaar/klant_blokkeren");
+      }
+    }
     ?>
     <div class="panel panel-default">
       <div class="panel-body">
@@ -64,6 +85,27 @@ if(!empty($_SESSION['login'])){
                   echo "<b>GEBLOKKEERD</b>";
                 }
               ?>
+            </td>
+            <td>
+              <?php
+                if($rolId === 1){
+                  ?>
+                  <form method="post" action="?action=block&code=<?php echo $id ?>">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                    </button>
+                  </form>
+                  <?php
+                }elseif($rolId === 5){
+                  ?>
+                  <form method="post" action="?action=unblock&code=<?php echo $id ?>">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-ban unblock" aria-hidden="true"></i>
+                    </button>
+                  </form>
+                  <?php
+                }
+                ?>
             </td>
           </tr>
           <?php

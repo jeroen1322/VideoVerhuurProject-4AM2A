@@ -2,6 +2,7 @@
     <div class="col-md-10 col-md-offset-1 details">
 <?php
 $film = $this->filmNaam;
+
 //Pak de foto van de film
 $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM Film WHERE titel=?");
 $stmt->bind_param("s", $film);
