@@ -85,6 +85,15 @@ $klein->respond('/eigenaar/film_verwijderen', function ($request, $response, $se
     $service->render(VIEWS.'/filmverwijderen.php');
 });
 
+// EIGENAAR film info aanpassen
+$klein->respond('/eigenaar/film_aanpassen', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Film Aanpassen';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/filmaanpassen.php');
+});
+
 
 
 
