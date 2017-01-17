@@ -109,7 +109,7 @@ $klein->respond('/klant/overzicht', function ($request, $response, $service) {
     $service->pageTitle = 'Overzicht';
 
     // This is the function that renders the view inside the layout.
-    $service->render(VIEWS.'/klantoverzicht.php');
+    $service->render(VIEWS.'/klant_overzicht.php');
 });
 
 
