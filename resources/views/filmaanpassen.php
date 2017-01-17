@@ -10,6 +10,13 @@ if(!empty($_SESSION['login'])){
     }
   }
   if(isEigenaar($klantId)){
+    if(!empty($_GET['action'])){
+      $code = $_GET['code'];
+      $edit = true;
+    }else{
+      $edit = false;
+    }
+
     ?>
 <div class="panel panel-default">
   <div class="panel-body">
@@ -30,7 +37,7 @@ if(!empty($_SESSION['login'])){
           <tr>
             <th>Foto</th>
             <th>Titel</th>
-            <th>Omschr</th>
+            <th>Omschrijving</th>
             <th></th>
           </tr>
         </thead>
@@ -46,23 +53,63 @@ if(!empty($_SESSION['login'])){
         $stmt->close();
         $cover = "/cover/" . $img;
         $URL = "/film/" . $titel;
+
+        if($edit == true && $code == $id){
+          ?>
+          <tr>
+            <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
+            <td>
+              <form method="post" action="?action=save&code=<?php echo $id ?>">
+                <input type="text" value="<?php echo $titel ?>" name="titel">
+            </td>
+            <td><input type="text" value="<?php echo $omschr ?>" name="omschr"></td>
+            <td>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <?php
+
+            $nieuweTitel = $_POST['titel'];
+            if(!empty($nieuweTitel)){
+              //Gegevens invoeren in Film tabel
+              $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
+              $stmt->bind_param("ss", $nieuweTitel, $code);
+              $stmt->execute();
+              $stmt->close();
+              header("Refresh:0; url=/eigenaar/film_aanpassen");
+            }
+            $nieuweOmschr = $_POST['omschr'];
+            if(!empty($nieuweOmschr)){
+              //Gegevens invoeren in Film tabel
+              $stmt = DB::conn()->prepare("UPDATE `Film` SET `omschr`=? WHERE id=?");
+              $stmt->bind_param("ss", $nieuweOmschr, $code);
+              $stmt->execute();
+              $stmt->close();
+              header("Refresh:0; url=/eigenaar/film_aanpassen");
+            }
+
+
+        }else{
         ?>
         <tr>
           <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
           <td><?php echo $titel ?></td>
           <td><?php echo $omschr ?><td>
           <td>
-            <form method="post" action="?action=delete&code=<?php echo $id ?>">
+            <form method="post" action="?action=edit&code=<?php echo $id ?>">
               <button type="submit" class="btn btn-success">
-                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </form>
           </td>
         </tr>
         <?php
       }
-      if(!empty($_GET['action'])){
-      }
+    }
+
       DB::conn()->close();
     }else{
       echo "<div class='warning'><b>ER ZIJN GEEN FILMS IN DE DATABASE</b></div>";

@@ -51,17 +51,18 @@ INSERT INTO Rol (id, omschr) VALUES (1, "Klant");
 INSERT INTO Rol (id, omschr) VALUES (2, "Bezorger");
 INSERT INTO Rol (id, omschr) VALUES (3, "baliemedewerker");
 INSERT INTO Rol (id, omschr) VALUES (4, "eigenaar");
+INSERT INTO Rol (id, omschr) VALUES (5, "Geblokkeerd");
 
 INSERT INTO `Status`(id, omschr) VALUES(1, "Beschikbaar");
 INSERT INTO `Status`(id, omschr) VALUES(2, "NIET Beschikbaar");
 
 -- SELECT * FROM `Rol`;
-SELECT * FROM `Order`;
-SELECT * FROM `Orderregel`;
-SELECT * FROM `Exemplaar`;
-SELECT * FROM `Film`;
--- SELECT * FROM `Persoon`;
-SELECT id FROM `Exemplaar` WHERE id=11;
+-- SELECT * FROM `Order`;
+-- SELECT * FROM `Orderregel`;
+-- SELECT * FROM `Exemplaar`;
+-- SELECT * FROM `Film`;
+SELECT * FROM `Persoon`;
+
 INSERT INTO Wachtwoord(id, wachtwoord) VALUES (123, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
 INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'grootenjeroen@hotmail.com', 123, 4);
 
