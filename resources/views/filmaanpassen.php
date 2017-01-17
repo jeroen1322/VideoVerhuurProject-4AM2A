@@ -2,8 +2,9 @@
 if(!empty($_SESSION['login'])){
   $klantId = $_SESSION['login'][0];
   $klantNaam = $_SESSION['login'][1];
+  $klantRolId = $_SESSION['login'][2];
   function isEigenaar($klantId){
-    if($klantId === 1){
+    if($klantRolId === 4){
       return true;
     }else{
       return false;
@@ -53,16 +54,18 @@ if(!empty($_SESSION['login'])){
         $stmt->close();
         $cover = "/cover/" . $img;
         $URL = "/film/" . $titel;
-
+        $titel = str_replace('_', ' ', $titel);
+        $titel = strtoupper($titel);
         if($edit == true && $code == $id){
+
           ?>
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
             <td>
               <form method="post" action="?action=save&code=<?php echo $id ?>">
-                <input type="text" value="<?php echo $titel ?>" name="titel">
+                <input type="text" class="form-control" autocomplete="off" value="<?php echo $titel ?>" name="titel">
             </td>
-            <td><input type="text" value="<?php echo $omschr ?>" name="omschr"></td>
+            <td><input type="text" class="form-control" autocomplete="off" value="<?php echo $omschr ?>" name="omschr"></td>
             <td>
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
