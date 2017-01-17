@@ -37,7 +37,7 @@ if(!empty($_SESSION['login'])){
           <tr>
             <th>Foto</th>
             <th>Titel</th>
-            <th>Omschr</th>
+            <th>Omschrijving</th>
             <th></th>
           </tr>
         </thead>
@@ -62,7 +62,7 @@ if(!empty($_SESSION['login'])){
               <form method="post" action="?action=save&code=<?php echo $id ?>">
                 <input type="text" value="<?php echo $titel ?>" name="titel">
             </td>
-            <td><?php echo $omschr ?><td>
+            <td><input type="text" value="<?php echo $omschr ?>" name="omschr"></td>
             <td>
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -77,6 +77,15 @@ if(!empty($_SESSION['login'])){
               //Gegevens invoeren in Film tabel
               $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
               $stmt->bind_param("ss", $nieuweTitel, $code);
+              $stmt->execute();
+              $stmt->close();
+              header("Refresh:0; url=/eigenaar/film_aanpassen");
+            }
+            $nieuweOmschr = $_POST['omschr'];
+            if(!empty($nieuweOmschr)){
+              //Gegevens invoeren in Film tabel
+              $stmt = DB::conn()->prepare("UPDATE `Film` SET `omschr`=? WHERE id=?");
+              $stmt->bind_param("ss", $nieuweOmschr, $code);
               $stmt->execute();
               $stmt->close();
               header("Refresh:0; url=/eigenaar/film_aanpassen");
