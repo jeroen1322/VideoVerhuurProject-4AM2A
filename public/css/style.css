@@ -130,3 +130,11 @@ a.menu_winkelmand {
 .unblock{
   color: green;
 }
+.left{
+  float: left;
+  width: 50%;
+}
+.right{
+  width: 50%;
+  float:left;
+}
