@@ -22,14 +22,16 @@ if(!empty($_SESSION['login'])){
               <th>Naam</th>
               <th>Telefoonnummer</th>
               <th>Email</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
         <?php
         //Haal alle klanten op
-        $rol = 1;
-        $stmt = DB::conn()->prepare("SELECT id FROM `Persoon` WHERE rolid=?");
-        $stmt->bind_param('i', $rol);
+        $rol1 = 1;
+        $rol2 = 5;
+        $stmt = DB::conn()->prepare("SELECT id FROM `Persoon` WHERE rolid=? OR rolid=?");
+        $stmt->bind_param('ii', $rol1, $rol2);
         $stmt->execute();
         $stmt->bind_result($id);
 
@@ -42,10 +44,10 @@ if(!empty($_SESSION['login'])){
         $stmt->close();
 
         foreach($klant as $i){
-          $stmt = DB::conn()->prepare("SELECT naam, telefoonnummer, email FROM `Persoon` WHERE id=?");
+          $stmt = DB::conn()->prepare("SELECT naam, telefoonnummer, email, rolid FROM `Persoon` WHERE id=?");
           $stmt->bind_param('i', $i);
           $stmt->execute();
-          $stmt->bind_result($naam, $telefoonnummer, $email);
+          $stmt->bind_result($naam, $telefoonnummer, $email, $rolId);
           $stmt->fetch();
           $stmt->close();
           ?>
@@ -54,6 +56,15 @@ if(!empty($_SESSION['login'])){
             <td><?php echo $naam ?></td>
             <td><?php echo $telefoonnummer ?></td>
             <td><?php echo $email ?></td>
+            <td>
+              <?php
+                if($rolId === 1){
+                  echo "NIET GEBLOKKEERD";
+                }elseif($rolId === 5){
+                  echo "<b>GEBLOKKEERD</b>";
+                }
+              ?>
+            </td>
           </tr>
           <?php
         }
