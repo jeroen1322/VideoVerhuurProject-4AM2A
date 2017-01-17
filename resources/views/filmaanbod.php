@@ -23,14 +23,16 @@ if(!empty($titel)){
 
         $stmt->fetch();
         $stmt->close();
+        $url =  "/film/" . $titel;
         $titel = str_replace('_', ' ', $titel);
         $titel = strtoupper($titel);
         $cover = "/cover/" . $img;
+
         ?>
           <div class="filmThumbnail col-md-3">
                   <a href="/">
                       <div class="thumb">
-                          <a href="#">
+                          <a href=<?php echo"$url" ?>>
                           <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
                           <h2 class="textfilmaanbod"><?php echo "$titel"?></h2>
                       </div>
