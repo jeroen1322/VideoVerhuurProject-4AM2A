@@ -114,3 +114,12 @@ a.menu_winkelmand {
 .fa-floppy-o{
   font-size: 23px !important;
 }
+
+.thumb_img {
+    width:200px;
+    height:300px;
+}
+
+.textfilmaanbod {
+    font-size:22px;
+}

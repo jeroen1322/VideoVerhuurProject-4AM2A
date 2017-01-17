@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h1></h1>
-        <div class="filmThumbnail col-md-3">
+
 <?php
 //test
 //Pak de foto van de film
@@ -16,20 +16,23 @@ while($stmt->fetch()){
 $stmt->close();
 if(!empty($titel)){
       foreach($film_titel as $i){
-        $stmt = DB::conn()->prepare("SELECT * FROM `Film` where id=?");
+        $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` where id=?");
         $stmt->bind_param("i", $i);
         $stmt->execute();
         $stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
+
         $stmt->fetch();
         $stmt->close();
+        $titel = str_replace('_', ' ', $titel);
+        $titel = strtoupper($titel);
         $cover = "/cover/" . $img;
         ?>
-
+          <div class="filmThumbnail col-md-3">
                   <a href="/">
                       <div class="thumb">
                           <a href="#">
-                          <img src=<?php echo"$cover" ?> class="thumb_img" style="align-content:center; width:100px;"/></a>
-                          <h2><?php echo "$titel"?></h2>
+                          <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
+                          <h2 class="textfilmaanbod"><?php echo "$titel"?></h2>
                       </div>
                   </a>
               </div>
