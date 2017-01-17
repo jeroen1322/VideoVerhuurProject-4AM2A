@@ -37,11 +37,16 @@ if(!empty($_GET)){
   $cart_stmt->close();
 
   //VOEG TOE AAN `ORDERREGEL`
-  $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=?");
+  $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
   $exm_stmt->bind_param("i", $id);
   $exm_stmt->execute();
   $exm_stmt->bind_result($exemplaar_id);
   $exm_stmt->fetch();
+  $exm_stmt->close();
+
+  $exm_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=2 WHERE id=?");
+  $exm_stmt->bind_param("i", $exemplaar_id);
+  $exm_stmt->execute();
   $exm_stmt->close();
 
   $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
