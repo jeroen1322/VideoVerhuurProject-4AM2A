@@ -4,7 +4,7 @@
 $film = $this->filmNaam;
 //Pak de foto van de film
 $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM Film WHERE titel=?");
-$stmt->bind_param("s", );
+$stmt->bind_param("s", $film);
 $stmt->execute();
 
 $stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
