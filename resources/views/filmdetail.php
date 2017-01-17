@@ -30,9 +30,6 @@ $titel = strtoupper($titel);
 
 if(!empty($_GET)){
 
-  $ophaalDatum = "13-01-2017";
-  $afleverDatum = "20-01-2017";
-
   $_SESSION['cart_item'] = array();
   $_SESSION['cart_item']['id'] = $_GET['code'];
   $product_cart_id = $_SESSION['cart_item']['id'];
@@ -66,7 +63,7 @@ if(!empty($_GET)){
   $or_stmt->execute();
   $or_stmt->close();
 
-  echo "<div class='succes'>FILM TOEGEVOEGD AAN UW <a href='/winkelmand'>WINKELMAND</a></div>";
+  header("Refresh:0; url=/film/" . $titel);
 }
 DB::conn()->close();
 
