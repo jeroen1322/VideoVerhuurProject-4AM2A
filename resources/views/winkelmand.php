@@ -146,7 +146,7 @@ if(!empty($_SESSION['login'])){
     ?>
     <div class="winkelmand_onder">
       <h4 class="totaal"><b>TOTAAL: €<?php echo $totaal; ?></b></h4>
-      <a href="/winkelmand">
+      <a href="/winkelmand/afrekenen">
         <button class="btn btn-success bestel">AFREKENEN</button>
       </a>
     </div>
