@@ -59,20 +59,26 @@ if(!empty($_SESSION['login'])){
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
             <td>
-              <form method="post" action="?action=delete&code=<?php echo $id ?>">
-                <input type="text" value="<?php echo $titel ?>">
-              </form>
+              <form method="post">
+                <input type="text" value="<?php echo $titel ?>" name="titel">
             </td>
             <td><?php echo $omschr ?><td>
             <td>
-              <form method="post" action="?action=delete&code=<?php echo $id ?>">
                 <button type="submit" class="btn btn-success">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
                 </button>
               </form>
             </td>
           </tr>
           <?php
+          
+            $nieuweTitel = $_POST['titel'];
+            //Gegevens invoeren in Film tabel
+            $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
+            $stmt->bind_param("ss", $nieuweTitel, $code);
+            $stmt->execute();
+            $stmt->close();
+
         }else{
         ?>
         <tr>
