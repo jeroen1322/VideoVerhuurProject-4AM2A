@@ -149,3 +149,12 @@ a.menu_winkelmand {
   width: 50%;
   float:left;
 }
+.green_count{
+  color: green;
+}
+.orange_count{
+  color: 	orange;
+}
+.red_count{
+  color: red;
+}
