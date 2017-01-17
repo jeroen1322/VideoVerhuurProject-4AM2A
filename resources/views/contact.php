@@ -5,10 +5,10 @@
         <div style="float:left">
         <h2> Contactformulier:</h2>
     <form method="post">
-      <input type="text" name="naam" placeholder="Naam"> <br>
-        <input type="text" name="email" placeholder="Email"> <br>
+      <input type="text" name="naam" placeholder="Naam" required> <br>
+        <input type="text" name="email" placeholder="Email" required> <br>
 
-        <textarea name="bericht" rows="10" cols="50" placeholder="Uw bericht"></textarea> <br>
+        <textarea name="bericht" class="col-xs-8" cols="50" placeholder="Uw bericht" required></textarea> <br><br><br>
       <input type="submit" name="submit" value="VERSTUUR">
     </form>
         </div>
