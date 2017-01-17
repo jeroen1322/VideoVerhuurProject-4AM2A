@@ -93,7 +93,14 @@ $klein->respond('/eigenaar/film_aanpassen', function ($request, $response, $serv
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/filmaanpassen.php');
 });
+// EIGENAAR Klant Blokkeren
+$klein->respond('/eigenaar/klant_blokkeren', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Klant Blokkeren';
 
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/klantblokkeren.php');
+});
 
 
 
