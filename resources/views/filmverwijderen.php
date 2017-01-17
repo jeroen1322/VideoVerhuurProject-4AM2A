@@ -14,16 +14,6 @@ if(!empty($_SESSION['login'])){
 <div class="panel panel-default">
   <div class="panel-body">
     <h1>VIDEO VERWIJDEREN</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Foto</th>
-          <th>Titel</th>
-          <th>Omschr</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
     <?php
     $stmt = DB::conn()->prepare("SELECT id FROM `Film`");
     $stmt->execute();
@@ -34,6 +24,19 @@ if(!empty($_SESSION['login'])){
     }
     $stmt->close();
     if(!empty($id)){
+      ?>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Titel</th>
+            <th>Omschr</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+      <?php
+
       foreach($film_id as $i){
         $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` WHERE id=?");
         $stmt->bind_param("i", $i);
@@ -100,7 +103,7 @@ if(!empty($_SESSION['login'])){
       }
       DB::conn()->close();
     }else{
-      echo "<div class='warning'><b>ER ZIJN NOG GEEN FILMS TOEGEVOEGD</b></div>";
+      echo "<div class='warning'><b>ER ZIJN GEN FILMS IN DE DATABASE</b></div>";
     }
   }else{
     echo "NOPE HIER MAG JE NIET KOMEN!";
