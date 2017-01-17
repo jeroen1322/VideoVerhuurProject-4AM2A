@@ -103,7 +103,7 @@ if(!empty($_SESSION['login'])){
       }
       DB::conn()->close();
     }else{
-      echo "<div class='warning'><b>ER ZIJN GEN FILMS IN DE DATABASE</b></div>";
+      echo "<div class='warning'><b>ER ZIJN GEEN FILMS IN DE DATABASE</b></div>";
     }
   }else{
     echo "NOPE HIER MAG JE NIET KOMEN!";
