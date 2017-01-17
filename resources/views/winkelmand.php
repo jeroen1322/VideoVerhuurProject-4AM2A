@@ -100,11 +100,16 @@ if(!empty($_SESSION['login'])){
     if(!empty($_GET['action'])){
 
       $code = $_GET['code'];
-      $exm_order_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=?");
+      $exm_order_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=2");
       $exm_order_stmt->bind_param("i", $code);
       $exm_order_stmt->execute();
       $exm_order_stmt->bind_result($exm_order_id);
       $exm_order_stmt->fetch();
+      $exm_order_stmt->close();
+
+      $exm_order_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?");
+      $exm_order_stmt->bind_param("i", $exm_order_id);
+      $exm_order_stmt->execute();
       $exm_order_stmt->close();
 
       $exm_order_stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
