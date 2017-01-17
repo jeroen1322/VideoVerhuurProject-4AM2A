@@ -103,6 +103,15 @@ $klein->respond('/eigenaar/klant_blokkeren', function ($request, $response, $ser
 });
 
 
+// EIGENAAR Klant Blokkeren
+$klein->respond('/klant/overzicht', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Overzicht';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/klantoverzicht.php');
+});
+
 
 // WINKELMAND
 $klein->respond('/winkelmand', function ($request, $response, $service) {

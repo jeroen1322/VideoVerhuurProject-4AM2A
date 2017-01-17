@@ -89,6 +89,10 @@ if(!empty($_SESSION['login'])){
                        ?>
                          <li><a href="/eigenaar/overzicht" class="naam">OVERZICHT</a></li>
                        <?php
+                     }elseif($_SESSION['login'][2] === 1){
+                       ?>
+                       <li><a href="/klant/overzicht" class="naam">OVERZICHT</a></li>
+                       <?php
                      }
                      ?>
                      <li><a href="/uitloggen">UITLOGGEN</a></li>
