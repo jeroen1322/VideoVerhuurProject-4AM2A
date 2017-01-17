@@ -61,7 +61,7 @@ if(!empty($_SESSION['login'])){
         while($stmt->fetch()){
           $klant[] = $id;
         }
-
+        sort($klant);
         $stmt->close();
 
         foreach($klant as $i){
