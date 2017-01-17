@@ -73,7 +73,7 @@ if(!empty($_SESSION['login'])){
           $stmt->close();
           ?>
           <tr>
-            <td><?php echo $id ?></td>
+            <td><?php echo $i ?></td>
             <td><?php echo $naam ?></td>
             <td><?php echo $telefoonnummer ?></td>
             <td><?php echo $email ?></td>
@@ -90,7 +90,7 @@ if(!empty($_SESSION['login'])){
               <?php
                 if($rolId === 1){
                   ?>
-                  <form method="post" action="?action=block&code=<?php echo $id ?>">
+                  <form method="post" action="?action=block&code=<?php echo $i ?>">
                     <button type="submit" class="btn btn-success">
                         <i class="fa fa-ban" aria-hidden="true"></i>
                     </button>
@@ -98,7 +98,7 @@ if(!empty($_SESSION['login'])){
                   <?php
                 }elseif($rolId === 5){
                   ?>
-                  <form method="post" action="?action=unblock&code=<?php echo $id ?>">
+                  <form method="post" action="?action=unblock&code=<?php echo $i ?>">
                     <button type="submit" class="btn btn-success">
                         <i class="fa fa-ban unblock" aria-hidden="true"></i>
                     </button>
