@@ -15,6 +15,16 @@ if(!empty($_SESSION['login'])){
     <div class="panel panel-default">
       <div class="panel-body">
         <h1>KLANT BLOKKEREN</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Naam</th>
+              <th>Telefoonnummer</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
         <?php
         //Haal alle klanten op
         $rol = 1;
@@ -38,15 +48,20 @@ if(!empty($_SESSION['login'])){
           $stmt->bind_result($naam, $telefoonnummer, $email);
           $stmt->fetch();
           $stmt->close();
-
-
-          echo "ID: " . $i . "<br>";
-          echo "Naam: " . $naam . "<br>";
-          echo "Telefoonnummer: " . $telefoonnummer . "<br>";
-          echo "Email: " . $email  . "<br><br>";
+          ?>
+          <tr>
+            <td><?php echo $id ?></td>
+            <td><?php echo $naam ?></td>
+            <td><?php echo $telefoonnummer ?></td>
+            <td><?php echo $email ?></td>
+          </tr>
+          <?php
         }
-        ?>
-  <?php
-DB::conn()->close();
+
+        DB::conn()->close();
   }
+  ?>
+  </tbody>
+  </table>
+<?php
 }
