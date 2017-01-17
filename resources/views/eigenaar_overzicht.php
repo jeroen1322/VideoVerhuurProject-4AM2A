@@ -3,14 +3,14 @@ if(!empty($_SESSION['login'])){
   $klantId = $_SESSION['login'][0];
   $klantNaam = $_SESSION['login'][1];
   $klantRolId = $_SESSION['login'][2];
-  function isEigenaar($klantId){
+  function isEigenaar($klantRolId){
     if($klantRolId === 4){
       return true;
     }else{
       return false;
     }
   }
-  if(isEigenaar($klantId)){
+  if(isEigenaar($klantRolId)){
     ?>
     <div class="panel panel-default">
       <div class="panel-body">
