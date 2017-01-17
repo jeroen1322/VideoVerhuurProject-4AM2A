@@ -5,6 +5,7 @@ session_start();
 if(!empty($_SESSION['login'])){
   $klantId = $_SESSION['login'][0];
   $klantNaam = $_SESSION['login'][1];
+  $klantRolId = $_SESSION['login'][2];
 }
 
 ?>
@@ -84,7 +85,7 @@ if(!empty($_SESSION['login'])){
                    <span class="caret"></span></a>
                    <ul class="dropdown-menu">
                      <?php
-                     if($_SESSION['login'][0] == 1){
+                     if($_SESSION['login'][2] == 4){
                        ?>
                          <li><a href="/eigenaar/overzicht" class="naam">OVERZICHT</a></li>
                        <?php

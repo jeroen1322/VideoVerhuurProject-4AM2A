@@ -33,6 +33,15 @@ if(!empty($_POST)){
     $name_stmt->fetch();
     $name_stmt->close();
 
+    //Pak de naam van de klant dat bij de ingevoerde email hoort
+    $name_stmt = DB::conn()->prepare("SELECT rolid FROM Persoon WHERE id=?");
+    $name_stmt->bind_param("i", $klantId);
+    $name_stmt->execute();
+
+    $name_stmt->bind_result($klantRolId);
+    $name_stmt->fetch();
+    $name_stmt->close();
+
     //Haal het wachtwoord op dat bij het ID hoort
     $ww_stmt = DB::conn()->prepare("SELECT wachtwoord FROM Wachtwoord WHERE id=?");
     $ww_stmt->bind_param("i", $wachtwoordid);
@@ -47,6 +56,7 @@ if(!empty($_POST)){
         $_SESSION['login'] = array();
         $_SESSION['login'][] = $klantId; //Zet de session die we kunnen checken in de functie isIngelogd();
         $_SESSION['login'][] = $naam;
+        $_SESSION['login'][] = $klantRolId;
         ?>
         <script>window.location.replace("/");</script>
         <?php
