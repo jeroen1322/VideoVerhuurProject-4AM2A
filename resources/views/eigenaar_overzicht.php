@@ -29,7 +29,7 @@ if(!empty($_SESSION['login'])){
         </div>
         <div class="col-md-3 col-sm-4 col-xs-6">
             <div class="dummy">
-              <a href="#x" class="thumbnail purple">KLANT BLOKKEREN</a>
+              <a href="/eigenaar/klant_blokkeren" class="thumbnail purple">KLANT BLOKKEREN</a>
             </div>
         </div>
       </div>

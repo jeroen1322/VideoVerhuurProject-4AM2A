@@ -85,7 +85,7 @@ if(!empty($_SESSION['login'])){
                    <span class="caret"></span></a>
                    <ul class="dropdown-menu">
                      <?php
-                     if($_SESSION['login'][2] == 4){
+                     if($_SESSION['login'][2] === 4){
                        ?>
                          <li><a href="/eigenaar/overzicht" class="naam">OVERZICHT</a></li>
                        <?php
