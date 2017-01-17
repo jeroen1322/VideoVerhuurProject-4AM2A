@@ -10,6 +10,13 @@ if(!empty($_SESSION['login'])){
     }
   }
   if(isEigenaar($klantId)){
+    if(!empty($_GET['action'])){
+      $code = $_GET['code'];
+      $edit = true;
+    }else{
+      $edit = false;
+    }
+
     ?>
 <div class="panel panel-default">
   <div class="panel-body">
@@ -46,6 +53,27 @@ if(!empty($_SESSION['login'])){
         $stmt->close();
         $cover = "/cover/" . $img;
         $URL = "/film/" . $titel;
+
+        if($edit == true && $code == $id){
+          ?>
+          <tr>
+            <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
+            <td>
+              <form method="post" action="?action=delete&code=<?php echo $id ?>">
+                <input type="text" value="<?php echo $titel ?>">
+              </form>
+            </td>
+            <td><?php echo $omschr ?><td>
+            <td>
+              <form method="post" action="?action=delete&code=<?php echo $id ?>">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <?php
+        }else{
         ?>
         <tr>
           <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
@@ -54,15 +82,15 @@ if(!empty($_SESSION['login'])){
           <td>
             <form method="post" action="?action=delete&code=<?php echo $id ?>">
               <button type="submit" class="btn btn-success">
-                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </form>
           </td>
         </tr>
         <?php
       }
-      if(!empty($_GET['action'])){
-      }
+    }
+
       DB::conn()->close();
     }else{
       echo "<div class='warning'><b>ER ZIJN GEEN FILMS IN DE DATABASE</b></div>";

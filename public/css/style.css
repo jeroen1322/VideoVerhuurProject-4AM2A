@@ -108,3 +108,6 @@ a.menu_winkelmand {
     display:table-cell;
     vertical-align: middle;
 }
+.fa-pencil{
+  font-size: 23px !important;
+}
