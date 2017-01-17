@@ -59,7 +59,7 @@ if(!empty($_SESSION['login'])){
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
             <td>
-              <form method="post">
+              <form method="post" action="?action=save&code=<?php echo $id ?>">
                 <input type="text" value="<?php echo $titel ?>" name="titel">
             </td>
             <td><?php echo $omschr ?><td>
@@ -71,13 +71,17 @@ if(!empty($_SESSION['login'])){
             </td>
           </tr>
           <?php
-          
+
             $nieuweTitel = $_POST['titel'];
-            //Gegevens invoeren in Film tabel
-            $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
-            $stmt->bind_param("ss", $nieuweTitel, $code);
-            $stmt->execute();
-            $stmt->close();
+            if(!empty($nieuweTitel)){
+              //Gegevens invoeren in Film tabel
+              $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
+              $stmt->bind_param("ss", $nieuweTitel, $code);
+              $stmt->execute();
+              $stmt->close();
+              header("Refresh:0; url=/eigenaar/film_aanpassen");
+            }
+
 
         }else{
         ?>
@@ -86,7 +90,7 @@ if(!empty($_SESSION['login'])){
           <td><?php echo $titel ?></td>
           <td><?php echo $omschr ?><td>
           <td>
-            <form method="post" action="?action=delete&code=<?php echo $id ?>">
+            <form method="post" action="?action=edit&code=<?php echo $id ?>">
               <button type="submit" class="btn btn-success">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
