@@ -100,7 +100,7 @@ if(!empty($_SESSION['login'])){
 
       ?>
     </div>
-    <div class="right">
+    <div class="klant_right">
       <h4>ORDERS</h4>
       <?php
       //Haal id op van Order op

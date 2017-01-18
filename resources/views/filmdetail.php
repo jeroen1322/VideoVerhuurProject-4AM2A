@@ -62,8 +62,8 @@ if(!empty($_GET)){
   $or_stmt->bind_param("ii", $exemplaar_id, $order_id);
   $or_stmt->execute();
   $or_stmt->close();
-
-  header("Refresh:0; url=/film/" . $titel);
+  $e = str_replace(' ', '_', $titel);
+  header("Refresh:0; url=/film/" . $e);
 }
 DB::conn()->close();
 

@@ -1,3 +1,4 @@
+
 <?php
 if(!empty($_SESSION['login'])){
   $klantId = $_SESSION['login'][0];
@@ -13,39 +14,30 @@ if(!empty($_SESSION['login'])){
   if(isEigenaar($klantRolId)){
     ?>
     <div class="panel panel-default">
-      <div class="left_menu">
-        <ul class="list-group left_menu_list">
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/film_toevoegen"><button class="btn btn-succes left_button actief"><i class="fa fa-plus plus_fa" aria-hidden="true"></i> FILM TOEVOEGEN</button></a></li>
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/film_verwijderen"><button class="btn btn-succes left_button"><i class="fa fa-trash-o min_fa" aria-hidden="true"></i> FILM VERWIJDEREN</button></a></li>
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/film_aanpassen"><button class="btn btn-succes left_button"><i class="fa fa-pencil edit_fa" aria-hidden="true"></i> FILM INFO BEHEREN</button></a></li>
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/klant_blokkeren"><button class="btn btn-succes left_button"><i class="fa fa-ban block_fa" aria-hidden="true"></i> KLANT BLOKKEREN</button></a></li>
-        </ul>
-      </div>
-      <div class="panel-body eigenaar_right">
+      <div class="panel-body">
         <h1>FILM TOEVOEGEN</h1>
-        <div class="right">
+
         <form method="post" enctype="multipart/form-data">
-          <input type="text" name="titel" placeholder="Titel" class="form-control" autocomplete="off" required>
-          <input type="text" name="acteur" placeholder="Acteurs" class="form-control" autocomplete="off" required>
-          <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off" required>
-          <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off" required>
-          <input type="file" name="img" placeholder="FOTO" class="form-control" autocomplete="off" required>
+          <input type="text" name="titel" placeholder="Titel" class="form-control" autocomplete="off">
+          <input type="text" name="acteur" placeholder="Acteurs" class="form-control" autocomplete="off">
+          <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off">
+          <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off">
+          <input type="file" name="img" placeholder="FOTO" class="form-control" autocomplete="off">
 
           <input type="submit" class="btn btn-succes form-knop" name="submit" value="VOEG TOE">
         </form>
-      </div>
       </div>
     </div>
     <?php
   }else{
     echo "404";
   }
-  }else{
+}else{
   echo "404";
-  }
+}
 
 
-  if(!empty($_POST)){
+if(!empty($_POST)){
   $titel = $_POST['titel'];
   $acteur = $_POST['acteur'];
   $oms = $_POST['oms'];
@@ -97,4 +89,4 @@ if(!empty($_SESSION['login'])){
   ?>
   <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script>
   <?php
-  }
+}
