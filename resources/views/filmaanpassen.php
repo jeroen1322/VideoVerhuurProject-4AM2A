@@ -22,9 +22,9 @@ if(!empty($_SESSION['login'])){
   <div class="panel-body">
     <div class="btn-group admin">
       <a href="/eigenaar/film_toevoegen" class="btn btn-primary admin_menu">FILM TOEVOEGEN</a>
-      <a href="/eigenaar/film_verwijderen" class="btn btn-default admin_menu">FILM VERWIJDEREN</a>
-      <a href="/eigenaar/film_aanpassen" class="btn btn-default actief admin_menu">FILM INFO BEHEREN</a>
-      <a href="/eigenaar/klant_blokkeren" class="btn btn-default admin_menu">KLANT BLOKKEREN</a>
+      <a href="/eigenaar/film_verwijderen" class="btn btn-primary admin_menu">FILM VERWIJDEREN</a>
+      <a href="/eigenaar/film_aanpassen" class="btn btn-primary actief admin_menu">FILM INFO BEHEREN</a>
+      <a href="/eigenaar/klant_blokkeren" class="btn btn-primary admin_menu">KLANT BLOKKEREN</a>
     </div>
     <h1>FILM INFORMATIE BEHEREN</h1>
     <?php
@@ -68,7 +68,7 @@ if(!empty($_SESSION['login'])){
               <form method="post" action="?action=save&code=<?php echo $id ?>">
                 <input type="text" class="form-control" autocomplete="off" value="<?php echo $titel ?>" name="titel">
             </td>
-            <td><input type="text" class="form-control" autocomplvalue="<?php echo $omschr ?>" name="omschr"></td>
+            <td><input type="text" class="form-control" autocomplete="off" value="<?php echo $omschr ?>" name="omschr"></td>
             <td>
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>

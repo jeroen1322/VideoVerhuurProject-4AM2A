@@ -5,6 +5,9 @@
   .right{
     width: 100% !important;
   }
+  .admin_menu {
+    width: 100% !important;
+  }
 }
 .menu_right{
   float: right;
