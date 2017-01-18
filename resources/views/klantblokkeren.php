@@ -34,17 +34,14 @@ if(!empty($_SESSION['login'])){
     }
     ?>
     <div class="panel panel-default">
-      <div class="left_menu">
-        <ul class="list-group left_menu_list">
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/film_toevoegen"><button class="btn btn-succes left_button"><i class="fa fa-plus plus_fa" aria-hidden="true"></i> FILM TOEVOEGEN</button></a></li>
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/film_verwijderen"><button class="btn btn-succes left_button"><i class="fa fa-trash-o min_fa" aria-hidden="true"></i> FILM VERWIJDEREN</button></a></li>
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/film_aanpassen"><button class="btn btn-succes left_button"><i class="fa fa-pencil edit_fa" aria-hidden="true"></i> FILM INFO BEHEREN</button></a></li>
-          <li class="list-group-item left_menu_button"><a href="/eigenaar/klant_blokkeren"><button class="btn btn-succes left_button actief"><i class="fa fa-ban block_fa" aria-hidden="true"></i> KLANT BLOKKEREN</button></a></li>
-        </ul>
-      </div>
-      <div class="panel-body eigenaar_right">
+      <div class="panel-body">
+        <div class="btn-group admin">
+          <a href="/eigenaar/film_toevoegen" class="btn btn-primary admin_menu">FILM TOEVOEGEN</a>
+          <a href="/eigenaar/film_verwijderen" class="btn btn-default admin_menu">FILM VERWIJDEREN</a>
+          <a href="/eigenaar/film_aanpassen" class="btn btn-default admin_menu">FILM INFO BEHEREN</a>
+          <a href="/eigenaar/klant_blokkeren" class="btn btn-default actief admin_menu">KLANT BLOKKEREN</a>
+        </div>
         <h1>KLANT BLOKKEREN</h1>
-        <div class="right">
         <table class="table">
           <thead>
             <tr>
@@ -100,7 +97,7 @@ if(!empty($_SESSION['login'])){
                 if($rolId === 1){
                   ?>
                   <form method="post" action="?action=block&code=<?php echo $i ?>">
-                    <button type="submit" class="btn btn-success ban">
+                    <button type="submit" class="btn btn-success">
                         <i class="fa fa-ban" aria-hidden="true"></i>
                     </button>
                   </form>
@@ -108,7 +105,7 @@ if(!empty($_SESSION['login'])){
                 }elseif($rolId === 5){
                   ?>
                   <form method="post" action="?action=unblock&code=<?php echo $i ?>">
-                    <button type="submit" class="btn btn-success ban">
+                    <button type="submit" class="btn btn-success">
                         <i class="fa fa-ban unblock" aria-hidden="true"></i>
                     </button>
                   </form>

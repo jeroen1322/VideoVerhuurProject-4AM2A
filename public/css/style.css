@@ -158,30 +158,6 @@ a.menu_winkelmand {
 .red_count{
   color: red;
 }
-.left_menu {
-    margin-right: 10px;
-    float: left;
-    width: 20%;
-    margin-left: -1px;
-    margin-bottom: -1px;
-}
-.left_menu_button{
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  width: 100% !important;
-}
-.left_button{
-  width: 100%;
-  background-color: lightgray;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-top: 0;
-  margin-bottom: 1px;
-  border-bottom: 1px solid #000;
-}
-.left_menu_list{
-  margin-bottom: 0;
-}
 .eigenaar_right{
   padding: 0;
 }
@@ -196,14 +172,13 @@ button.btn.btn-succes.left_button {
     color: white;
 }
 
-.left_button .fa {
-    font-size: 22px;
-    float: left;
-}
-.klant_right{
-  width: 50%;
-  float: left;
-}
 button.btn.btn-success.ban {
     margin-top: -8px;
+}
+.btn-group.admin {
+    width: 100%;
+}
+.admin_menu {
+    width: 25%;
+    display: inline-table;
 }
