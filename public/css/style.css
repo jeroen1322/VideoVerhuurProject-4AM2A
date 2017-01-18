@@ -186,14 +186,16 @@ a.menu_winkelmand {
   padding: 0;
 }
 button.btn.btn-succes.left_button {
-    color: white;
+    color: rgba(45,62,75, 1);
 }
 .actief{
   background-color: mediumseagreen !important;
+  color: white !important;
 }
 .actief .fa {
     color: white;
 }
+
 .left_button .fa {
     font-size: 22px;
     float: left;
@@ -201,4 +203,7 @@ button.btn.btn-succes.left_button {
 .klant_right{
   width: 50%;
   float: left;
+}
+button.btn.btn-success.ban {
+    margin-top: -8px;
 }

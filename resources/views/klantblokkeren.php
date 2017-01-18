@@ -100,7 +100,7 @@ if(!empty($_SESSION['login'])){
                 if($rolId === 1){
                   ?>
                   <form method="post" action="?action=block&code=<?php echo $i ?>">
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success ban">
                         <i class="fa fa-ban" aria-hidden="true"></i>
                     </button>
                   </form>
@@ -108,7 +108,7 @@ if(!empty($_SESSION['login'])){
                 }elseif($rolId === 5){
                   ?>
                   <form method="post" action="?action=unblock&code=<?php echo $i ?>">
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success ban">
                         <i class="fa fa-ban unblock" aria-hidden="true"></i>
                     </button>
                   </form>
