@@ -28,27 +28,12 @@ if(!empty($_SESSION['login'])){
     ?>
     <div class="panel panel-default">
       <div class="panel-body">
-<<<<<<< Updated upstream
         <div class="btn-group admin">
           <a href="/eigenaar/overzicht" class="btn btn-primary actief admin_menu">OVERZICHT</a>
           <a href="/eigenaar/film_toevoegen" class="btn btn-primary admin_menu">FILM TOEVOEGEN</a>
           <a href="/eigenaar/film_verwijderen" class="btn btn-primary admin_menu">FILM VERWIJDEREN</a>
           <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
           <a href="/eigenaar/klant_blokkeren" class="btn btn-primary admin_menu">KLANT BLOKKEREN</a>
-=======
-        <h1>Baliemedewerkeroverzicht</h1>
-        <div class="col-md-3 col-sm-4 col-xs-6">
-            <div class="dummy"></div>
-            <a href="/eigenaar/film_toevoegen" class="thumbnail purple">FILM TOEVOEGEN</a>
-        </div>
-        <div class="col-md-3 col-sm-4 col-xs-6">
-            <div class="dummy"></div>
-            <a href="/eigenaar/film_verwijderen" class="thumbnail purple">FILM VERWIJDEREN</a>
-        </div>
-        <div class="col-md-3 col-sm-4 col-xs-6">
-            <div class="dummy"></div>
-            <a href="/eigenaar/film_aanpassen" class="thumbnail purple">FILM INFORMATIE BEHEREN</a>
->>>>>>> Stashed changes
         </div>
         <h1>EIGENAAR OVERZICHT</h1>
         <div class="left">
