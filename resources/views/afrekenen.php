@@ -26,7 +26,7 @@ if(!empty($_SESSION['login'])){
     $stmt->close();
 
     //Haal id op van Order op
-    $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=?");
+    $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=0");
     $stmt->bind_param("i", $klantId);
     $stmt->execute();
 
@@ -50,6 +50,7 @@ if(!empty($_SESSION['login'])){
         if(!empty($_GET['action'])){
           $code = $_GET['code'];
           $action = $_GET['action'];
+          
           foreach($orderIdResult as $e){
             $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET besteld=1 WHERE id=?");
             $exm_order_stmt->bind_param("i", $e);
