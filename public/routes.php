@@ -240,11 +240,18 @@ $klein->onHttpError(function ($code, $router) {
             );
     }
 });
-$klein->respond('/baliemedewerker_overzicht', function ($request, $response, $service) {
+$klein->respond('/baliemedewerker/overzicht', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Overzicht';
 
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/baliemedewerker_overzicht.php');
+});
+$klein->respond('/baliemedewerker/inkomendeorders', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Overzicht';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/inkomendeorders.php');
 });
 $klein->dispatch();

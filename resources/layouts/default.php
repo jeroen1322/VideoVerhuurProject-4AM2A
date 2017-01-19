@@ -59,8 +59,7 @@ if(!empty($_SESSION['login'])){
           <ul class="nav navbar-nav">
             <li><a href="/film/aanbod">FILMAANBOD</a></li>
             <li><a href="/over_ons">OVER ONS</a></li>
-            <li><a href="/contact">CONTACT</a><li>
-              <li><a href="/baliemedewerker_overzicht">Baliemedewerker</a><li>
+            <li><a href="/contact">CONTACT</a></li>
           </ul>
             <?php
             if(!empty($_SESSION['login'])){
@@ -101,6 +100,11 @@ if(!empty($_SESSION['login'])){
                        ?>
                        <li><a href="/klant/overzicht" class="naam">OVERZICHT</a></li>
                        <?php
+                     }
+                     elseif($_SESSION['login'][2] === 3){
+                         ?>
+                         <li><a href="/baliemedewerker/overzicht" class="naam">OVERZICHT</a></li>
+                         <?php
                      }
                      ?>
                      <li><a href="/uitloggen">UITLOGGEN</a></li>
