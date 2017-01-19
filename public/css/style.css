@@ -185,3 +185,7 @@ button.btn.btn-success.ban {
     width: 25%;
     display: inline-table;
 }
+.klant_right{
+  width: 50%;
+  float: left;
+}

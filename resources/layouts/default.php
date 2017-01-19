@@ -94,7 +94,7 @@ if(!empty($_SESSION['login'])){
                      <?php
                      if($_SESSION['login'][2] === 4){
                        ?>
-                         <li><a href="/eigenaar/film_toevoegen" class="naam">OVERZICHT</a></li>
+                         <li><a href="/eigenaar/overzicht" class="naam">OVERZICHT</a></li>
                        <?php
                      }elseif($_SESSION['login'][2] === 1){
                        ?>
