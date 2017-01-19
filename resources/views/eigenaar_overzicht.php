@@ -107,7 +107,7 @@ if(!empty($_SESSION['login'])){
           <h4>ORDERS</h4>
           <?php
           //Haal id op van Order op
-          $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=?");
+          $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE besteld=1");
           $stmt->bind_param("i", $id);
           $stmt->execute();
 
@@ -156,7 +156,7 @@ if(!empty($_SESSION['login'])){
               $exm_stmt->close();
 
               //Haal alles van de film op dat overeen komt met de filmid van het exemplaar
-              $exm_film_stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film`");
+              $exm_film_stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` WHERE id=?");
               $exm_film_stmt->bind_param("i", $exm_film_id);
               $exm_film_stmt->execute();
 

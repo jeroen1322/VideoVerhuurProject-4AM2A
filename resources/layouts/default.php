@@ -67,7 +67,7 @@ if(!empty($_SESSION['login'])){
               <ul class="nav navbar-nav menu_right">
                 <?php
                 //Haal id op van Order op
-                $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=?");
+                $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=0");
                 $stmt->bind_param("i", $klantId);
                 $stmt->execute();
 

@@ -39,9 +39,9 @@ if(!empty($_GET)){
   $order_id = rand(1, 2100);
   $bedrag = 7.50;
   $klant = $_SESSION['login']['0'];
-
-  $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag) VALUES (?, ?, ?)");
-  $cart_stmt->bind_param("iid", $order_id, $klant, $bedrag);
+  $besteld = 0;
+  $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag, besteld) VALUES (?, ?, ?, ?)");
+  $cart_stmt->bind_param("iidi", $order_id, $klant, $bedrag, $besteld );
   $cart_stmt->execute();
   $cart_stmt->close();
 
