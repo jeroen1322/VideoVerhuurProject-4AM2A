@@ -34,7 +34,8 @@ if(!empty($titel)){
                       <div class="thumb">
                           <a href=<?php echo"$url" ?>>
                           <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
-                          <h2 class="textfilmaanbod"><?php echo "$titel"?></h2>
+                          <h2 class="textfilmaanbod"><?php echo "$titel"?> <button type="submit"> <i class="fa fa-shopping-cart"></i></button> </h2>
+
                       </div>
                   </a>
               </div>

@@ -60,6 +60,7 @@ if(!empty($_SESSION['login'])){
             <li><a href="/film/aanbod">FILMAANBOD</a></li>
             <li><a href="/over_ons">OVER ONS</a></li>
             <li><a href="/contact">CONTACT</a><li>
+              <li><a href="/baliemedewerker_overzicht">Baliemedewerker</a><li>
           </ul>
             <?php
             if(!empty($_SESSION['login'])){

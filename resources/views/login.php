@@ -66,7 +66,7 @@ if(!empty($_POST)){
 
     DB::conn()->close();
   }else{
-    echo '<div class="alert">Controlleer of u alle velden correct heeft ingevuld.</div>';
+    echo '<div class="alert">Controleer of u alle velden correct heeft ingevuld.</div>';
   }
 }
 ?>
