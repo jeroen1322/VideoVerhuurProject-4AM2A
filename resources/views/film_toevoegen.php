@@ -33,7 +33,7 @@ if(!empty($_SESSION['login'])){
     echo "404";
   }
 }else{
-  echo "404";
+  header("Refresh:0; url=/login");
 }
 
 

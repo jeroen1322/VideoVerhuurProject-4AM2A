@@ -9,7 +9,7 @@ if(!empty($_SESSION['login'])){
         }else{
             return false;
         }
-    }}
+    }
     if(isBalieMedewerker($klantRolId)){
     ?>
         <div class="panel panel-default">
@@ -24,4 +24,7 @@ if(!empty($_SESSION['login'])){
         </div>
     <?php
     }
-    ?>
+}else{
+  header("Refresh:0; url=/login");
+}
+?>

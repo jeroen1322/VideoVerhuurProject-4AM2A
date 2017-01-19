@@ -9,10 +9,9 @@ if(!empty($_SESSION['login'])){
         }else{
             return false;
         }
-    }}
-if(isEigenaar($klantRolId)){
+    }
+    if(isEigenaar($klantRolId)){
 ?>
-
 <div class="panel panel-default">
     <div class="panel-body">
         <h1></h1>
@@ -47,7 +46,7 @@ if(isEigenaar($klantRolId)){
                 <div class="filmThumbnail col-md-3">
                     <a href="/">
                         <div class="">
-                            <h2 class="textfilmaanbod"><?php echo "$id"?> </h2>
+                            <h2 class="textfilmaanbod"><?php echo $id?> </h2>
                             <?php
 
                             if($afhandeling === 0){
@@ -64,10 +63,18 @@ if(isEigenaar($klantRolId)){
                     </a>
                 </div>
 
-            <?php }}
-        else {
-            echo "geen data";
-        }?>
+            <?php
+            }
+          }
+          else {
+              echo "geen data";
+          }
+        ?>
     </div>
 </div>
-<?php } ?>
+<?php
+  }
+}else{
+  header("Refresh:0; url=/login");
+}
+?>

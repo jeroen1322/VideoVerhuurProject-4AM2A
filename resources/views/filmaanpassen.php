@@ -127,5 +127,5 @@ if(!empty($_SESSION['login'])){
     echo "NOPE HIER MAG JE NIET KOMEN!";
   }
 }else{
-  echo "405 - GEEN TOEGANG";
+  header("Refresh:0; url=/login");
 }

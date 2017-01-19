@@ -124,4 +124,6 @@ if(!empty($_SESSION['login'])){
   </tbody>
   </table>
 <?php
+}else{
+  header("Refresh:0; url=/login");
 }

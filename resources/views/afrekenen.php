@@ -113,4 +113,6 @@ if(!empty($_SESSION['login'])){
 </div>
 <?php
   DB::conn()->close();
+}else{
+  header("Refresh:0; url=/login");
 }

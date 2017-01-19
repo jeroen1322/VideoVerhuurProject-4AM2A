@@ -177,6 +177,8 @@ if(!empty($_SESSION['login'])){
             <?php
           }
         }
+      }else{
+        echo "<div class='warning'><b>U HEEFT NOG GEEN FILMS BESTELD</b></div>";
       }
       ?>
     </div>
@@ -186,4 +188,6 @@ if(!empty($_SESSION['login'])){
   <?php
   }
 DB::conn()->close();
+}else{
+  header("Refresh:0; url=/login");
 }

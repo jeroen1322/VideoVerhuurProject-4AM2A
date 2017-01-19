@@ -102,7 +102,7 @@ if(!empty($_SESSION['login'])){
         $exm_order_stmt->bind_param("i", $code);
         $exm_order_stmt->execute();
         $exm_order_stmt->close();
-        
+
         $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Film` WHERE id=?");
         $exm_order_stmt->bind_param("i", $code);
         $exm_order_stmt->execute();
@@ -117,5 +117,5 @@ if(!empty($_SESSION['login'])){
     echo "NOPE HIER MAG JE NIET KOMEN!";
   }
 }else{
-  echo "405 - GEEN TOEGANG";
+  header("Refresh:0; url=/login");
 }
