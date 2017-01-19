@@ -28,6 +28,13 @@ if(!empty($_SESSION['login'])){
     ?>
     <div class="panel panel-default">
       <div class="panel-body">
+        <div class="btn-group admin">
+          <a href="/eigenaar/overzicht" class="btn btn-primary actief admin_menu">OVERZICHT</a>
+          <a href="/eigenaar/film_toevoegen" class="btn btn-primary admin_menu">FILM TOEVOEGEN</a>
+          <a href="/eigenaar/film_verwijderen" class="btn btn-primary admin_menu">FILM VERWIJDEREN</a>
+          <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
+          <a href="/eigenaar/klant_blokkeren" class="btn btn-primary admin_menu">KLANT BLOKKEREN</a>
+        </div>
         <h1>EIGENAAR OVERZICHT</h1>
         <div class="left">
           <?php
