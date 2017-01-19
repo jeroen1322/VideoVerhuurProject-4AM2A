@@ -56,12 +56,16 @@ INSERT INTO Rol (id, omschr) VALUES (5, "Geblokkeerd");
 INSERT INTO `Status`(id, omschr) VALUES(1, "Beschikbaar");
 INSERT INTO `Status`(id, omschr) VALUES(2, "NIET Beschikbaar");
 
+ALTER TABLE `Order`
+ADD `Afhandeling` bool;
+
 -- SELECT * FROM `Rol`;
 -- SELECT * FROM `Order`;
 -- SELECT * FROM `Orderregel`;
 -- SELECT * FROM `Exemplaar`;
 -- SELECT * FROM `Film`;
 -- SELECT * FROM `Persoon`;
+
 
 INSERT INTO Wachtwoord(id, wachtwoord) VALUES (123, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
 INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'grootenjeroen@hotmail.com', 123, 4);
