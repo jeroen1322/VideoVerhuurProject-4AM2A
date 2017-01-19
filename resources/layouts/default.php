@@ -59,12 +59,7 @@ if(!empty($_SESSION['login'])){
           <ul class="nav navbar-nav">
             <li><a href="/film/aanbod">FILMAANBOD</a></li>
             <li><a href="/over_ons">OVER ONS</a></li>
-<<<<<<< HEAD
             <li><a href="/contact">CONTACT</a></li>
-=======
-            <li><a href="/contact">CONTACT</a><li>
-              <li><a href="/baliemedewerker/overzicht">Baliemedewerker</a><li>
->>>>>>> master
           </ul>
             <?php
             if(!empty($_SESSION['login'])){
