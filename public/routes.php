@@ -240,7 +240,7 @@ $klein->onHttpError(function ($code, $router) {
             );
     }
 });
-$klein->respond('/baliemedewerker_overzicht', function ($request, $response, $service) {
+$klein->respond('/baliemedewerker/overzicht', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Overzicht';
 
