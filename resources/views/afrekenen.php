@@ -10,7 +10,14 @@ if(!empty($_SESSION['login'])){
       return false;
     }
   }
-  if(isKlant($klantRolId)){
+  function isEigenaar($klantId){
+    if($klantId === 1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  if(isKlant($klantRolId) || isEigenaar($klantId)){
     $stmt = DB::conn()->prepare("SELECT id, naam, adres, postcode, woonplaats, telefoonnummer, email FROM `Persoon` WHERE id=?");
     $stmt->bind_param('i', $klantId);
     $stmt->execute();
@@ -33,7 +40,9 @@ if(!empty($_SESSION['login'])){
 
     $stmt->close();
     $bedrag = count($orderIdResult) * 7.50;
-        ?>
+
+
+    ?>
     <div class="panel panel-default">
       <div class="panel-body">
         <h1>AFREKENEN</h1>
@@ -41,7 +50,12 @@ if(!empty($_SESSION['login'])){
         if(!empty($_GET['action'])){
           $code = $_GET['code'];
           $action = $_GET['action'];
-          $bedrag
+          foreach($orderIdResult as $e){
+            $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET besteld=1 WHERE id=?");
+            $exm_order_stmt->bind_param("i", $e);
+            $exm_order_stmt->execute();
+            $exm_order_stmt->close();
+          }
           ?>
           <h2><b>U HEEFT €<?php echo $bedrag ?> BETAALD</b></h2>
           <a href="/"><button class="btn btn-success bestel">TERUG NAAR HOME</button></a>
@@ -59,13 +73,39 @@ if(!empty($_SESSION['login'])){
             <li class="list-group-item"><b>Adres: </b><?php echo $adres ?></li>
             <li class="list-group-item"><b>Postcode: </b><?php echo $postcode ?></li>
             <li class="list-group-item"><b>Woonplaats: </b><?php echo $woonplaats ?></li>
+            <?php
+            foreach($orderIdResult as $e){
+              $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+              $stmt->bind_param("i", $e);
+              $stmt->execute();
+              $stmt->bind_result($exm_id);
+              $stmt->fetch();
+              $stmt->close();
+
+              $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
+              $stmt->bind_param("i", $exm_id);
+              $stmt->execute();
+              $stmt->bind_result($filmid);
+              $stmt->fetch();
+              $stmt->close();
+
+              $stmt = DB::conn()->prepare("SELECT id, titel, img FROM `Film` WHERE id=?");
+              $stmt->bind_param("i", $filmid);
+              $stmt->execute();
+              $stmt->bind_result($film_id, $titel, $img);
+              $stmt->fetch();
+              $stmt->close();
+
+              // echo $film_id . "<br>" . $titel . "<br>" . $img . "<br><br>";
+            }
+             ?>
             <form method="post" action="?action=ok&code=<?php echo $id ?>">
               <input type="submit" class="btn btn-success bestel" value="DE GEGEVENS KLOPPEN">
             </form>
           </ul>
           <?php
         }
-        }
+      }
     }
   ?>
 </div>
