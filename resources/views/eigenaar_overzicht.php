@@ -64,7 +64,7 @@ if(!empty($_SESSION['login'])){
             $stmt->bind_param("ssssssi", $_POST['naam'], $_POST['email'], $_POST['telefoonnummer'], $_POST['adres'], $_POST['postcode'], $_POST['woonplaats'], $code);
             $stmt->execute();
             $stmt->close();
-            header("Refresh:0; url=/klant/overzicht");
+            header("Refresh:0; url=/eigenaar/overzicht");
           }else{
           ?>
           <div class="info">

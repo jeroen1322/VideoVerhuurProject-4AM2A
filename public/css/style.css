@@ -146,7 +146,7 @@ a.menu_winkelmand {
 }
 .left{
   float: left;
-  width: 50%;
+  width: 35%;
 }
 .right{
   width: 78%;
@@ -186,6 +186,6 @@ button.btn.btn-success.ban {
     display: inline-table;
 }
 .klant_right{
-  width: 50%;
+  width: 65%;
   float: left;
 }
