@@ -68,6 +68,7 @@ if(!empty($_GET)){
 DB::conn()->close();
 
 if(!empty($id)){
+
 ?>
       <a class="btn btn-success terug_button" href="/film/aanbod">
         <li class="fa fa-arrow-left filmaanbod-terug"></li>Filmaanbod
@@ -111,6 +112,11 @@ if(!empty($id)){
                 if($dis){
                   ?>
                   <input type="submit" class="btn btn-success bestel" value="Bestel" disabled>
+                  <?php
+                }elseif(empty($_SESSION['login'])){
+                  ?>
+                  <input type="submit" class="btn btn-success bestel" value="Bestel" disabled><br><br><br>
+                  <h5>U moet ingelogd zijn om te kunnen bestellen</h5>
                   <?php
                 }else{
                   ?>
