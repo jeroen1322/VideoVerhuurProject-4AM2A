@@ -10,14 +10,14 @@ if(!empty($_SESSION['login'])){
       return false;
     }
   }
-  function isEigenaar($klantId){
+  function isEigenaar($klantRolId){
     if($klantId === 1){
       return true;
     }else{
       return false;
     }
   }
-  if(isKlant($klantRolId) || isEigenaar($klantId)){
+  if(isKlant($klantRolId) || isEigenaar($klantRolId)){
     $stmt = DB::conn()->prepare("SELECT id, naam, adres, postcode, woonplaats, telefoonnummer, email FROM `Persoon` WHERE id=?");
     $stmt->bind_param('i', $klantId);
     $stmt->execute();
@@ -50,7 +50,7 @@ if(!empty($_SESSION['login'])){
         if(!empty($_GET['action'])){
           $code = $_GET['code'];
           $action = $_GET['action'];
-          
+
           foreach($orderIdResult as $e){
             $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET besteld=1 WHERE id=?");
             $exm_order_stmt->bind_param("i", $e);

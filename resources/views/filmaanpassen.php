@@ -2,14 +2,16 @@
 if(!empty($_SESSION['login'])){
   $klantId = $_SESSION['login'][0];
   $klantNaam = $_SESSION['login'][1];
-  function isEigenaar($klantId){
+  $klantRolId = $_SESSION['login'][2];
+  function isEigenaar($klantRolId){
     if($klantId === 1){
       return true;
     }else{
       return false;
     }
   }
-  if(isEigenaar($klantId)){
+  if(isEigenaar($klantRolId)){
+
     if(!empty($_GET['action'])){
       $code = $_GET['code'];
       $edit = true;

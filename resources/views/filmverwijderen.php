@@ -97,12 +97,12 @@ if(!empty($_SESSION['login'])){
         $exm_order_stmt->bind_param("i", $x);
         $exm_order_stmt->execute();
         $exm_order_stmt->close();
-        //
+
         $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Exemplaar` WHERE filmid=?");
         $exm_order_stmt->bind_param("i", $code);
         $exm_order_stmt->execute();
         $exm_order_stmt->close();
-        //
+        
         $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Film` WHERE id=?");
         $exm_order_stmt->bind_param("i", $code);
         $exm_order_stmt->execute();
