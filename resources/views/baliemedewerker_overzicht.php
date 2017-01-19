@@ -3,16 +3,15 @@ if(!empty($_SESSION['login'])){
     $klantId = $_SESSION['login'][0];
     $klantNaam = $_SESSION['login'][1];
     $klantRolId = $_SESSION['login'][2];
-    function isEigenaar($klantRolId){
+    function isBalieMedewerker($klantRolId){
         if($klantRolId === 3){
             return true;
         }else{
             return false;
         }
     }}
-if(isEigenaar($klantRolId)){
+    if(isBalieMedewerker($klantRolId)){
     ?>
-
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="btn-group admin">
@@ -21,7 +20,8 @@ if(isEigenaar($klantRolId)){
                     <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
                 </div>
                 <h1> Binnengekomen orders</h1>
-
             </div>
         </div>
-<?php } ?>
+    <?php
+    }
+    ?>
