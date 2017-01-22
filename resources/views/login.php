@@ -5,42 +5,13 @@ $wachtwoord = $_POST['wachtwoord'];
 if(!empty($_POST)){
   if($email && $wachtwoord != ''){
     //Pak het wachtwoordid dat bij de ingevoerde email hoort
-    $stmt = DB::conn()->prepare("SELECT wachtwoordid FROM Persoon WHERE email=?");
+    $stmt = DB::conn()->prepare("SELECT wachtwoordid, id, naam, rolid FROM Persoon WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
 
-    $stmt->bind_result($wachtwoordid);
+    $stmt->bind_result($wachtwoordid, $klantId, $naam, $klantRolId);
     $stmt->fetch();
     $stmt->close();
-
-    //Pak het id van de klant dat bij de ingevoerde email hoort
-    $stmt = DB::conn()->prepare("SELECT id FROM Persoon WHERE email=?");
-    $stmt->bind_param("s", $email);    //RolId
-
-
-    $stmt->execute();
-
-    $stmt->bind_result($klantId);
-    $stmt->fetch();
-    $stmt->close();
-
-    //Pak de naam van de klant dat bij de ingevoerde email hoort
-    $name_stmt = DB::conn()->prepare("SELECT naam FROM Persoon WHERE id=?");
-    $name_stmt->bind_param("i", $klantId);
-    $name_stmt->execute();
-
-    $name_stmt->bind_result($naam);
-    $name_stmt->fetch();
-    $name_stmt->close();
-
-    //Pak de naam van de klant dat bij de ingevoerde email hoort
-    $name_stmt = DB::conn()->prepare("SELECT rolid FROM Persoon WHERE id=?");
-    $name_stmt->bind_param("i", $klantId);
-    $name_stmt->execute();
-
-    $name_stmt->bind_result($klantRolId);
-    $name_stmt->fetch();
-    $name_stmt->close();
 
     //Haal het wachtwoord op dat bij het ID hoort
     $ww_stmt = DB::conn()->prepare("SELECT wachtwoord FROM Wachtwoord WHERE id=?");
