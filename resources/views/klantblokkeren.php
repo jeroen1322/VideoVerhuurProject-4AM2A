@@ -43,17 +43,6 @@ if(!empty($_SESSION['login'])){
           <a href="/eigenaar/klant_blokkeren" class="btn btn-primary actief admin_menu">KLANT BLOKKEREN</a>
         </div>
         <h1>KLANT BLOKKEREN</h1>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Naam</th>
-              <th>Telefoonnummer</th>
-              <th>Email</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
         <?php
         //Haal alle klanten op
         $rol1 = 1;
@@ -70,53 +59,70 @@ if(!empty($_SESSION['login'])){
         }
         sort($klant);
         $stmt->close();
-
-        foreach($klant as $i){
-          $stmt = DB::conn()->prepare("SELECT naam, telefoonnummer, email, rolid FROM `Persoon` WHERE id=?");
-          $stmt->bind_param('i', $i);
-          $stmt->execute();
-          $stmt->bind_result($naam, $telefoonnummer, $email, $rolId);
-          $stmt->fetch();
-          $stmt->close();
+        if(!empty($klant)){
           ?>
-          <tr>
-            <td><?php echo $i ?></td>
-            <td><?php echo $naam ?></td>
-            <td><?php echo $telefoonnummer ?></td>
-            <td><?php echo $email ?></td>
-            <td>
-              <?php
-                if($rolId === 1){
-                  echo "NIET GEBLOKKEERD";
-                }elseif($rolId === 5){
-                  echo "<b>GEBLOKKEERD</b>";
-                }
-              ?>
-            </td>
-            <td>
-              <?php
-                if($rolId === 1){
-                  ?>
-                  <form method="post" action="?action=block&code=<?php echo $i ?>">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-ban" aria-hidden="true"></i>
-                    </button>
-                  </form>
-                  <?php
-                }elseif($rolId === 5){
-                  ?>
-                  <form method="post" action="?action=unblock&code=<?php echo $i ?>">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-ban unblock" aria-hidden="true"></i>
-                    </button>
-                  </form>
-                  <?php
-                }
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Naam</th>
+                <th>Telefoonnummer</th>
+                <th>Email</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            <?php
+          foreach($klant as $i){
+            $stmt = DB::conn()->prepare("SELECT naam, telefoonnummer, email, rolid FROM `Persoon` WHERE id=?");
+            $stmt->bind_param('i', $i);
+            $stmt->execute();
+            $stmt->bind_result($naam, $telefoonnummer, $email, $rolId);
+            $stmt->fetch();
+            $stmt->close();
+            ?>
+            <tr>
+              <td><?php echo $i ?></td>
+              <td><?php echo $naam ?></td>
+              <td><?php echo $telefoonnummer ?></td>
+              <td><?php echo $email ?></td>
+              <td>
+                <?php
+                  if($rolId === 1){
+                    echo "NIET GEBLOKKEERD";
+                  }elseif($rolId === 5){
+                    echo "<b>GEBLOKKEERD</b>";
+                  }
                 ?>
-            </td>
-          </tr>
-          <?php
+              </td>
+              <td>
+                <?php
+                  if($rolId === 1){
+                    ?>
+                    <form method="post" action="?action=block&code=<?php echo $i ?>">
+                      <button type="submit" class="btn btn-success">
+                          <i class="fa fa-ban" aria-hidden="true"></i>
+                      </button>
+                    </form>
+                    <?php
+                  }elseif($rolId === 5){
+                    ?>
+                    <form method="post" action="?action=unblock&code=<?php echo $i ?>">
+                      <button type="submit" class="btn btn-success">
+                          <i class="fa fa-ban unblock" aria-hidden="true"></i>
+                      </button>
+                    </form>
+                    <?php
+                  }
+                  ?>
+              </td>
+            </tr>
+            <?php
+          }
+        }else{
+          echo "<div class='warning'><b>ER ZIJN NOG GEEN KLANTEN GEREGISTREERD</b></div>";
         }
+
 
         DB::conn()->close();
   }
