@@ -28,9 +28,7 @@ if(!empty($_POST)){
         $_SESSION['login'][] = $klantId; //Zet de session die we kunnen checken in de functie isIngelogd();
         $_SESSION['login'][] = $naam;
         $_SESSION['login'][] = $klantRolId;
-        ?>
-        <script>window.location.replace("/");</script>
-        <?php
+        header("Refresh:0; url=/");
     } else {
         echo '<div class="alert">Deze email en wachtwoord combinatie is niet bij ons geregistreerd.</div>';
     }

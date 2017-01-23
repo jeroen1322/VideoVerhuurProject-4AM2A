@@ -191,7 +191,7 @@ if(!empty($id)){
                 }elseif(empty($_SESSION['login'])){
                   ?>
                   <input type="submit" class="btn btn-success bestel" value="Bestel" disabled><br><br><br>
-                  <h5>U moet ingelogd zijn om te kunnen bestellen</h5>
+                  <h5><b>U moet <a href="/login">ingelogd</a> zijn om te kunnen bestellen</b></h5>
                   <?php
                 }else{
                   ?>

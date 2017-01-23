@@ -92,7 +92,5 @@ if(!empty($_SESSION['login'])){
   }
   echo "<div class='succes'>FILM TOEGEVOEGD!</div>";
   DB::conn()->close();
-  ?>
-  <script>window.location.replace("/film/<?php echo $uploadName ?>" );</script>
-  <?php
+  header("Refresh:0; url=/");
   }

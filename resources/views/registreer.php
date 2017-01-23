@@ -38,9 +38,8 @@ if(!empty($_POST)){
     $stmt->execute();
 
     echo "<div class='succes'>Account aangemaakt.</div>";
-    ?>
-    <script>window.location.replace("/login");</script>
-    <?php
+
+    header("Refresh:0; url=/login");
     //Connecties afsluiten
     $stmt->close();
     DB::conn()->close();
