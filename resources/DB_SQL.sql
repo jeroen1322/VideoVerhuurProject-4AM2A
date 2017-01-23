@@ -65,10 +65,15 @@ ADD `besteld` bool;
 SELECT * FROM `Order`;
 SELECT * FROM `Orderregel`;
 SELECT * FROM `Exemplaar`;
--- SELECT * FROM `Film`;
+SELECT * FROM `Film`;
 -- SELECT * FROM `Persoon`;
 
 
-INSERT INTO Wachtwoord(id, wachtwoord) VALUES (123, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
-INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'grootenjeroen@hotmail.com', 123, 4);
+INSERT INTO Wachtwoord(id, wachtwoord) VALUES (1, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
+INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'eigenaar@jeroengrooten.nl', 1, 4);
 
+INSERT INTO Wachtwoord(id, wachtwoord) VALUES (2, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
+INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'balie@jeroengrooten.nl', 2, 3);
+
+INSERT INTO Wachtwoord(id, wachtwoord) VALUES (3, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
+INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'bezorger@jeroengrooten.nl', 2, 2);

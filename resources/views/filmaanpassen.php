@@ -4,7 +4,7 @@ if(!empty($_SESSION['login'])){
   $klantNaam = $_SESSION['login'][1];
   $klantRolId = $_SESSION['login'][2];
   function isEigenaar($klantRolId){
-    if($klantId === 1){
+    if($klantRolId === 4){
       return true;
     }else{
       return false;
