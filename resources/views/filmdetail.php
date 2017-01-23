@@ -1,6 +1,18 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1 details">
 <?php
+if(!empty($_SESSION['login'])){
+  $klantId = $_SESSION['login'][0];
+  $klantNaam = $_SESSION['login'][1];
+  $klantRolId = $_SESSION['login'][2];
+  function isEigenaar($klantRolId){
+    if($klantRolId === 4){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
 $film = $this->filmNaam;
 
 //Pak de foto van de film
@@ -28,42 +40,46 @@ $cover = "/cover/" . $img;
 $titel = str_replace('_', ' ', $titel);
 $titel = strtoupper($titel);
 
-if(!empty($_GET)){
+if(!empty($_GET['action'])){
+  if($_GET['action'] == 'add'){
+    $_SESSION['cart_item'] = array();
+    $_SESSION['cart_item']['id'] = $_GET['code'];
+    $product_cart_id = $_SESSION['cart_item']['id'];
+    // echo $product_cart_id;
 
-  $_SESSION['cart_item'] = array();
-  $_SESSION['cart_item']['id'] = $_GET['code'];
-  $product_cart_id = $_SESSION['cart_item']['id'];
-  // echo $product_cart_id;
+    //VOEG TO AAN `ORDER`
+    $order_id = rand(1, 2100);
+    $bedrag = 7.50;
+    $klant = $_SESSION['login']['0'];
+    $besteld = 0;
+    $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag, besteld) VALUES (?, ?, ?, ?)");
+    $cart_stmt->bind_param("iidi", $order_id, $klant, $bedrag, $besteld );
+    $cart_stmt->execute();
+    $cart_stmt->close();
 
-  //VOEG TO AAN `ORDER`
-  $order_id = rand(1, 2100);
-  $bedrag = 7.50;
-  $klant = $_SESSION['login']['0'];
-  $besteld = 0;
-  $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag, besteld) VALUES (?, ?, ?, ?)");
-  $cart_stmt->bind_param("iidi", $order_id, $klant, $bedrag, $besteld );
-  $cart_stmt->execute();
-  $cart_stmt->close();
+    //VOEG TOE AAN `ORDERREGEL`
+    $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
+    $exm_stmt->bind_param("i", $id);
+    $exm_stmt->execute();
+    $exm_stmt->bind_result($exemplaar_id);
+    $exm_stmt->fetch();
+    $exm_stmt->close();
 
-  //VOEG TOE AAN `ORDERREGEL`
-  $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
-  $exm_stmt->bind_param("i", $id);
-  $exm_stmt->execute();
-  $exm_stmt->bind_result($exemplaar_id);
-  $exm_stmt->fetch();
-  $exm_stmt->close();
+    $exm_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=2 WHERE id=?");
+    $exm_stmt->bind_param("i", $exemplaar_id);
+    $exm_stmt->execute();
+    $exm_stmt->close();
 
-  $exm_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=2 WHERE id=?");
-  $exm_stmt->bind_param("i", $exemplaar_id);
-  $exm_stmt->execute();
-  $exm_stmt->close();
+    $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
+    $or_stmt->bind_param("ii", $exemplaar_id, $order_id);
+    $or_stmt->execute();
+    $or_stmt->close();
+    $e = str_replace(' ', '_', $titel);
+    header("Refresh:0; url=/film/" . $e);
+  }elseif($_GET['action'] == 'edit'){
+    echo "EDIT";
+  }
 
-  $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
-  $or_stmt->bind_param("ii", $exemplaar_id, $order_id);
-  $or_stmt->execute();
-  $or_stmt->close();
-  $e = str_replace(' ', '_', $titel);
-  header("Refresh:0; url=/film/" . $e);
 }
 DB::conn()->close();
 
@@ -76,6 +92,21 @@ if(!empty($id)){
         <div class="filmDetails">
           <div class="panel panel-default">
             <div class="panel-body">
+              <?php
+              if(!empty($_SESSION['login'])){
+                if(isEigenaar($klantRolId)){
+                ?>
+                <div class="filmDetail_right">
+                  <form method="post" action="?action=edit&amp;code=2">
+              <button type="submit" class="btn btn-success">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            </form>
+                </div>
+                <?php
+                }
+              }
+              ?>
               <img src="<?php echo $cover ?>" class="img-responsive cover"/>
               <h1><b><?php echo $titel ?></b></h1>
               <h3>Omschrijving</h3>
@@ -121,6 +152,7 @@ if(!empty($id)){
                 }else{
                   ?>
                   <input type="submit" class="btn btn-success bestel" value="Bestel">
+                </form>
                   <?php
                 }
                 ?>
