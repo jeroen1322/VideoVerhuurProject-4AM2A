@@ -117,19 +117,6 @@ if(!empty($id)){
                     header("Refresh:0; url=/film/$reloadTitel");
                   }
               }
-              if(!empty($_SESSION['login'])){
-                if(isEigenaar($klantRolId)){
-                ?>
-                <!-- <div class="filmDetail_right">
-                  <form method="post" action="?action=edit&code=<?php echo $id ?>">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
-                  </form>
-                </div> -->
-                <?php
-                }
-              }
               ?>
               <img src="<?php echo $cover ?>" class="img-responsive cover"/>
               <?php
@@ -151,14 +138,20 @@ if(!empty($id)){
                 </div>
                 <?php
               }else{
+                if(!empty($_SESSION['login'])){
+                  if(isEigenaar($klantRolId)){
+                  ?>
+                  <div class="filmDetail_right">
+                    <form method="post" action="?action=edit&code=<?php echo $id ?>">
+                      <button type="submit" class="btn btn-success">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                    </form>
+                  </div>
+                  <?php
+                  }
+                }
               ?>
-              <div class="filmDetail_right">
-                <form method="post" action="?action=edit&code=<?php echo $id ?>">
-                  <button type="submit" class="btn btn-success">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                  </button>
-                </form>
-              </div>
               <h1><b><?php echo $titel ?></b></h1>
               <h3>Omschrijving</h3>
               <p><?php echo $omschr ?></p>
