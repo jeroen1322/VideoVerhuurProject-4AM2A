@@ -59,7 +59,7 @@ $klein->respond('/eigenaar/overzicht', function ($request, $response, $service) 
 });
 
 // EIGENAAR film toevoegen
-$klein->respond('GET', '/eigenaar/film_toevoegen', function ($request, $response, $service) {
+$klein->respond('/eigenaar/film_toevoegen', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Filmtoevoegen';
 
@@ -67,14 +67,6 @@ $klein->respond('GET', '/eigenaar/film_toevoegen', function ($request, $response
     $service->render(VIEWS.'/filmtoevoegen.php');
 });
 
-// EIGENAAR film toevoegen
-$klein->respond('POST', '/eigenaar/film_toevoegen', function ($request, $response, $service) {
-    // add some data to the view.
-    $service->pageTitle = 'Filmtoevoegen';
-
-    // This is the function that renders the view inside the layout.
-    $service->render(VIEWS.'/filmtoevoegen.php');
-});
 
 // EIGENAAR film verwijderen
 $klein->respond('/eigenaar/film_verwijderen', function ($request, $response, $service) {
@@ -141,32 +133,17 @@ $klein->respond('/over_ons', function ($request, $response, $service) {
 });
 
 // Contact view
-$klein->respond('GET', '/contact', function ($request, $response, $service) {
+$klein->respond('/contact', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Contact';
 
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/contact.php');
 });
-// Contact view
-$klein->respond('POST', '/contact', function ($request, $response, $service) {
-  // add some data to the view.
-  $service->pageTitle = 'Contact';
 
-  // This is the function that renders the view inside the layout.
-  $service->render(VIEWS.'/contact.php');
-});
 
 // Login view
-$klein->respond('GET', '/login', function ($request, $response, $service) {
-    // add some data to the view.
-    $service->pageTitle = 'Login';
-
-    // This is the function that renders the view inside the layout.
-    $service->render(VIEWS.'/login.php');
-});
-// Login view
-$klein->respond('POST', '/login', function ($request, $response, $service) {
+$klein->respond('/login', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Login';
 
@@ -174,16 +151,9 @@ $klein->respond('POST', '/login', function ($request, $response, $service) {
     $service->render(VIEWS.'/login.php');
 });
 
-// Register view
-$klein->respond('GET', '/registreer', function ($request, $response, $service) {
-    // add some data to the view.
-    $service->pageTitle = 'Registreer';
 
-    // This is the function that renders the view inside the layout.
-    $service->render(VIEWS.'/registreer.php');
-});
 // Register view
-$klein->respond('POST', '/registreer', function ($request, $response, $service) {
+$klein->respond('/registreer', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Registreer';
 
@@ -192,7 +162,7 @@ $klein->respond('POST', '/registreer', function ($request, $response, $service) 
 });
 
 // Register view
-$klein->respond('GET', '/uitloggen', function ($request, $response, $service) {
+$klein->respond('/uitloggen', function ($request, $response, $service) {
     // add some data to the view.
     $service->pageTitle = 'Uitloggen';
 
@@ -201,7 +171,7 @@ $klein->respond('GET', '/uitloggen', function ($request, $response, $service) {
 });
 
 // COVER API
-$klein->respond('GET', '/cover/[:naam]', function ($request, $response, $service) {
+$klein->respond('/cover/[:naam]', function ($request, $response, $service) {
     $naam = $request->naam;
     $path = FOTO . "/" . $naam;
 
