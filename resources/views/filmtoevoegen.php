@@ -92,5 +92,5 @@ if(!empty($_SESSION['login'])){
   }
   echo "<div class='succes'>FILM TOEGEVOEGD!</div>";
   DB::conn()->close();
-  header("Refresh:0; url=/");
+  header("Refresh:0; url=/film/$titel");
   }
