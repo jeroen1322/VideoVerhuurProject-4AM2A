@@ -11,7 +11,7 @@ if(!empty($_SESSION['login'])){
     }
   }
   function isEigenaar($klantRolId){
-    if($klantId === 1){
+    if($klantRolId === 4){
       return true;
     }else{
       return false;
