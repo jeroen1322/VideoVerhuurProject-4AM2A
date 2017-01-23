@@ -179,6 +179,8 @@ if(!empty($_SESSION['login'])){
                 <?php
               }
             }
+          }else{
+            echo "<div class='warning'><b>ER ZIJN NOG GEEN ORDERS GEPLAATS</b></div>";
           }
           ?>
       </div>
