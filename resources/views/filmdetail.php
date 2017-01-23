@@ -76,12 +76,18 @@ if(!empty($_GET['action'])){
     $or_stmt->close();
     $e = str_replace(' ', '_', $titel);
     header("Refresh:0; url=/film/" . $e);
-  }elseif($_GET['action'] == 'edit'){
-    echo "EDIT";
-  }
 
+  }elseif(!empty($_GET['action'])){
+    if($_GET['action'] == 'edit'){
+      $code = $_GET['code'];
+      $edit = true;
+    }else{
+      $edit = false;
+    }
+  }
 }
-DB::conn()->close();
+
+
 
 if(!empty($id)){
 
@@ -93,21 +99,66 @@ if(!empty($id)){
           <div class="panel panel-default">
             <div class="panel-body">
               <?php
+              if(!empty($_GET['action'])){
+                  if($_GET['action'] == 'save'){
+
+                    $code = $id;
+                    $nieuweTitel = $_POST['titel'];
+                    $nieuweOmschr = $_POST['omschr'];
+                    $nieuweActeur = $_POST['acteur'];
+                    $nieuweGenre = $_POST['genre'];
+
+                    // //Gegevens invoeren in Film tabel
+                    $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
+                    $stmt->bind_param("ss", $nieuweTitel, $code);
+                    $stmt->execute();
+                    $stmt->close();
+                    $reloadTitel = strtolower($nieuweTitel);
+                    header("Refresh:0; url=/film/$reloadTitel");
+                  }
+              }
               if(!empty($_SESSION['login'])){
                 if(isEigenaar($klantRolId)){
                 ?>
-                <div class="filmDetail_right">
-                  <form method="post" action="?action=edit&amp;code=2">
-              <button type="submit" class="btn btn-success">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-              </button>
-            </form>
-                </div>
+                <!-- <div class="filmDetail_right">
+                  <form method="post" action="?action=edit&code=<?php echo $id ?>">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                  </form>
+                </div> -->
                 <?php
                 }
               }
               ?>
               <img src="<?php echo $cover ?>" class="img-responsive cover"/>
+              <?php
+              if($edit == true && $code == $id){
+                ?>
+                <div class="edit_film">
+                    <form method="post" action="?action=save&code=<?php echo $id ?>">
+                      <h1><b><input type="text" class="form-control" autocomplete="off" value="<?php echo $titel ?>" name="titel"></b></h1>
+                    <h3>Omschrijving</h3>
+                    <input type="text" class="form-control" autocomplete="off" value="<?php echo $omschr ?>" name="omschr">
+                    <h3>Acteurs</h3>
+                    <input type="text" class="form-control" autocomplete="off" value="<?php echo $acteur ?>" name="acteur">
+                    <h3>Genre</h3>
+                    <input type="text" class="form-control" autocomplete="off" value="<?php echo $genre ?>" name="genre">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </button>
+                  </form>
+                </div>
+                <?php
+              }else{
+              ?>
+              <div class="filmDetail_right">
+                <form method="post" action="?action=edit&code=<?php echo $id ?>">
+                  <button type="submit" class="btn btn-success">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                </form>
+              </div>
               <h1><b><?php echo $titel ?></b></h1>
               <h3>Omschrijving</h3>
               <p><?php echo $omschr ?></p>
@@ -156,12 +207,19 @@ if(!empty($id)){
                   <?php
                 }
                 ?>
+              </form>
+              <?php
+              }
+              ?>
+
             </div>
           </div>
       </div>
     </div>
 </div>
 <?php
+
 }else{
   echo "404 - FILM NIET GEVONDEN";
 }
+DB::conn()->close();
