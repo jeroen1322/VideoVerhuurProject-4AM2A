@@ -103,10 +103,22 @@ if(!empty($_SESSION['login'])){
           $exm_order_stmt->execute();
           $exm_order_stmt->close();
 
+          $exm_film_stmt = DB::conn()->prepare("SELECT img FROM `Film` WHERE id=?");
+          $exm_film_stmt->bind_param("i", $code);
+          $exm_film_stmt->execute();
+
+          $exm_film_stmt->bind_result($verwijderFoto);
+          $exm_film_stmt->fetch();
+          $exm_film_stmt->close();
+
+          unlink(FOTO . "/" . $verwijderFoto);
+
           $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Film` WHERE id=?");
           $exm_order_stmt->bind_param("i", $code);
           $exm_order_stmt->execute();
           $exm_order_stmt->close();
+
+
           header("Refresh:0; url=/eigenaar/film_verwijderen");
         }
       }
