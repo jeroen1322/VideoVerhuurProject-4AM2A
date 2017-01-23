@@ -26,14 +26,45 @@ if(!empty($_SESSION['login'])){
         while($stmt->fetch()){
             $order_id[] = $id;
         }
+        ?>
+        <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Naam</th>
+                <th>Woonplaats</th>
+                <th>Datum wegbrengen</th>
+                <th>Tijd</th>
+                <th>Datum ophalen</th>
+                <th>Tijd</th>
+                <th>Titels</th>
+                <th>Afhandeling</th>
+            </tr>
+            </thead>
+            <tbody>
 
+    </div>
+
+</div>
+<?php
         $stmt->close();
         if(!empty($id)){
             foreach($order_id as $i){
-                $stmt = DB::conn()->prepare("SELECT id, afhandeling FROM `Order` where id=? and afhandeling = false");
+                $stmt = DB::conn()->prepare("select o.id, d.datum, d.tijd, p.naam, p.woonplaats, f.titel, o.afhandeling
+                                                from `Order` o, Datum d, Persoon p, Orderregel orgl, Exemplaar e, Film f
+                                                where o.besteld = true
+                                                and o.afhandeling = false
+                                                AND d.ordernr = o.id
+                                                AND d.datum >= sysdate() 
+                                                AND p.id = o.klantid
+                                                AND orgl.orderid = o.id
+                                                AND e.id = orgl.exemplaarid
+                                                AND f.id = e.filmid
+                                                ");
                 $stmt->bind_param("i", $i);
                 $stmt->execute();
-                $stmt->bind_result($id, $afhandeling);
+                $stmt->bind_result($id, $datum, $tijd, $naam, $woonplaats, $titel, $afhandeling);
 
                 $stmt->fetch();
                 $stmt->close();
@@ -43,25 +74,17 @@ if(!empty($_SESSION['login'])){
                 //$cover = "/cover/" . $img;
 
                 ?>
-                <div class="filmThumbnail col-md-3">
-                    <a href="/">
-                        <div class="">
-                            <h2 class="textfilmaanbod"><?php echo $id?> </h2>
-                            <?php
+    <tr>
 
-                            if($afhandeling === 0){
-                                ?>
-                                <form method="post" action="?action=unblock&code=<?php echo $i ?>">
-                                    <button type="submit">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </button>
-                                </form>
-                                <?php
-                            }
-                            ?>
-                        </div>
-                    </a>
-                </div>
+        <td><?php echo $id ?></td>
+        <td><?php echo $naam ?></td>
+        <td><?php echo $woonplaats ?></td>
+
+        <td><?php echo $datum ?></td>
+        <td><?php echo $tijd ?></td>
+        <td><?php echo $datum ?></td>
+        <td><?php echo $tijd ?></td>
+        <td><?php echo $titel ?></td></tr></table>
 
             <?php
             }
