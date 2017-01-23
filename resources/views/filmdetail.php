@@ -109,8 +109,8 @@ if(!empty($id)){
                     $nieuweGenre = $_POST['genre'];
 
                     // //Gegevens invoeren in Film tabel
-                    $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
-                    $stmt->bind_param("ss", $nieuweTitel, $code);
+                    $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=?, `omschr`=?, `acteur`=?, `genre`=? WHERE id=?");
+                    $stmt->bind_param("sssss", $nieuweTitel, $nieuweOmschr, $nieuweActeur, $nieuweGenre, $code);
                     $stmt->execute();
                     $stmt->close();
                     $reloadTitel = strtolower($nieuweTitel);

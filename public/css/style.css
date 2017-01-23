@@ -189,3 +189,11 @@ button.btn.btn-success.ban {
   width: 65%;
   float: left;
 }
+.filmDetail_right {
+    width: 20%;
+    float: right;
+    margin-top: 6px;
+}
+.edit_film {
+    float: left;
+}

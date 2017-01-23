@@ -62,10 +62,10 @@ ALTER TABLE `Order`
 ADD `besteld` bool;
 
 -- SELECT * FROM `Rol`;
-SELECT * FROM `Order`;
-SELECT * FROM `Orderregel`;
-SELECT * FROM `Exemplaar`;
-SELECT * FROM `Film`;
+-- SELECT * FROM `Order`;
+-- SELECT * FROM `Orderregel`;
+-- SELECT * FROM `Exemplaar`;
+-- SELECT * FROM `Film`;
 -- SELECT * FROM `Persoon`;
 
 
