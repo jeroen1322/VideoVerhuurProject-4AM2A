@@ -63,7 +63,7 @@ if(!empty($_GET['action'])){
     $huidigeWeek = date('d-m-Y');
     $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
     $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afleverdatum, ophaaldatum, bedrag, besteld) VALUES (?, ?, ?, ?, ?, ?)");
-    $cart_stmt->bind_param("iissdi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
+    $cart_stmt->bind_param("iidi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
     $cart_stmt->execute();
     $cart_stmt->close();
 
@@ -137,8 +137,8 @@ if(!empty($id)){
               <?php
               if($edit == true && $code == $id){
                 ?>
+                <form method="post" action="?action=save&code=<?php echo $id ?>">
                 <div class="edit_film">
-                    <form method="post" action="?action=save&code=<?php echo $id ?>">
                       <h1><b><input type="text" class="form-control" autocomplete="off" value="<?php echo $titel ?>" name="titel"></b></h1>
                     <h3>Omschrijving</h3>
                     <input type="text" class="form-control" autocomplete="off" value="<?php echo $omschr ?>" name="omschr">
@@ -146,6 +146,8 @@ if(!empty($id)){
                     <input type="text" class="form-control" autocomplete="off" value="<?php echo $acteur ?>" name="acteur">
                     <h3>Genre</h3>
                     <input type="text" class="form-control" autocomplete="off" value="<?php echo $genre ?>" name="genre">
+                </div>
+                <div class="filmDetail_right">
                     <button type="submit" class="btn btn-success">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
                     </button>
@@ -167,6 +169,7 @@ if(!empty($id)){
                   }
                 }
               ?>
+              <div class="film_info">
               <h1><b><?php echo $titel ?></b></h1>
               <h3>Omschrijving</h3>
               <p><?php echo $omschr ?></p>
@@ -221,6 +224,7 @@ if(!empty($id)){
                 }
                 ?>
               </form>
+              </div>
               <?php
               }
               ?>

@@ -1,7 +1,7 @@
 <?php
 // require 'PHPMailerAutoload.php';
 
-function stuurMail($naam, $email){
+function blockMail($naam, $email){
   $mail = new PHPMailer;
 
   // $mail->SMTPDebug = 3;                               // Enable verbose debug output
@@ -19,8 +19,12 @@ function stuurMail($naam, $email){
 
   $mail->isHTML(true);                                  // Set email format to HTML
 
-  $mail->Subject = 'Bericht van Tempovideo';
-  $mail->Body    = 'Hallo ' . $naam . ',' ;
+  $mail->Subject = 'Uw account is geblokkeerd';
+  $mail->Body    = 'Geachte ' . $naam . ', <br><br>
+                    Uw <a href="http://tempovideo.nl">Tempovideo</a> account is geblokkeerd wegens het niet... TODO
+                    <br><br>
+                    Hoogachtend,<br>
+                    Tempovideo';
   $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
   if(!$mail->send()) {

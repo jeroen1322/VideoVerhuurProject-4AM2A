@@ -21,7 +21,16 @@ if(!empty($_SESSION['login'])){
         $stmt->bind_param("ii", $blockRol, $code);
         $stmt->execute();
         $stmt->close();
-        header("Refresh:0; url=/eigenaar/klant_blokkeren");
+
+        $stmt = DB::conn()->prepare("SELECT naam, email FROM `Persoon` WHERE id=?;");
+        $stmt->bind_param("i", $code);
+        $stmt->execute();
+        $stmt->bind_result($klantNaam, $klantEmail);
+        $stmt->fetch();
+        $stmt->close();
+
+        blockMail($klantNaam, $klantEmail);
+        // header("Refresh:0; url=/eigenaar/klant_blokkeren");
       }elseif($action == 'unblock'){
         $unblockRol = 1;
 
