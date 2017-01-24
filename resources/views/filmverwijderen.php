@@ -38,7 +38,7 @@ if(!empty($_SESSION['login'])){
           <tr>
             <th>Foto</th>
             <th>Titel</th>
-            <th>Omschr</th>
+            <th>Omschrijving</th>
             <th></th>
           </tr>
         </thead>

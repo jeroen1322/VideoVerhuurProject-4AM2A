@@ -1,5 +1,7 @@
 <?php
 include(__DIR__ . '/../db.php');
+include(MAIL . '/mailLib.php');
+
 session_start();
 
 if(!empty($_SESSION['login'])){
