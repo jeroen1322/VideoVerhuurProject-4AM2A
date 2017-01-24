@@ -60,8 +60,10 @@ if(!empty($_GET['action'])){
     $bedrag = 7.50;
     $klant = $_SESSION['login']['0'];
     $besteld = 0;
-    $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag, besteld) VALUES (?, ?, ?, ?)");
-    $cart_stmt->bind_param("iidi", $order_id, $klant, $bedrag, $besteld );
+    $huidigeWeek = date('d-m-Y');
+    $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
+    $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afleverdatum, ophaaldatum, bedrag, besteld) VALUES (?, ?, ?, ?, ?, ?)");
+    $cart_stmt->bind_param("iissdi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
     $cart_stmt->execute();
     $cart_stmt->close();
 
@@ -109,7 +111,7 @@ if(!empty($id)){
               <?php
               if(!empty($_SESSION['login'])){
                 if(isGeblokkeerd($klantRolId)){
-                  echo "<div class='blocked'><b>UW ACCOUNT IS GEBLOKKEERD</b></div>"; 
+                  echo "<div class='blocked'><b>UW ACCOUNT IS GEBLOKKEERD</b></div>";
                 }
               }
               if(!empty($_GET['action'])){

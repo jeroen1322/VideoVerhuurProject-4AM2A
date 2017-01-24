@@ -12,7 +12,7 @@ ADD FOREIGN KEY (wachtwoordid)
 REFERENCES Wachtwoord(id);
 
 create table `Order`(id int primary key, klantid int, 
-afleverdatum DATETIME DEFAULT CURRENT_TIMESTAMP, ophaaldatum DATETIME DEFAULT CURRENT_TIMESTAMP, bedrag float);
+afleverdatum VARCHAR(50), ophaaldatum VARCHAR(50), bedrag float);
 
 create table Orderregel(exemplaarid int, orderid int, primary key(exemplaarid, orderid));
 ALTER TABLE `Order`
@@ -68,7 +68,7 @@ ADD `besteld` bool;
 -- SELECT * FROM `Film`;
 -- SELECT * FROM `Persoon`;
 
-
+SELECT * FROM Film;
 INSERT INTO Wachtwoord(id, wachtwoord) VALUES (1, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
 INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'eigenaar@jeroengrooten.nl', 1, 4);
 
