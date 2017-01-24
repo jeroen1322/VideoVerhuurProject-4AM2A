@@ -4,7 +4,14 @@ if(!empty($_SESSION['login'])){
   $klantNaam = $_SESSION['login'][1];
   $klantRolId = $_SESSION['login'][2];
   function isKlant($klantRolId){
-    if($klantRolId === 1){
+    if($klantRolId === 1 || $klantRolId === 5){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  function isGeblokkeerd($klantRolId){
+    if($klantRolId === 5){
       return true;
     }else{
       return false;
@@ -29,6 +36,11 @@ if(!empty($_SESSION['login'])){
   ?>
   <div class="panel panel-default">
     <div class="panel-body">
+      <?php
+      if(isGeblokkeerd($klantRolId)){
+        echo "<div class='blocked'><b>UW ACCOUNT IS GEBLOKKEERD</b></div>";
+      }
+      ?>
       <h1>OVERZICHT</h1>
       <h3><b><?php echo $naam ?></b></h3>
       <hr></hr>
@@ -92,7 +104,17 @@ if(!empty($_SESSION['login'])){
             <li class="list-group-item"><b>Woonplaats: </b><?php echo $woonplaats ?></li>
           </ul>
           <form method="post" action="?action=edit&code=<?php echo $id ?>">
-            <input type="submit" class="btn btn-success bestel" value="PAS INFORMATIE AAN">
+            <?php
+            if(isGeblokkeerd($klantRolId)){
+              ?>
+              <input type="submit" class="btn btn-success bestel" value="PAS INFORMATIE AAN" disabled>
+              <?php
+            }else{
+              ?>
+              <input type="submit" class="btn btn-success bestel" value="PAS INFORMATIE AAN">
+              <?php
+            }
+            ?>
           </form>
         </div>
         <?php
