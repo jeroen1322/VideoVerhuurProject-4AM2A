@@ -107,8 +107,10 @@ if(!empty($id)){
           <div class="panel panel-default">
             <div class="panel-body">
               <?php
-              if(isGeblokkeerd($klantRolId)){
-                echo "<div class='blocked'><b>UW ACCOUNT IS GEBLOKKEERD</b></div>";
+              if(!empty($_SESSION['login'])){
+                if(isGeblokkeerd($klantRolId)){
+                  echo "<div class='blocked'><b>UW ACCOUNT IS GEBLOKKEERD</b></div>"; 
+                }
               }
               if(!empty($_GET['action'])){
                   if($_GET['action'] == 'save'){
@@ -190,6 +192,11 @@ if(!empty($id)){
                 <p class='red_count'><i>NOG BESCHIKBAAR: <?php echo $count ?></li></p>
                   <?php
               }
+              if(!empty($_SESSION['login'])){
+                if(isGeblokkeerd($klantRolId)){
+                  $dis = true;
+                }
+              }
               ?>
               <h3><b>Prijs</b></h3>
               <p><b>€7,50</b></p>
@@ -203,10 +210,6 @@ if(!empty($id)){
                   ?>
                   <input type="submit" class="btn btn-success bestel" value="Bestel" disabled><br><br><br>
                   <h5><b>U moet <a href="/login">ingelogd</a> zijn om te kunnen bestellen</b></h5>
-                  <?php
-                }elseif(isGeblokkeerd($klantRolId)){
-                  ?>
-                  <input type="submit" class="btn btn-success bestel" value="Bestel" disabled>
                   <?php
                 }else{
                   ?>
