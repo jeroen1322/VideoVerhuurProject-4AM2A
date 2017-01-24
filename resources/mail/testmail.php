@@ -1,7 +1,7 @@
 <?php
 // require 'PHPMailerAutoload.php';
 
-function stuurMail($naam){
+function stuurMail($naam, $email){
   $mail = new PHPMailer;
 
   // $mail->SMTPDebug = 3;                               // Enable verbose debug output
@@ -15,7 +15,7 @@ function stuurMail($naam){
   $mail->Port = 587;                                    // TCP port to connect to
 
   $mail->setFrom('noreply@tempovideo.nl', 'Tempovideo');
-  $mail->addAddress('grootenjeroen@hotmail.com', 'Jeroen Grooten');     // Add a recipient
+  $mail->addAddress($email, 'Jeroen Grooten');     // Add a recipient
 
   $mail->isHTML(true);                                  // Set email format to HTML
 
@@ -30,4 +30,3 @@ function stuurMail($naam){
       echo 'Message has been sent';
   }
 }
-stuurMail("TEST");
