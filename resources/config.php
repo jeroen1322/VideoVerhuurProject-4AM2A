@@ -48,6 +48,9 @@ defined("TEMPLATES_PATH")
 defined("VIEWS")
     or define("VIEWS", realpath(dirname(__FILE__) . '/views'));
 
+defined("MAIL")
+    or define("MAIL", realpath(dirname(__FILE__) . '/mail'));
+
 defined("FOTO")
     or define("FOTO", realpath(dirname(__FILE__) . '/storage/film_foto'));
 /*
