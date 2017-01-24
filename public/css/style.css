@@ -90,6 +90,14 @@ img.img-responsive.cover {
   background-color: rgba(237,95,0, 0.84) !important;
   color: rgba(255,255,255,1);
 }
+.blocked{
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background-color: rgba(255,0,0, 1) !important;
+  color: rgba(255,255,255,1);
+}
 img.winkelmand_img {
     max-height: 155px;
 }

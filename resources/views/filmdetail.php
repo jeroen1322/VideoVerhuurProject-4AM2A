@@ -12,6 +12,14 @@ if(!empty($_SESSION['login'])){
       return false;
     }
   }
+  function isGeblokkeerd($klantRolId){
+    if($klantRolId === 5){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }
 $film = $this->filmNaam;
 
@@ -99,6 +107,9 @@ if(!empty($id)){
           <div class="panel panel-default">
             <div class="panel-body">
               <?php
+              if(isGeblokkeerd($klantRolId)){
+                echo "<div class='blocked'><b>UW ACCOUNT IS GEBLOKKEERD</b></div>";
+              }
               if(!empty($_GET['action'])){
                   if($_GET['action'] == 'save'){
 
@@ -192,6 +203,10 @@ if(!empty($id)){
                   ?>
                   <input type="submit" class="btn btn-success bestel" value="Bestel" disabled><br><br><br>
                   <h5><b>U moet <a href="/login">ingelogd</a> zijn om te kunnen bestellen</b></h5>
+                  <?php
+                }elseif(isGeblokkeerd($klantRolId)){
+                  ?>
+                  <input type="submit" class="btn btn-success bestel" value="Bestel" disabled>
                   <?php
                 }else{
                   ?>
