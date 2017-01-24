@@ -88,7 +88,7 @@ if(!empty($_SESSION['login'])){
             <td>
               <form method="post" action="?action=delete&code=<?php echo $film_id ?>">
                 <button type="submit" class="btn btn-success">
-                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
               </form>
             </td>
