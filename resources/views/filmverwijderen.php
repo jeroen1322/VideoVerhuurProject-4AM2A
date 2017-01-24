@@ -21,7 +21,7 @@ if(!empty($_SESSION['login'])){
           <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
           <a href="/eigenaar/klant_blokkeren" class="btn btn-primary admin_menu">KLANT BLOKKEREN</a>
         </div>
-    <h1>VIDEO VERWIJDEREN</h1>
+    <h1>FILM VERWIJDEREN</h1>
     <?php
     $stmt = DB::conn()->prepare("SELECT id FROM `Film`");
     $stmt->execute();
@@ -62,7 +62,7 @@ if(!empty($_SESSION['login'])){
           <td>
             <form method="post" action="?action=delete&code=<?php echo $id ?>">
               <button type="submit" class="btn btn-success">
-                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
             </form>
           </td>
