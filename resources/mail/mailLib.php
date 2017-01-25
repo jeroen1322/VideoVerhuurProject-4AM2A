@@ -21,16 +21,15 @@ function blockMail($naam, $email){
 
   $mail->Subject = 'Uw account is geblokkeerd';
   $mail->Body    = 'Geachte ' . $naam . ', <br><br>
-                    Uw <a href="http://tempovideo.nl">Tempovideo</a> account is geblokkeerd wegens het niet... TODO
-                    <br><br>
-                    Hoogachtend,<br>
+                    Uw <a href="http://tempovideo.nl">Tempovideo</a> account is geblokkeerd wegens het niet optijd inleveren van een
+                    - door u gehuurde - film.
+                    <br><br><br>
+                    Hoogachtend,<br><br>
                     Tempovideo';
   $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-  if(!$mail->send()) {
-      echo 'Message could not be sent.';
-      echo 'Mailer Error: ' . $mail->ErrorInfo;
-  } else {
-      echo 'Message has been sent';
-  }
+  // if(!$mail->send()) {
+  //     echo 'ERROR TIJDENS HET VERSTUREN VAN DE EMAIL <br>';
+  //     echo 'Mail Error: ' . $mail->ErrorInfo;
+  // }
 }
