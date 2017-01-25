@@ -119,6 +119,7 @@ if(!empty($id)){
 
                     $code = $id;
                     $nieuweTitel = $_POST['titel'];
+                    $nieuweTitel = str_replace(' ', '_', $nieuweTitel);
                     $nieuweOmschr = $_POST['omschr'];
                     $nieuweActeur = $_POST['acteur'];
                     $nieuweGenre = $_POST['genre'];

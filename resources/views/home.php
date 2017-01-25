@@ -22,8 +22,8 @@ print_r($film_data);
             $stmt->bind_result($titel, $img);
             $stmt->fetch();
             $stmt->close();
-            $url = $titel;
             $cover = "/cover/".$img;
+            $url = $titel;
             $titel = str_replace('_', ' ', $titel);
             $titel = strtoupper($titel);
             ?>
