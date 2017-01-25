@@ -28,6 +28,7 @@ if(!empty($_POST)){
     // 2 = bezorger
     // 3 = baliemedewerker
     // 4 = eigenaar
+    // 5 = geblokkeerd
 
     //RolId
     $rolid = 1;
