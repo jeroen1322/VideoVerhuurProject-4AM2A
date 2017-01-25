@@ -41,7 +41,7 @@ ADD FOREIGN KEY (rolid)
 REFERENCES Rol(id);
 ALTER TABLE Film
 ADD afbeelding varchar(50);
-
+SELECT * FROM Status;
 create table Status(id int primary key, omschr varchar(50));
 ALTER TABLE `Exemplaar`
 ADD FOREIGN KEY (statusid)
@@ -68,7 +68,7 @@ ADD `besteld` bool;
 -- SELECT * FROM `Film`;
 -- SELECT * FROM `Persoon`;
 
-SELECT * FROM Film;
+SELECT * FROM Wachtwoord;
 INSERT INTO Wachtwoord(id, wachtwoord) VALUES (1, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
 INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'eigenaar@jeroengrooten.nl', 1, 4);
 

@@ -56,7 +56,8 @@ if(!empty($_SESSION['login'])){
   $target_dir = FOTO."/";
   $target_file = basename($_FILES["img"]["name"]);
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-  $name = $uploadName . "." . $imageFileType;
+  $rand = rand(1, 9999);
+  $name = $uploadName . "_" . $rand . "." . $imageFileType;
   $target_place = $target_dir . $name;
 
   if(move_uploaded_file($_FILES['img']['tmp_name'], $target_place)){
