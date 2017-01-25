@@ -34,6 +34,8 @@ if(!empty($_SESSION['login'])){
     <link href="../bootstrap/css/bootstrap.min.css " rel="stylesheet">
 
     <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" type="text/css" href="../css/slick.css">
+    <link rel="stylesheet" type="text/css" href="../css/slick-theme.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap-material/css/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap-material/css/ripples.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -134,6 +136,10 @@ if(!empty($_SESSION['login'])){
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
      <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/slick.min.js"></script>
      <script src="/js/js.js"></script>
      <script src="/bootstrap/js/bootstrap.min.js"></script>
      <script src="/bootstrap-material/js/material.js"></script>

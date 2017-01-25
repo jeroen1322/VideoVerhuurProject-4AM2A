@@ -136,7 +136,9 @@ a.menu_winkelmand {
 .fa-floppy-o{
   font-size: 23px !important;
 }
-
+.thumb{
+  text-align: center;
+}
 .thumb_img {
     width:200px;
     height:300px;
@@ -204,4 +206,23 @@ button.btn.btn-success.ban {
 }
 .edit_film {
     float: left;
+}
+.slick-arrow{
+  background-color: #009688;
+  height: 30px;
+  width: 30px;
+}
+.slick-arrow:hover{
+  background-color: #009688;
+  display:block !important;
+}
+.slick-slide img {
+    display: block;
+    margin: 0 auto;
+}
+h2.textfilmaanbod {
+    font-weight: normal;
+}
+.netToegevoegd {
+    text-align: center;
 }
