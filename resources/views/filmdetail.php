@@ -63,7 +63,7 @@ if(!empty($_GET['action'])){
     $huidigeWeek = date('d-m-Y');
     $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
     $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afleverdatum, ophaaldatum, bedrag, besteld) VALUES (?, ?, ?, ?, ?, ?)");
-    $cart_stmt->bind_param("iidi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
+    $cart_stmt->bind_param("iissii", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
     $cart_stmt->execute();
     $cart_stmt->close();
 
