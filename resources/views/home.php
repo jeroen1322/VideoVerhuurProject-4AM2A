@@ -27,10 +27,10 @@ $stmt->close();
             $titel = str_replace('_', ' ', $titel);
             $titel = strtoupper($titel);
             ?>
-            <div class="filmThumbnail col-md-3 nieuweFilm">
+            <div class="filmThumbnail filmAanbodFilm col-md-3 ">
                     <a href="/film/<?php echo $url ?>">
                         <div class="thumb">
-                            <img src=<?php echo"$cover" ?> class="thumb_img nieuweThumb"/></a>
+                            <img src=<?php echo"$cover" ?> class="thumb_img nieuweThumb nieuweFilm"/></a>
                             <h2 class="textfilmaanbod"><?php echo "$titel"?></h2>
                         </div>
                     </a>

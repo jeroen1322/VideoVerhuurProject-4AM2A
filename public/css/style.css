@@ -143,11 +143,11 @@ a.menu_winkelmand {
   width: 100%;
   height: 350px;
 }
-.nieuweThumb{
-  height: auto !important;
+.nieuweThumb {
+  height: 300px;
 }
 .nieuweFilm {
-    max-width: 200px;
+    width: 60% !important;
 }
 .textfilmaanbod {
     font-size:22px;
