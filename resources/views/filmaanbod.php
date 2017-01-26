@@ -125,10 +125,11 @@ if(!empty($titel)){
                       </div>
                   </a>
               </div>
-
-
-<?php }} DB::conn()->close(); ?>
-
+        <?php
+    }
+}
+  DB::conn()->close();
+  ?>
 
     </div>
 </div>
