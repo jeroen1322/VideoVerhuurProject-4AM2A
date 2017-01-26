@@ -1,8 +1,9 @@
 <?php
-$email = $_POST['email'];
-$wachtwoord = $_POST['wachtwoord'];
+
 
 if(!empty($_POST)){
+  $email = $_POST['email'];
+  $wachtwoord = $_POST['wachtwoord'];
   if($email && $wachtwoord != ''){
     //Pak het wachtwoordid dat bij de ingevoerde email hoort
     $stmt = DB::conn()->prepare("SELECT wachtwoordid, id, naam, rolid FROM Persoon WHERE email=?");
