@@ -71,7 +71,6 @@ if(!empty($_SESSION['login'])){
   $stmt->bind_param("isssss", $randId, $uploadName, $acteur, $oms, $genre, $name);
   $stmt->execute();
 
-  echo $randId;
 
   $stmt->close();
 

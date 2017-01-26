@@ -47,7 +47,7 @@ $count = count($beschikbaar);
 $cover = "/cover/" . $img;
 $titel = str_replace('_', ' ', $titel);
 $titel = strtoupper($titel);
-
+$edit = false;
 if(!empty($_GET['action'])){
   if($_GET['action'] == 'add'){
     $_SESSION['cart_item'] = array();
@@ -63,7 +63,7 @@ if(!empty($_GET['action'])){
     $huidigeWeek = date('d-m-Y');
     $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
     $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afleverdatum, ophaaldatum, bedrag, besteld) VALUES (?, ?, ?, ?, ?, ?)");
-    $cart_stmt->bind_param("iissii", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
+    $cart_stmt->bind_param("iissdi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
     $cart_stmt->execute();
     $cart_stmt->close();
 
@@ -91,8 +91,6 @@ if(!empty($_GET['action'])){
     if($_GET['action'] == 'edit'){
       $code = $_GET['code'];
       $edit = true;
-    }else{
-      $edit = false;
     }
   }
 }

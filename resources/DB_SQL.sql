@@ -22,7 +22,7 @@ create table Exemplaar(id int auto_increment primary key, filmid int, statusid i
 ALTER TABLE `Orderregel`
 ADD FOREIGN KEY (exemplaarid)
 REFERENCES Exemplaar(id);
-create table Film(id int auto_increment primary key, titel varchar(50), acteur varchar(100), omschr varchar(200));
+create table Film(id int primary key, titel varchar(50), acteur varchar(100), omschr varchar(200));
 ALTER TABLE `Exemplaar`
 ADD FOREIGN KEY (filmid)
 REFERENCES Film(id);
@@ -62,10 +62,10 @@ ALTER TABLE `Order`
 ADD `besteld` bool;
 
 -- SELECT * FROM `Rol`;
--- SELECT * FROM `Order`;
+SELECT * FROM `Order`;
 -- SELECT * FROM `Orderregel`;
 SELECT * FROM `Exemplaar`;
-SELECT * FROM `Film`;
+-- SELECT * FROM `Film`;
 -- SELECT * FROM `Persoon`;
 
 
