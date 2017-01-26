@@ -23,6 +23,7 @@ if(!empty($_SESSION['login'])){
         }
     }
 }
+$dis = false;
 if(!empty($_SESSION['login'])){
     if(isGeblokkeerd($klantRolId)){
         $dis = true;
@@ -102,23 +103,13 @@ if(!empty($titel)){
                       <div class="thumb">
                           <a href=<?php echo"$url" ?>>
                           <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
-                          <h2 class="textfilmaanbod"><?php echo "$titel"?>
+                          <h2 class="textfilmaanbod"><?php echo "$titel"?> </h2>
                               <form method="post" action="?action=add&code=<?php echo $id ?>"><?php
-                                  if($dis){
+                                  if(!empty($_SESSION["login"])){
                                       ?>
-                                      <input type="submit" class="btn btn-success bestel" value="Bestel" disabled>
+                                      <button type="submit" class="btn btn-success"><li class="fa fa-shopping-cart"></li></button>
                                       <?php
-                                  }elseif(empty($_SESSION['login'])){
-                                      ?>
-                                      <input type="submit" class="btn btn-success bestel" value="Bestel" disabled><br><br><br>
-                                      <h5><b>U moet <a href="/login">ingelogd</a> zijn om te kunnen bestellen</b></h5>
-                                      <?php
-                                  }else{
-                                  ?>
-                                  <input type="submit" class="btn btn-success bestel" value="Bestel">
-
-                          <?php
-                          }
+                                  }
                           ?>
                               </form>
 
