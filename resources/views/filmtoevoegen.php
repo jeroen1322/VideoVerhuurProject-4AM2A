@@ -56,41 +56,56 @@ if(!empty($_SESSION['login'])){
   $target_dir = FOTO."/";
   $target_file = basename($_FILES["img"]["name"]);
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-  $rand = rand(1, 9999);
-  $name = $uploadName . "_" . $rand . "." . $imageFileType;
-  $target_place = $target_dir . $name;
+  $isOk = false;
+  switch($imageFileType){
+    case 'jpg':
+      $isOk = true;
+      break;
+    case 'jpeg':
+      $isOk = true;
+      break;
+    case 'png':
+      $isOk = true;
+      break;
+  }
+  if($isOk){
+    $rand = rand(1, 9999);
+    $name = $uploadName . "_" . $rand . "." . $imageFileType;
+    $target_place = $target_dir . $name;
 
-  if(move_uploaded_file($_FILES['img']['tmp_name'], $target_place)){
+    if(move_uploaded_file($_FILES['img']['tmp_name'], $target_place)){
 
+    }else{
+      echo "Er was een fout tijdens het uploaden van de foto.";
+    }
+    $randId = rand(1, 9999);
+    //Gegevens invoeren in Film tabel
+    $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssss", $randId, $uploadName, $acteur, $oms, $genre, $name);
+    $stmt->execute();
+
+
+    $stmt->close();
+
+    //EXEMPLAAR
+    $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=? AND id=?");
+    $ex_stmt->bind_param("si", $uploadName, $randId);
+    $ex_stmt->execute();
+    $ex_stmt->bind_result($id);
+    $ex_stmt->fetch();
+    $ex_stmt->close();
+
+    for($i = 1; $i < 11; $i++){
+      $statusid = 1;
+      $aantalVerhuur = 0;
+      $add_ex_stmt = DB::conn()->prepare("INSERT INTO Exemplaar (filmid, statusid, aantalVerhuur) VALUES (?, ?, ?)");
+      $add_ex_stmt->bind_param("iii", $id, $statusid, $aantalVerhuur);
+      $add_ex_stmt->execute();
+      $add_ex_stmt->close();
+    }
+    header("Refresh:0; url=/film/$uploadName");
   }else{
-    echo "Er was een fout tijdens het uploaden van de foto.";
+    echo "<div class='alert'><b>U HEEFT GEEN GELDIG FOTO BESTAND GEUPLOAD</b></div>";
   }
-  $randId = rand(1, 9999);
-  //Gegevens invoeren in Film tabel
-  $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("isssss", $randId, $uploadName, $acteur, $oms, $genre, $name);
-  $stmt->execute();
-
-
-  $stmt->close();
-
-  //EXEMPLAAR
-  $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=? AND id=?");
-  $ex_stmt->bind_param("si", $uploadName, $randId);
-  $ex_stmt->execute();
-  $ex_stmt->bind_result($id);
-  $ex_stmt->fetch();
-  $ex_stmt->close();
-
-  for($i = 1; $i < 11; $i++){
-    $statusid = 1;
-    $aantalVerhuur = 0;
-    $add_ex_stmt = DB::conn()->prepare("INSERT INTO Exemplaar (filmid, statusid, aantalVerhuur) VALUES (?, ?, ?)");
-    $add_ex_stmt->bind_param("iii", $id, $statusid, $aantalVerhuur);
-    $add_ex_stmt->execute();
-    $add_ex_stmt->close();
-  }
-  echo "<div class='succes'>FILM TOEGEVOEGD!</div>";
   DB::conn()->close();
-  header("Refresh:0; url=/film/$uploadName");
   }
