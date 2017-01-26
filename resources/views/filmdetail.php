@@ -186,16 +186,16 @@ if(!empty($id)){
                 <?php
               }elseif($count <= 4 && $count > 1){
                 ?>
-                <p class='orange_count'><i>NOG BESCHIKBAAR: <?php echo $count ?></li></p>
+                <p class='orange_count'><i>NOG BESCHIKBAAR: <?php echo $count ?></i></p>
                 <?php
               }elseif($count >=1){
                 ?>
-                <p class='red_count'><i>NOG BESCHIKBAAR: <?php echo $count ?></li></p>
+                <p class='red_count'><i>NOG BESCHIKBAAR: <?php echo $count ?></i></p>
                 <?php
               }elseif($count == 0){
                 $dis = true;
                 ?>
-                <p class='red_count'><i>NOG BESCHIKBAAR: <?php echo $count ?></li></p>
+                <p class='red_count'><i>NOG BESCHIKBAAR: <?php echo $count ?></i></p>
                   <?php
               }
               if(!empty($_SESSION['login'])){
