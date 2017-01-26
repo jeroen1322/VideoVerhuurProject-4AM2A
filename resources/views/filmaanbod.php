@@ -98,7 +98,7 @@ if(!empty($titel)){
 
           }
         ?>
-          <div class="filmThumbnail col-md-3">
+          <div class="filmThumbnail col-md-2">
                   <a href="/">
                       <div class="thumb">
                           <a href=<?php echo"$url" ?>>
