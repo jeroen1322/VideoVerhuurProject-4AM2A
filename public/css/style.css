@@ -146,6 +146,11 @@ a.menu_winkelmand {
 
 .textfilmaanbod {
     font-size:22px;
+
+}
+
+.filmaanbodbestel {
+  width:90%;
 }
 .fa-ban{
   font-size: 22px;

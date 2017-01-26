@@ -70,7 +70,7 @@ if(!empty($titel)){
                   $huidigeWeek = date('d-m-Y');
                   $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
                   $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afleverdatum, ophaaldatum, bedrag, besteld) VALUES (?, ?, ?, ?, ?, ?)");
-                  $cart_stmt->bind_param("iissii", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
+                  $cart_stmt->bind_param("iissdi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
                   $cart_stmt->execute();
                   $cart_stmt->close();
 
@@ -107,10 +107,11 @@ if(!empty($titel)){
                               <form method="post" action="?action=add&code=<?php echo $id ?>"><?php
                                   if(!empty($_SESSION["login"])){
                                       ?>
-                                      <button type="submit" class="btn btn-success"><li class="fa fa-shopping-cart"></li></button>
+                                      <button type="submit" class="btn btn-success bestel filmaanbodbestel"><li class="fa fa-shopping-cart"></li></button>
                                       <?php
                                   }
                           ?>
+
                               </form>
 
                       </div>
