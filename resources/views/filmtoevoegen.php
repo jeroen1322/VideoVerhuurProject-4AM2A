@@ -27,7 +27,7 @@ if(!empty($_SESSION['login'])){
           <input type="text" name="acteur" placeholder="Acteurs" class="form-control" autocomplete="off" required>
           <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off" required>
           <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off" required>
-          <input type="file" name="img" placeholder="FOTO" class="form-control" autocomplete="off" required>
+          <input type="file" name="img" placeholder="FOTO" class="form-control" accept="image/*" required>
 
           <input type="submit" class="btn btn-succes form-knop" name="submit" value="VOEG TOE">
         </form>
