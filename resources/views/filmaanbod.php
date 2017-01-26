@@ -126,14 +126,9 @@ if(!empty($titel)){
                   </a>
               </div>
 
-<<<<<<< HEAD
+
 <?php }} DB::conn()->close(); ?>
-=======
-<?php
-    }
-}
-DB::conn()->close();
-?>
->>>>>>> master
+
+
     </div>
 </div>
