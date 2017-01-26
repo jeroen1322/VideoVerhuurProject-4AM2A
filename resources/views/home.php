@@ -27,7 +27,7 @@ $stmt->close();
             $titel = str_replace('_', ' ', $titel);
             $titel = strtoupper($titel);
             ?>
-            <div class="filmThumbnail col-md-3">
+            <div class="filmThumbnail col-md-3 nieuweFilm">
                     <a href="/film/<?php echo $url ?>">
                         <div class="thumb">
                             <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
