@@ -40,6 +40,10 @@ if(!empty($titel)){
                   </a>
               </div>
 
-<?php }} ?>
+<?php
+    }
+}
+DB::conn()->close();
+?>
     </div>
 </div>
