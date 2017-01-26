@@ -85,7 +85,7 @@ if(!empty($_GET['action'])){
     $or_stmt->execute();
     $or_stmt->close();
     $e = str_replace(' ', '_', $titel);
-    header("Refresh:0; url=/film/" . $e);
+    header("Refresh:0; url=/film/" . $id);
 
   }elseif(!empty($_GET['action'])){
     if($_GET['action'] == 'edit'){
@@ -128,7 +128,7 @@ if(!empty($id)){
                     $stmt->execute();
                     $stmt->close();
                     $reloadTitel = strtolower($nieuweTitel);
-                    header("Refresh:0; url=/film/$reloadTitel");
+                    header("Refresh:0; url=/film/$id");
                   }
               }
               ?>
