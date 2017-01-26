@@ -66,9 +66,10 @@ if(!empty($_SESSION['login'])){
         while($stmt->fetch()){
           $klant[] = $id;
         }
-        sort($klant);
+
         $stmt->close();
         if(!empty($klant)){
+          sort($klant);
           ?>
           <table class="table">
             <thead>
