@@ -16,14 +16,14 @@ $stmt->close();
         <?php
         if(!empty($film_id)){
           foreach($film_id as $i){
-            $stmt = DB::conn()->PREPARE("SELECT titel, img FROM Film WHERE id=?");
+            $stmt = DB::conn()->PREPARE("SELECT id,titel, img FROM Film WHERE id=?");
             $stmt->bind_param('i', $i);
             $stmt->execute();
-            $stmt->bind_result($titel, $img);
+            $stmt->bind_result($id, $titel, $img);
             $stmt->fetch();
             $stmt->close();
             $cover = "/cover/".$img;
-            $url = $titel;
+            $url = $id;
             $titel = str_replace('_', ' ', $titel);
             $titel = strtoupper($titel);
             ?>
