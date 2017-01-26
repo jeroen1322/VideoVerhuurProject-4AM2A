@@ -61,10 +61,19 @@ if(!empty($_SESSION['login'])){
     case 'jpg':
       $isOk = true;
       break;
+    case 'JPG':
+      $isOk = true;
+      break;
     case 'jpeg':
       $isOk = true;
       break;
+    case 'JPEG':
+      $isOk = true;
+      break;
     case 'png':
+      $isOk = true;
+      break;
+    case 'PNG':
       $isOk = true;
       break;
   }
@@ -103,7 +112,7 @@ if(!empty($_SESSION['login'])){
       $add_ex_stmt->execute();
       $add_ex_stmt->close();
     }
-    header("Refresh:0; url=/film/$uploadName");
+    header("Refresh:0; url=/film/$randId");
   }else{
     echo "<div class='alert'><b>U HEEFT GEEN GELDIG FOTO BESTAND GEUPLOAD</b></div>";
   }
