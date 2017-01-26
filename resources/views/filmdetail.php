@@ -24,7 +24,7 @@ if(!empty($_SESSION['login'])){
 $film = $this->filmNaam;
 
 //Pak de foto van de film
-$stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM Film WHERE titel=?");
+$stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM Film WHERE id=?");
 $stmt->bind_param("s", $film);
 $stmt->execute();
 

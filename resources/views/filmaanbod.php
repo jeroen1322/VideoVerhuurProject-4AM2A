@@ -51,7 +51,7 @@ if(!empty($titel)){
 
         $stmt->fetch();
         $stmt->close();
-        $url =  "/film/" . $titel;
+        $url =  "/film/" . $id;
         $titel = str_replace('_', ' ', $titel);
         $titel = strtoupper($titel);
         $cover = "/cover/" . $img;
