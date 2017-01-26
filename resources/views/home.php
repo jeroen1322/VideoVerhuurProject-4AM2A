@@ -7,7 +7,7 @@ while($stmt->fetch()){
   $film_id[] = $id;
 }
 $stmt->close();
-print_r($film_data);
+
 ?>
 <div class="panel panel-default">
   <div class="panel-body">
