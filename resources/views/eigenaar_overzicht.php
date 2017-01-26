@@ -38,40 +38,42 @@ if(!empty($_SESSION['login'])){
         <h1>EIGENAAR OVERZICHT</h1>
         <div class="left">
           <?php
-          if($edit == true && $code == $id && $action == 'edit'){
-            ?>
-            <div class="info">
-              <form method="post" action=?action=save&code=<?php echo $id ?>>
+          if(!empty($_GET)){
+            if($edit == true && $code == $id && $action == 'edit'){
+              ?>
+              <div class="info">
+                <form method="post" action=?action=save&code=<?php echo $id ?>>
 
-              <h5>ALGEMENE INFORMATIE</h5>
-              <ul class="list-group">
-                <li class="list-group-item"><b>Klantnummer: </b><?php echo $id ?></li>
-                <li class="list-group-item"><b>Naam: </b><input type="text" class="form-control" name="naam" value="<?php echo $naam ?>" required></li>
-              </ul>
+                <h5>ALGEMENE INFORMATIE</h5>
+                <ul class="list-group">
+                  <li class="list-group-item"><b>Klantnummer: </b><?php echo $id ?></li>
+                  <li class="list-group-item"><b>Naam: </b><input type="text" class="form-control" name="naam" value="<?php echo $naam ?>" required></li>
+                </ul>
 
-              <h5>CONTACT INFORMATIE</h5>
-              <ul class="list-group">
-                <li class="list-group-item"><b>Email: </b><input type="email" class="form-control" name="email" value="<?php echo $email ?>" required></li>
-                <li class="list-group-item"><b>Telefoonnummer: </b><input type="text" class="form-control" name="telefoonnummer" value="<?php echo $telefoonnummer ?>" required></li>
-              </ul>
+                <h5>CONTACT INFORMATIE</h5>
+                <ul class="list-group">
+                  <li class="list-group-item"><b>Email: </b><input type="email" class="form-control" name="email" value="<?php echo $email ?>" required></li>
+                  <li class="list-group-item"><b>Telefoonnummer: </b><input type="text" class="form-control" name="telefoonnummer" value="<?php echo $telefoonnummer ?>" required></li>
+                </ul>
 
-              <h5>ADRES INFORMATIE</h5>
-              <ul class="list-group">
-                <li class="list-group-item"><b>Adres: </b><input type="text" class="form-control" name="adres" value="<?php echo $adres ?>" required></li>
-                <li class="list-group-item"><b>Postcode: </b><input type="text" class="form-control" name="postcode" value="<?php echo $postcode ?>" required></li>
-                <li class="list-group-item"><b>Woonplaats: </b><input type="text" class="form-control" name="woonplaats" value="<?php echo $woonplaats ?>" required></li>
-              </ul>
-              <form method="post" action="?action=edit&code=<?php echo $id ?>">
-                <button type="submit" class="btn btn-success bestel"><li class="fa fa-floppy-o"></li> OPSLAAN</button>
-              </form>
-            </div>
-            <?php
-          }elseif($action == 'save'){
-            $stmt = DB::conn()->prepare("UPDATE `Persoon` SET `naam`=?, `email`=?, `telefoonnummer`=?, `adres`=?, `postcode`=?, `woonplaats`=? WHERE id=?");
-            $stmt->bind_param("ssssssi", $_POST['naam'], $_POST['email'], $_POST['telefoonnummer'], $_POST['adres'], $_POST['postcode'], $_POST['woonplaats'], $code);
-            $stmt->execute();
-            $stmt->close();
-            header("Refresh:0; url=/eigenaar/overzicht");
+                <h5>ADRES INFORMATIE</h5>
+                <ul class="list-group">
+                  <li class="list-group-item"><b>Adres: </b><input type="text" class="form-control" name="adres" value="<?php echo $adres ?>" required></li>
+                  <li class="list-group-item"><b>Postcode: </b><input type="text" class="form-control" name="postcode" value="<?php echo $postcode ?>" required></li>
+                  <li class="list-group-item"><b>Woonplaats: </b><input type="text" class="form-control" name="woonplaats" value="<?php echo $woonplaats ?>" required></li>
+                </ul>
+                <form method="post" action="?action=edit&code=<?php echo $id ?>">
+                  <button type="submit" class="btn btn-success bestel"><li class="fa fa-floppy-o"></li> OPSLAAN</button>
+                </form>
+              </div>
+              <?php
+            }elseif($action == 'save'){
+              $stmt = DB::conn()->prepare("UPDATE `Persoon` SET `naam`=?, `email`=?, `telefoonnummer`=?, `adres`=?, `postcode`=?, `woonplaats`=? WHERE id=?");
+              $stmt->bind_param("ssssssi", $_POST['naam'], $_POST['email'], $_POST['telefoonnummer'], $_POST['adres'], $_POST['postcode'], $_POST['woonplaats'], $code);
+              $stmt->execute();
+              $stmt->close();
+              header("Refresh:0; url=/eigenaar/overzicht");
+            }
           }else{
           ?>
           <div class="info">
@@ -108,7 +110,6 @@ if(!empty($_SESSION['login'])){
           <?php
           //Haal id op van Order op
           $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE besteld=1");
-          $stmt->bind_param("i", $id);
           $stmt->execute();
 
           $stmt->bind_result($order_id);
