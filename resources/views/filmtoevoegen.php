@@ -65,19 +65,19 @@ if(!empty($_SESSION['login'])){
   }else{
     echo "Er was een fout tijdens het uploaden van de foto.";
   }
-
+  $randId = rand(1, 9999);
   //Gegevens invoeren in Film tabel
-  $stmt = DB::conn()->prepare("INSERT INTO Film (titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssss", $uploadName, $acteur, $oms, $genre, $name);
+  $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("isssss", $randId, $uploadName, $acteur, $oms, $genre, $name);
   $stmt->execute();
 
-
+  echo $randId;
 
   $stmt->close();
 
   //EXEMPLAAR
-  $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=?");
-  $ex_stmt->bind_param("s", $uploadName);
+  $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=? AND id=?");
+  $ex_stmt->bind_param("si", $uploadName, $randId);
   $ex_stmt->execute();
   $ex_stmt->bind_result($id);
   $ex_stmt->fetch();
