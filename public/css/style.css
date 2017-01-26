@@ -218,7 +218,7 @@ button.btn.btn-success.ban {
     float: left;
 }
 .slick-arrow{
-  background-color: #009688;
+  background-color: #009688 !important;
   height: 30px;
   width: 30px;
 }
