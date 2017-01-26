@@ -42,7 +42,9 @@ $klein->respond('/film/aanbod', function ($request, $response, $service) {
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/filmaanbod.php');
 });
-
+$klein->respond('/film/[:naam]', function ($request, $response, $service) {
+    $service->layout('../resources/layouts/film.php');
+});
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     // add some data to the view.
     $naam = $request->naam;
