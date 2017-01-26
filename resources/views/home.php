@@ -30,7 +30,7 @@ $stmt->close();
             <div class="filmThumbnail col-md-3 nieuweFilm">
                     <a href="/film/<?php echo $url ?>">
                         <div class="thumb">
-                            <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
+                            <img src=<?php echo"$cover" ?> class="thumb_img nieuweThumb"/></a>
                             <h2 class="textfilmaanbod"><?php echo "$titel"?></h2>
                         </div>
                     </a>
