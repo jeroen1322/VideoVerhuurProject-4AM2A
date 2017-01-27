@@ -100,7 +100,7 @@ if(!empty($_GET['action'])){
 if(!empty($id)){
 
 ?>
-    <title><?php echo $titel ?></title>
+      <title><?php echo $titel ?></title>
       <a class="btn btn-success terug_button" href="/film/aanbod">
         <li class="fa fa-arrow-left filmaanbod-terug"></li>Filmaanbod
       </a>
