@@ -51,20 +51,9 @@ if(!empty($_SESSION['login'])){
         $stmt->close();
         if(!empty($id)){
             foreach($order_id as $i){
-                $stmt = DB::conn()->prepare("select o.id, d.datum, d.tijd, p.naam, p.woonplaats, f.titel, o.afhandeling
-                                                from `Order` o, Datum d, Persoon p, Orderregel orgl, Exemplaar e, Film f
-                                                where o.besteld = true
-                                                and o.afhandeling = false
-                                                AND d.ordernr = o.id
-                                                AND d.datum >= sysdate() 
-                                                AND p.id = o.klantid
-                                                AND orgl.orderid = o.id
-                                                AND e.id = orgl.exemplaarid
-                                                AND f.id = e.filmid
-                                                ");
-                $stmt->bind_param("i", $i);
+                $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1;");
                 $stmt->execute();
-                $stmt->bind_result($id, $datum, $tijd, $naam, $woonplaats, $titel, $afhandeling);
+                $stmt->bind_result($id, $naam, $adres, $woonplaats, $aflevertijd, $ophaaltijd, $afleverdatum, $ophaaldatum);
 
                 $stmt->fetch();
                 $stmt->close();
@@ -80,11 +69,11 @@ if(!empty($_SESSION['login'])){
         <td><?php echo $naam ?></td>
         <td><?php echo $woonplaats ?></td>
 
-        <td><?php echo $datum ?></td>
-        <td><?php echo $tijd ?></td>
-        <td><?php echo $datum ?></td>
-        <td><?php echo $tijd ?></td>
-        <td><?php echo $titel ?></td></tr></table>
+        <td><?php echo $ophaaldatum ?></td>
+        <td><?php echo $ophaaltijd ?></td>
+        <td><?php echo $afleverdatum ?></td>
+        <td><?php echo $aflevertijd ?></td>
+        <td></td></tr></table>
 
             <?php
             }
