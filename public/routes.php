@@ -172,6 +172,14 @@ $klein->respond('/registreer', function ($request, $response, $service) {
     $service->render(VIEWS.'/registreer.php');
 });
 
+// Bezorgdata baliemedewerker
+$klein->respond('/baliemedewerker/bezorgdata', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Bezorgdata';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/baliemedewerkerbezorgdata.php');
+});
 // Register view
 $klein->respond('/uitloggen', function ($request, $response, $service) {
     // add some data to the view.
