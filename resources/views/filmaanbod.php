@@ -42,6 +42,48 @@ while($stmt->fetch()){
 }
 
 $stmt->close();
+
+if(!empty($_GET['action'])){
+    if($_GET['action'] == 'add'){
+        $product_cart_id = $_SESSION['cart_item']['id'];
+        $id = $_GET['code'];
+
+        //VOEG TO AAN `ORDER`
+        $order_id = rand(1, 2100);
+        $bedrag = 7.50;
+        $klant = $_SESSION['login']['0'];
+        $besteld = 0;
+        $huidigeWeek = date('d-m-Y');
+        $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
+        $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afleverdatum, ophaaldatum, bedrag, besteld) VALUES (?, ?, ?, ?, ?, ?)");
+        $cart_stmt->bind_param("iissdi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
+        $cart_stmt->execute();
+        $cart_stmt->close();
+
+
+        $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
+        $exm_stmt->bind_param("i", $id);
+        $exm_stmt->execute();
+        $exm_stmt->bind_result($exemplaar_id);
+        $exm_stmt->fetch();
+        $exm_stmt->close();
+
+        $exm_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=2 WHERE id=?");
+        $exm_stmt->bind_param("i", $exemplaar_id);
+        $exm_stmt->execute();
+        $exm_stmt->close();
+
+        $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
+        $or_stmt->bind_param("ii", $exemplaar_id, $order_id);
+        $or_stmt->execute();
+        $or_stmt->close();
+        $e = str_replace(' ', '_', $titel);
+        header("Refresh:0; url=/film/aanbod");
+
+    }
+
+}
+
 if(!empty($titel)){
       foreach($film_titel as $i){
         $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` where id=?");
@@ -55,48 +97,7 @@ if(!empty($titel)){
         $titel = str_replace('_', ' ', $titel);
         $titel = strtoupper($titel);
         $cover = "/cover/" . $img;
-          if(!empty($_GET['action'])){
-              if($_GET['action'] == 'add'){
-                  $_SESSION['cart_item'] = array();
-                  $_SESSION['cart_item']['id'] = $_GET['code'];
-                  $product_cart_id = $_SESSION['cart_item']['id'];
-                  // echo $product_cart_id;
 
-                  //VOEG TO AAN `ORDER`
-                  $order_id = rand(1, 2100);
-                  $bedrag = 7.50;
-                  $klant = $_SESSION['login']['0'];
-                  $besteld = 0;
-                  $huidigeWeek = date('d-m-Y');
-                  $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
-                  $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afleverdatum, ophaaldatum, bedrag, besteld) VALUES (?, ?, ?, ?, ?, ?)");
-                  $cart_stmt->bind_param("iissdi", $order_id, $klant, $huidigeWeek, $volgendeWeek, $bedrag, $besteld );
-                  $cart_stmt->execute();
-                  $cart_stmt->close();
-
-                  //VOEG TOE AAN `ORDERREGEL`
-                  $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
-                  $exm_stmt->bind_param("i", $id);
-                  $exm_stmt->execute();
-                  $exm_stmt->bind_result($exemplaar_id);
-                  $exm_stmt->fetch();
-                  $exm_stmt->close();
-
-                  $exm_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=2 WHERE id=?");
-                  $exm_stmt->bind_param("i", $exemplaar_id);
-                  $exm_stmt->execute();
-                  $exm_stmt->close();
-
-                  $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
-                  $or_stmt->bind_param("ii", $exemplaar_id, $order_id);
-                  $or_stmt->execute();
-                  $or_stmt->close();
-                  $e = str_replace(' ', '_', $titel);
-                  header("Refresh:0; url=/film/aanbod");
-
-              }
-
-          }
         ?>
           <div class="filmThumbnail filmAanbodFilm col-md-3">
                   <a href="/">
