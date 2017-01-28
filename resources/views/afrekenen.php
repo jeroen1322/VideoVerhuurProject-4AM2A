@@ -47,13 +47,19 @@ if(!empty($_SESSION['login'])){
       <div class="panel-body">
         <h1>AFREKENEN</h1>
         <?php
+        $huidigeTijd = date('H:i');
+
         if(!empty($_GET['action'])){
           $code = $_GET['code'];
           $action = $_GET['action'];
+          $afleverDatum = $_POST['afleverDatum'];
+          $afleverTijd = $_POST['afleverTijd'];
+          $ophaalDatum = $_POST['ophaalDatum'];
+          $ophaalTijd = $_POST['ophaalTijd'];
 
           foreach($orderIdResult as $e){
-            $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET besteld=1 WHERE id=?");
-            $exm_order_stmt->bind_param("i", $e);
+            $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=?, aflevertijd=?, ophaaldatum=?, ophaaltijd=?, besteld=1 WHERE id=?");
+            $exm_order_stmt->bind_param("ssssi", $afleverDatum, $afleverTijd, $ophaalDatum, $ophaalTijd, $e);
             $exm_order_stmt->execute();
             $exm_order_stmt->close();
           }
@@ -66,44 +72,100 @@ if(!empty($_SESSION['login'])){
         if(!empty($orderIdResult)){
           ?>
           <br>
-          <h4>CONTROLLEER UW GEGEVENS</h4>
-          <ul class="list-group">
-            <li class="list-group-item"><b>Naam: </b><?php echo $naam?></li>
-            <li class="list-group-item"><b>Email: </b><?php echo $email ?></li>
-            <li class="list-group-item"><b>Telefoonnummer: </b><?php echo $telefoonnummer ?></li>
-            <li class="list-group-item"><b>Adres: </b><?php echo $adres ?></li>
-            <li class="list-group-item"><b>Postcode: </b><?php echo $postcode ?></li>
-            <li class="list-group-item"><b>Woonplaats: </b><?php echo $woonplaats ?></li>
+          <form method="post" action="?action=ok&code=<?php echo $id ?>">
+
+          <b>AFLEVEREN</b>
+          <select class="form-control" name="afleverTijd">
             <?php
-            foreach($orderIdResult as $e){
-              $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
-              $stmt->bind_param("i", $e);
-              $stmt->execute();
-              $stmt->bind_result($exm_id);
-              $stmt->fetch();
-              $stmt->close();
-
-              $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
-              $stmt->bind_param("i", $exm_id);
-              $stmt->execute();
-              $stmt->bind_result($filmid);
-              $stmt->fetch();
-              $stmt->close();
-
-              $stmt = DB::conn()->prepare("SELECT id, titel, img FROM `Film` WHERE id=?");
-              $stmt->bind_param("i", $filmid);
-              $stmt->execute();
-              $stmt->bind_result($film_id, $titel, $img);
-              $stmt->fetch();
-              $stmt->close();
-
-              // echo $film_id . "<br>" . $titel . "<br>" . $img . "<br><br>";
+            $beginTijd = '14:00';
+            for($x=0; $x <= 120; $x = $x+10){
+              $time = date('H:i', strtotime($beginTijd.'+'.$x. 'minutes'));
+              ?>
+              <option value="<?php echo $time ?>"><?php echo $time ?></option>
+              <?php
             }
-             ?>
-            <form method="post" action="?action=ok&code=<?php echo $id ?>">
-              <input type="submit" class="btn btn-success bestel" value="DE GEGEVENS KLOPPEN">
-            </form>
-          </ul>
+            ?>
+          </select>
+
+          <select class="form-control" name="afleverDatum">
+            <?php
+            $beginTijd = date('d-m-Y');
+            for($x=0; $x <= 31; $x++){
+              $time = date('d-m-Y', strtotime($beginTijd.'+'.$x. 'days'));
+              ?>
+              <option value="<?php echo $time ?>"><?php echo $time ?></option>
+              <?php
+            }
+            ?>
+          </select>
+          <br>
+          <b>OPHALEN</b>
+          <select class="form-control" name="ophaalTijd">
+            <?php
+            $beginTijd = '14:00';
+            for($x=0; $x <= 120; $x = $x+10){
+              $time = date('H:i', strtotime($beginTijd.'+'.$x. 'minutes'));
+              ?>
+              <option value="<?php echo $time ?>"><?php echo $time ?></option>
+              <?php
+            }
+            ?>
+          </select>
+
+          <select class="form-control" name="ophaalDatum">
+            <?php
+            $ophaalDatum = date('d-m-Y');
+            $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+            for($x=0; $x <= 14; $x++){
+              $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+              ?>
+              <option value="<?php echo $date ?>"><?php echo $date ?></option>
+              <?php
+            }
+            ?>
+          </select>
+          <h4>CONTROLLEER UW GEGEVENS</h4>
+          <div class="links">
+            <ul class="list-group">
+              <li class="list-group-item"><b>Naam: </b><?php echo $naam?></li>
+              <li class="list-group-item"><b>Email: </b><?php echo $email ?></li>
+              <li class="list-group-item"><b>Telefoonnummer: </b><?php echo $telefoonnummer ?></li>
+              <li class="list-group-item"><b>Adres: </b><?php echo $adres ?></li>
+              <li class="list-group-item"><b>Postcode: </b><?php echo $postcode ?></li>
+              <li class="list-group-item"><b>Woonplaats: </b><?php echo $woonplaats ?></li>
+              <?php
+              foreach($orderIdResult as $e){
+                $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+                $stmt->bind_param("i", $e);
+                $stmt->execute();
+                $stmt->bind_result($exm_id);
+                $stmt->fetch();
+                $stmt->close();
+
+                $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
+                $stmt->bind_param("i", $exm_id);
+                $stmt->execute();
+                $stmt->bind_result($filmid);
+                $stmt->fetch();
+                $stmt->close();
+
+                $stmt = DB::conn()->prepare("SELECT id, titel, img FROM `Film` WHERE id=?");
+                $stmt->bind_param("i", $filmid);
+                $stmt->execute();
+                $stmt->bind_result($film_id, $titel, $img);
+                $stmt->fetch();
+                $stmt->close();
+
+                // echo $film_id . "<br>" . $titel . "<br>" . $img . "<br><br>";
+              }
+               ?>
+
+                <input type="submit" class="btn btn-success bestel" value="DE GEGEVENS KLOPPEN">
+              </form>
+            </ul>
+          </div>
+          <div class="right">
+          </div>
           <?php
         }
       }
