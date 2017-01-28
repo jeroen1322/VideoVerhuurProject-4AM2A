@@ -41,6 +41,15 @@ if(!empty($_SESSION['login'])){
     $stmt->close();
     $bedrag = count($orderIdResult) * 7.50;
 
+    $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=1");
+    $stmt->bind_param("i", $klantId);
+    $stmt->execute();
+    $stmt->bind_result($afgerond);
+    $alAfgerond = array();
+    while($stmt->fetch()){
+      $alAfgerond[] = $afgerond;
+    }
+    $stmt->close();
 
     ?>
     <div class="panel panel-default">
@@ -50,80 +59,163 @@ if(!empty($_SESSION['login'])){
         $huidigeTijd = date('H:i');
 
         if(!empty($_GET['action'])){
-          $code = $_GET['code'];
-          $action = $_GET['action'];
-          $afleverDatum = $_POST['afleverDatum'];
-          $afleverTijd = $_POST['afleverTijd'];
-          $ophaalDatum = $_POST['ophaalDatum'];
-          $ophaalTijd = $_POST['ophaalTijd'];
+          if($_GET['action'] == 'ok'){
+            $code = $_GET['code'];
+            $action = $_GET['action'];
+            $ophaalTijd = $_POST['ophaalTijd'];
 
-          foreach($orderIdResult as $e){
-            $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=?, aflevertijd=?, ophaaldatum=?, ophaaltijd=?, besteld=1 WHERE id=?");
-            $exm_order_stmt->bind_param("ssssi", $afleverDatum, $afleverTijd, $ophaalDatum, $ophaalTijd, $e);
-            $exm_order_stmt->execute();
-            $exm_order_stmt->close();
+            foreach($orderIdResult as $e){
+              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1 WHERE id=?");
+              $exm_order_stmt->bind_param("si", $ophaalTijd, $e);
+              $exm_order_stmt->execute();
+              $exm_order_stmt->close();
+            }
+            ?>
+            <h2><b>U HEEFT €<?php echo $bedrag ?> BETAALD</b></h2>
+            <a href="/"><button class="btn btn-success bestel">TERUG NAAR HOME</button></a>
+            <?php
+          }elseif($_GET['action'] == 'afleverDatum'){
+            ?>
+            <h2>AFLEVER DATUM</h2>
+            <form method="post" action="?action=afleverTijd">
+              <select class="form-control" name="afleverDatum">
+                <?php
+                $ophaalDatum = date('d-m-Y');
+                // $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                for($x=0; $x <= 14; $x++){
+                  $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                  ?>
+                  <option value="<?php echo $date ?>"><?php echo $date ?></option>
+                  <?php
+                }
+                ?>
+              </select>
+              <input type="submit" class="btn btn-success bestel" value="SELECTEER AFLEVER TIJD">
+            </form>
+            <?php
+          }elseif($_GET['action'] == 'afleverTijd'){
+            $afleverDatum = $_POST['afleverDatum'];
+            $stmt = DB::conn()->prepare("SELECT `aflevertijd` FROM `Order` WHERE afleverdatum=?");
+            $stmt->bind_param('s', $afleverDatum);
+            $stmt->execute();
+            $bezetteAfleverTijd = array();
+            $stmt->bind_result($f);
+            while($stmt->fetch()){
+              $bezetteAfleverTijd[] = $f;
+            }
+            $stmt->close();
+            $afleverDate = $_POST['afleverDatum'];
+            foreach($orderIdResult as $e){
+              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=? WHERE id=?");
+              $exm_order_stmt->bind_param("si", $afleverDate, $e);
+              $exm_order_stmt->execute();
+              $exm_order_stmt->close();
+            }
+            ?>
+            <h2>AFLEVER TIJD</h2>
+
+            <form method="post" action="?action=ophaalDatum">
+              <select name="afleverTijd" class="form-control">
+                <?php
+                // $beginTijd = '14:00';
+                for($x=0; $x <= 120; $x=$x+10){
+                  $afleverTime = strtotime('14:00');
+                  $afleverTime = Date('H:i', strtotime("+".$x. " minutes", $afleverTime));
+                  if(!in_array($afleverTime, $bezetteAfleverTijd)){
+                    ?>
+                    <option value="<?php echo $afleverTime ?>"><?php echo $afleverTime ?></option>
+                    <?php
+                  }
+                }
+                ?>
+              </select>
+              <input type="submit" class="btn btn-success bestel" value="OPHAAL DATUM">
+              <input type="hidden" value="<?php echo $_POST['afleverDatum']; ?>" name="afleverDatum">
+            </form>
+            <?php
+          }elseif($_GET['action'] == 'ophaalDatum'){
+            $afleverTijd = $_POST['afleverTijd'];
+
+            foreach($orderIdResult as $e){
+              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET aflevertijd=? WHERE id=?");
+              $exm_order_stmt->bind_param("si", $afleverTijd, $e);
+              $exm_order_stmt->execute();
+              $exm_order_stmt->close();
+            }
+            ?>
+            <h2>OPHAAL DATUM</h2>
+            <form method="post" action="?action=ophaalTijd">
+              <select class="form-control" name="ophaalDatum">
+                <?php
+                $ophaalDatum = date('d-m-Y');
+                $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                for($x=0; $x <= 14; $x++){
+                  $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                  ?>
+                  <option value="<?php echo $date ?>"><?php echo $date ?></option>
+                  <?php
+                }
+                ?>
+              </select>
+              <input type="submit" class="btn btn-success bestel" value="SELECTEER OPHAAL TIJD">
+            </form>
+            <?php
+          }elseif($_GET['action'] == 'ophaalTijd'){
+            $ophaalDatum = $_POST['ophaalDatum'];
+            $stmt = DB::conn()->prepare("SELECT `ophaaltijd` FROM `Order` WHERE ophaaldatum=?");
+            $stmt->bind_param('s', $ophaalDatum);
+            $stmt->execute();
+            $bezetteOphaalTijd = array();
+            $stmt->bind_result($f);
+            while($stmt->fetch()){
+              $bezetteOphaalTijd[] = $f;
+            }
+            $stmt->close();
+
+            foreach($orderIdResult as $e){
+              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaldatum=? WHERE id=?");
+              $exm_order_stmt->bind_param("si", $ophaalDatum, $e);
+              $exm_order_stmt->execute();
+              $exm_order_stmt->close();
+            }
+            ?>
+            <h2>OPHAAL TIJD</h2>
+            <form method="post" action="?action=ok">
+              <select name="ophaalTijd" class="form-control">
+                <?php
+                // $beginTijd = '14:00';
+                for($x=0; $x <= 120; $x=$x+10){
+                  $ophaalTime = strtotime('14:00');
+                  $ophaalTime = Date('H:i', strtotime("+".$x. " minutes", $ophaalTime));
+                  if(!in_array($ophaalTime, $bezetteOphaalTijd)){
+                    ?>
+                    <option value="<?php echo $ophaalTime ?>"><?php echo $ophaalTime ?></option>
+                    <?php
+                  }
+                }
+                ?>
+              </select>
+              <input type="submit" class="btn btn-success bestel" value="AFRONDEN">
+            </form>
+            <?php
           }
-          ?>
-          <h2><b>U HEEFT €<?php echo $bedrag ?> BETAALD</b></h2>
-          <a href="/"><button class="btn btn-success bestel">TERUG NAAR HOME</button></a>
-          <?php
         }else{
 
         if(!empty($orderIdResult)){
+
+          // $stmt = DB::conn()->prepare("SELECT `aflevertijd` FROM `Order`");
+          // $stmt->execute();
+          // $bezetteAfleverTijden = array();
+          // $stmt->bind_result($f);
+          // while($stmt->fetch()){
+          //   $bezetteAfleverTijden[] = $f;
+          // }
+          // $stmt->close();
+
+
           ?>
           <br>
-          <form method="post" action="?action=ok&code=<?php echo $id ?>">
-
-          <b>AFLEVEREN</b>
-          <select class="form-control" name="afleverTijd">
-            <?php
-            $beginTijd = '14:00';
-            for($x=0; $x <= 120; $x = $x+10){
-              $time = date('H:i', strtotime($beginTijd.'+'.$x. 'minutes'));
-              ?>
-              <option value="<?php echo $time ?>"><?php echo $time ?></option>
-              <?php
-            }
-            ?>
-          </select>
-
-          <select class="form-control" name="afleverDatum">
-            <?php
-            $beginTijd = date('d-m-Y');
-            for($x=0; $x <= 31; $x++){
-              $time = date('d-m-Y', strtotime($beginTijd.'+'.$x. 'days'));
-              ?>
-              <option value="<?php echo $time ?>"><?php echo $time ?></option>
-              <?php
-            }
-            ?>
-          </select>
-          <br>
-          <b>OPHALEN</b>
-          <select class="form-control" name="ophaalTijd">
-            <?php
-            $beginTijd = '14:00';
-            for($x=0; $x <= 120; $x = $x+10){
-              $time = date('H:i', strtotime($beginTijd.'+'.$x. 'minutes'));
-              ?>
-              <option value="<?php echo $time ?>"><?php echo $time ?></option>
-              <?php
-            }
-            ?>
-          </select>
-
-          <select class="form-control" name="ophaalDatum">
-            <?php
-            $ophaalDatum = date('d-m-Y');
-            $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
-            for($x=0; $x <= 14; $x++){
-              $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
-              ?>
-              <option value="<?php echo $date ?>"><?php echo $date ?></option>
-              <?php
-            }
-            ?>
-          </select>
+          <form  method="post" action="?action=afleverDatum">
           <h4>CONTROLLEER UW GEGEVENS</h4>
           <div class="links">
             <ul class="list-group">
