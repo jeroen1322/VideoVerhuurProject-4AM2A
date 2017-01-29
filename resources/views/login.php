@@ -1,16 +1,25 @@
+<div class="panel panel-default">
+
 <?php
-
-
+if(!empty($_GET)){
+  if($_GET['action'] == 'activate'){
+    $stmt = DB::conn()->prepare("UPDATE `Persoon` SET active=1 WHERE wachtwoordid=?");
+    $stmt->bind_param("s", $_GET['code']);
+    $stmt->execute();
+    $stmt->close();
+    echo "<div class='succes'>ACCOUNT GEACTIVEERD | <b>LOG IN</b></div>";
+  }
+}
 if(!empty($_POST)){
   $email = $_POST['email'];
   $wachtwoord = $_POST['wachtwoord'];
   if($email && $wachtwoord != ''){
     //Pak het wachtwoordid dat bij de ingevoerde email hoort
-    $stmt = DB::conn()->prepare("SELECT wachtwoordid, id, naam, rolid FROM Persoon WHERE email=?");
+    $stmt = DB::conn()->prepare("SELECT wachtwoordid, id, naam, active, rolid FROM Persoon WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
 
-    $stmt->bind_result($wachtwoordid, $klantId, $naam, $klantRolId);
+    $stmt->bind_result($wachtwoordid, $klantId, $naam, $active, $klantRolId);
     $stmt->fetch();
     $stmt->close();
 
@@ -25,11 +34,15 @@ if(!empty($_POST)){
 
     //Controlleer het opgehaalde wachtwoord met het ingevoerde wachtwoord overeenkomt
     if (password_verify($wachtwoord, $ww)) {
+      if(!$active){
+        echo '<div class="alert"><b>UW ACCOUNT IS NOG NIET GEACTIVEERD. CONTROLLEER UW EMAIL</b></div>';
+      }else{
         $_SESSION['login'] = array();
         $_SESSION['login'][] = $klantId; //Zet de session die we kunnen checken in de functie isIngelogd();
         $_SESSION['login'][] = $naam;
         $_SESSION['login'][] = $klantRolId;
         header("Refresh:0; url=/");
+      }
     } else {
         echo '<div class="alert">Deze email en wachtwoord combinatie is niet bij ons geregistreerd.</div>';
     }
@@ -40,7 +53,6 @@ if(!empty($_POST)){
   }
 }
 ?>
-<div class="panel panel-default">
   <div class="panel-body login-panel">
     <h1>LOGIN</h1>
     <form method="post">
