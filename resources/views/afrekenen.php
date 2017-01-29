@@ -66,7 +66,7 @@ if(!empty($_SESSION['login'])){
             $ophaalTijd = $_POST['ophaalTijd'];
 
             foreach($orderIdResult as $e){
-              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1 WHERE id=?");
+              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1, reminder=0 WHERE id=?");
               $exm_order_stmt->bind_param("si", $ophaalTijd, $e);
               $exm_order_stmt->execute();
               $exm_order_stmt->close();

@@ -8,6 +8,69 @@ while($stmt->fetch()){
 }
 $stmt->close();
 
+
+$vandaag = strtotime("today");
+
+$stmt = DB::conn()->PREPARE("SELECT id FROM `Order` WHERE besteld=1 AND reminder=0");
+$stmt->execute();
+$stmt->bind_result($orderid);
+$orderids = array();
+while($stmt->fetch()){
+  $orderids[] = $orderid;
+}
+$stmt->close();
+
+foreach($orderids as $d){
+  $stmt = DB::conn()->PREPARE("SELECT id, klantid, afleverdatum, ophaaldatum, ophaaltijd FROM `Order` WHERE id=?");
+  $stmt->bind_param('i', $d);
+  $stmt->execute();
+  $stmt->bind_result($order, $klant, $afleverdatum, $ophaaldatum, $ophaaltijd);
+  $stmt->fetch();
+  $stmt->close();
+
+  $ophaalDatumTime = strtotime($ophaaldatum);
+  $diff = $ophaalDatumTime - $vandaag;
+  $days = floor($diff / (60*60*24) ); //Seconden naar dagen omrekenen
+
+  if($days <= 1){
+    $stmt = DB::conn()->PREPARE("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+    $stmt->bind_param('i', $d);
+    $stmt->execute();
+    $stmt->bind_result($exmid);
+    $stmt->fetch();
+    $stmt->close();
+
+    $stmt = DB::conn()->PREPARE("SELECT filmid FROM `Exemplaar` WHERE id=?");
+    $stmt->bind_param('i', $exmid);
+    $stmt->execute();
+    $stmt->bind_result($filmid);
+    $stmt->fetch();
+    $stmt->close();
+
+    $stmt = DB::conn()->PREPARE("SELECT titel FROM `Film` WHERE id=?");
+    $stmt->bind_param('i', $filmid);
+    $stmt->execute();
+    $stmt->bind_result($filmtitel);
+    $stmt->fetch();
+    $stmt->close();
+
+    $stmt = DB::conn()->PREPARE("SELECT naam, email FROM `Persoon` WHERE id=?");
+    $stmt->bind_param('i', $klant);
+    $stmt->execute();
+    $stmt->bind_result($naam, $email);
+    $stmt->fetch();
+    $stmt->close();
+
+    if(ophaalMail($order, $filmtitel, $naam, $email, $afleverdatum)){
+      $stmt = DB::conn()->prepare("UPDATE `Order` SET reminder=1 WHERE id=?");
+      $stmt->bind_param("i", $d);
+      $stmt->execute();
+      $stmt->close();
+      echo "SEND";
+    }
+  }
+}
+
 ?>
 <div class="panel panel-default">
   <div class="panel-body">

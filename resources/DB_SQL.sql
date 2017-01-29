@@ -44,7 +44,8 @@ afleverdatum VARCHAR(50),
 aflevertijd VARCHAR(50), 
 ophaaldatum VARCHAR(50),
 ophaaltijd VARCHAR(50), 
-bedrag float
+bedrag float,
+reminder bool
 );
 
 create table Orderregel(
@@ -122,8 +123,8 @@ ALTER TABLE `Order`
 ADD `besteld` bool;
 
 -- SELECT * FROM `Rol`;
-SELECT * FROM `Order`;
 SELECT * FROM `Wachtwoord`;
+SELECT * FROM `Order`;
 SELECT * FROM `Orderregel`;
 SELECT * FROM `Exemplaar`;
 SELECT * FROM `Film`;
