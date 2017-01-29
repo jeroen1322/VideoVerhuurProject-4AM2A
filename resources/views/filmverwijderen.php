@@ -53,7 +53,7 @@ if(!empty($_SESSION['login'])){
         $stmt->fetch();
         $stmt->close();
         $cover = "/cover/" . $img;
-        $URL = "/film/" . $titel;
+        $URL = "/film/" . $id;
         ?>
         <tr>
           <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
