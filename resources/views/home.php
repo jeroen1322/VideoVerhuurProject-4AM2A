@@ -66,7 +66,6 @@ foreach($orderids as $d){
       $stmt->bind_param("i", $d);
       $stmt->execute();
       $stmt->close();
-      echo "SEND";
     }
   }
 }
