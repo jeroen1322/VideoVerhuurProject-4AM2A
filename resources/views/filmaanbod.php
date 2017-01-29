@@ -99,6 +99,17 @@ if(!empty($titel)){
         $titel = strtoupper($titel);
         $cover = "/cover/" . $img;
 
+        $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
+        $exm_stmt->bind_param("i", $i);
+        $exm_stmt->execute();
+        $exm_stmt->bind_result($exemplaar_id);
+        $beschikbaar = array();
+        while($exm_stmt->fetch()){
+            $beschikbaar[] = $exemplaar_id;
+        }
+        $exm_stmt->close();
+        $count = count($beschikbaar);
+
         ?>
           <div class="filmThumbnail filmAanbodFilm col-md-3">
                   <a href="/">
@@ -106,14 +117,18 @@ if(!empty($titel)){
                           <a href=<?php echo"$url" ?>>
                           <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
                           <h2 class="textfilmaanbod"><?php echo "$titel"?> </h2>
-                              <form method="post" action="?action=add&code=<?php echo $id ?>"><?php
-                                  if(!empty($_SESSION["login"])){
+                              <form method="post" action="?action=add&code=<?php echo $id ?>">
+                                <?php
+                                  if(!empty($_SESSION["login"]) && $count != 0){
                                       ?>
                                       <button type="submit" class="btn btn-success bestel filmaanbodbestel"><li class="fa fa-shopping-cart"></li></button>
                                       <?php
+                                  }else{
+                                    ?>
+                                    <button type="submit" class="btn btn-success bestel filmaanbodbestel" disabled><li class="fa fa-shopping-cart"></li></button>
+                                    <?php
                                   }
-                          ?>
-
+                                  ?>
                               </form>
 
                       </div>
