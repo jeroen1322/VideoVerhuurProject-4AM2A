@@ -60,6 +60,7 @@ if(!empty($_SESSION['login'])){
 
         if(!empty($_GET['action'])){
           if($_GET['action'] == 'ok'){
+
             $code = $_GET['code'];
             $action = $_GET['action'];
             $ophaalTijd = $_POST['ophaalTijd'];
@@ -71,6 +72,23 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->close();
             }
             ?>
+            <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
+            <h4>Aflever tijd: <?php echo $_POST['aflvrTijd'] ?></h4>
+            <hr></hr>
+            <h4>Huur periode :
+              <?php
+              $days = $_POST['huurPeriode'];
+              if($days == 1){
+                echo $days . " dag";
+              }else{
+                echo $days . " dagen";
+              }
+              ?>
+            </h4>
+            <hr></hr>
+            <h4>Ophaal datum: <?php echo $_POST['ophaalDatum'] ?></h4>
+            <h4>Ohaal tijd: <?php echo $_POST['ophaalTijd'] ?></h4>
+            <hr></hr>
             <h2><b>U HEEFT €<?php echo $bedrag ?> BETAALD</b></h2>
             <a href="/"><button class="btn btn-success bestel">TERUG NAAR HOME</button></a>
             <?php
@@ -219,6 +237,10 @@ if(!empty($_SESSION['login'])){
                 }
                 ?>
               </select>
+              <input type="hidden" value="<?php echo $_POST['ophaalDatum']; ?>" name="ophaalDatum">
+              <input type="hidden" value="<?php echo $_POST['afleverDatum']; ?>" name="afleverDatum">
+              <input type="hidden" value="<?php echo $_POST['afleverTijd']; ?>" name="aflvrTijd">
+              <input type="hidden" value="<?php echo $days ?>" name="huurPeriode">
               <input type="submit" class="btn btn-success bestel" value="AFRONDEN">
             </form>
             <?php
