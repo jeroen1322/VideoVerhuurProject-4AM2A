@@ -20,8 +20,6 @@
                         </div>
                         <div class="clear"></div>
                     </form>
-
-
                 </div>
             </div>
         </div>
@@ -33,10 +31,4 @@
       </div>
     </div>
   </div>
-
 </div>
-
-<?php
-echo($_POST['naam']);
-echo($_POST['email']);
-echo($_POST['bericht']);
