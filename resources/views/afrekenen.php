@@ -112,12 +112,11 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->close();
             }
             ?>
+            <h4><b>Aflever datum: <?php echo $_POST['afleverDatum'] ?></b></h4>
             <h2>AFLEVER TIJD</h2>
-
             <form method="post" action="?action=ophaalDatum">
               <select name="afleverTijd" class="form-control">
                 <?php
-                // $beginTijd = '14:00';
                 for($x=0; $x <= 120; $x=$x+10){
                   $afleverTime = strtotime('14:00');
                   $afleverTime = Date('H:i', strtotime("+".$x. " minutes", $afleverTime));
@@ -143,6 +142,8 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->close();
             }
             ?>
+            <h4><b>Aflever datum: <?php echo $_POST['afleverDatum'] ?></b></h4>
+            <h4><b>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></b></h4>
             <h2>OPHAAL DATUM</h2>
             <form method="post" action="?action=ophaalTijd">
               <select class="form-control" name="ophaalDatum">
@@ -158,9 +159,12 @@ if(!empty($_SESSION['login'])){
                 ?>
               </select>
               <input type="submit" class="btn btn-success bestel" value="SELECTEER OPHAAL TIJD">
+              <input type="hidden" value="<?php echo $_POST['afleverTijd']?>" name="afleverTijd">
+              <input type="hidden" value="<?php echo $_POST['afleverDatum']?>" name="afleverDatum">
             </form>
             <?php
           }elseif($_GET['action'] == 'ophaalTijd'){
+
             $ophaalDatum = $_POST['ophaalDatum'];
             $stmt = DB::conn()->prepare("SELECT `ophaaltijd` FROM `Order` WHERE ophaaldatum=?");
             $stmt->bind_param('s', $ophaalDatum);
@@ -179,6 +183,9 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->close();
             }
             ?>
+            <h4><b>Aflever datum: <?php echo $_POST['afleverDatum'] ?></b></h4>
+            <h4><b>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></b></h4><hr></hr>
+            <h4><b>Ophaal Datum: <?php echo $_POST['ophaalDatum'] ?></b></h4>
             <h2>OPHAAL TIJD</h2>
             <form method="post" action="?action=ok">
               <select name="ophaalTijd" class="form-control">
