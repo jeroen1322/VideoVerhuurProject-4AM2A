@@ -10,39 +10,51 @@ if(!empty($_POST)){
     $email = $_POST['email'];
     $wachtwoord = $_POST['wachtwoord'];
 
-    //Willekeurig id
-    $id = rand(1, 1100);
 
-    // WACHTWOORD
-    //Hash Wachtwoord
-    $hash = password_hash($wachtwoord, PASSWORD_DEFAULT);
-    //Wachtwoord invoeren in tabel Wachtwoord, met een random id
-    $passw_stmt = DB::conn()->prepare("INSERT INTO Wachtwoord (id, wachtwoord) VALUES (?, ?)");
-    $passw_stmt->bind_param("is", $id, $hash);
-    $passw_stmt->execute();
-
-    //ACCOUNT GEGEVENS
-
-    //RolId
-    // 1 = klant
-    // 2 = bezorger
-    // 3 = baliemedewerker
-    // 4 = eigenaar
-    // 5 = geblokkeerd
-
-    //RolId
-    $rolid = 1;
-    $active = 0;
-    //Gegevens invoeren in Persoon tabel
-    $stmt = DB::conn()->prepare("INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, active, rolid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssiii", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id, $active, $rolid);
+    $stmt = DB::conn()->prepare("SELECT email FROM `Persoon` WHERE email=?");
+    $stmt->bind_param('s', $email);
     $stmt->execute();
+    $stmt->bind_result($bezetteEmail);
+    $stmt->fetch();
+    $stmt->close();
+    if($bezetteEmail != ''){
+      echo "<div class='alert'><b>DIT EMAIL ADRES IS AL IN GEBRUIK</b></div>";
+    }else{
+      //Willekeurig id
+      $id = rand(1, 1100);
 
-    echo "<div class='succes'>Account aangemaakt.</div>";
+      // WACHTWOORD
+      //Hash Wachtwoord
+      $hash = password_hash($wachtwoord, PASSWORD_DEFAULT);
+      //Wachtwoord invoeren in tabel Wachtwoord, met een random id
+      $passw_stmt = DB::conn()->prepare("INSERT INTO Wachtwoord (id, wachtwoord) VALUES (?, ?)");
+      $passw_stmt->bind_param("is", $id, $hash);
+      $passw_stmt->execute();
 
-    confirmMail($naam, $email, $id);
+      //ACCOUNT GEGEVENS
 
-    header("Refresh:0; url=/login");
+      //RolId
+      // 1 = klant
+      // 2 = bezorger
+      // 3 = baliemedewerker
+      // 4 = eigenaar
+      // 5 = geblokkeerd
+
+      //RolId
+      $rolid = 1;
+      $active = 0;
+      //Gegevens invoeren in Persoon tabel
+      $stmt = DB::conn()->prepare("INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, active, rolid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("ssssssiii", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id, $active, $rolid);
+      $stmt->execute();
+
+      echo "<div class='succes'>Account aangemaakt.</div>";
+
+      confirmMail($naam, $email, $id);
+
+      header("Refresh:0; url=/login");
+    }
+
     //Connecties afsluiten
     $stmt->close();
     DB::conn()->close();
