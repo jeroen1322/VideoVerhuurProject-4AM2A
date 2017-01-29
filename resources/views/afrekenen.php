@@ -10,14 +10,14 @@ if(!empty($_SESSION['login'])){
       return false;
     }
   }
-  function isEigenaar($klantRolId){
-    if($klantRolId === 4){
+  function isMedewerker($klantRolId){
+    if($klantRolId === 4 || $klantRolId == 3 || $klantRolId == 2){
       return true;
     }else{
       return false;
     }
   }
-  if(isKlant($klantRolId) || isEigenaar($klantRolId)){
+  if(isKlant($klantRolId) || isMedewerker($klantRolId)){
     $stmt = DB::conn()->prepare("SELECT id, naam, adres, postcode, woonplaats, telefoonnummer, email FROM `Persoon` WHERE id=?");
     $stmt->bind_param('i', $klantId);
     $stmt->execute();

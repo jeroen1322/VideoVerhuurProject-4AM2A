@@ -86,7 +86,7 @@ if(!empty($_SESSION['login'])){
             <td><?php echo $titel ?></td>
             <td>€<?php echo $bedrag ?><td>
             <td>
-              <form method="post" action="?action=delete&code=<?php echo $film_id ?>">
+              <form method="post" action="?action=delete&code=<?php echo $OR_id ?>">
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
@@ -100,7 +100,7 @@ if(!empty($_SESSION['login'])){
     if(!empty($_GET['action'])){
 
       $code = $_GET['code'];
-      $exm_order_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=2");
+      $exm_order_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE id=? AND statusid=2");
       $exm_order_stmt->bind_param("i", $code);
       $exm_order_stmt->execute();
       $exm_order_stmt->bind_result($exm_order_id);
