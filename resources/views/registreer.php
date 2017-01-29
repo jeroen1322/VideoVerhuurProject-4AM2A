@@ -40,6 +40,8 @@ if(!empty($_POST)){
 
     echo "<div class='succes'>Account aangemaakt.</div>";
 
+    confirmMail($naam, $email, $id);
+
     header("Refresh:0; url=/login");
     //Connecties afsluiten
     $stmt->close();
