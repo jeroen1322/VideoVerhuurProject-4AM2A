@@ -161,7 +161,7 @@ if(!empty($_SESSION['login'])){
             }
             ?>
             <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
-            <h4>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></h4>
+            <h4>Aflever tijd: <?php echo $_POST['afleverTijd'] ?></h4>
             <h2>OPHAAL DATUM</h2>
             <form method="post" action="?action=ophaalTijd">
               <select class="form-control" name="ophaalDatum">
@@ -209,7 +209,7 @@ if(!empty($_SESSION['login'])){
 
             ?>
             <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
-            <h4>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
+            <h4>Aflever tijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
             <h4>Huur periode :
               <?php
               if($days == 1){
