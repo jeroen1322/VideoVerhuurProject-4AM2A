@@ -112,7 +112,7 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->close();
             }
             ?>
-            <h4><b>Aflever datum: <?php echo $_POST['afleverDatum'] ?></b></h4>
+            <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
             <h2>AFLEVER TIJD</h2>
             <form method="post" action="?action=ophaalDatum">
               <select name="afleverTijd" class="form-control">
@@ -142,8 +142,8 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->close();
             }
             ?>
-            <h4><b>Aflever datum: <?php echo $_POST['afleverDatum'] ?></b></h4>
-            <h4><b>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></b></h4>
+            <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
+            <h4>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></h4>
             <h2>OPHAAL DATUM</h2>
             <form method="post" action="?action=ophaalTijd">
               <select class="form-control" name="ophaalDatum">
@@ -164,7 +164,6 @@ if(!empty($_SESSION['login'])){
             </form>
             <?php
           }elseif($_GET['action'] == 'ophaalTijd'){
-
             $ophaalDatum = $_POST['ophaalDatum'];
             $stmt = DB::conn()->prepare("SELECT `ophaaltijd` FROM `Order` WHERE ophaaldatum=?");
             $stmt->bind_param('s', $ophaalDatum);
@@ -182,10 +181,28 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->execute();
               $exm_order_stmt->close();
             }
+            //Bereken het aantal dagen tussen de aflever en ophaal datum
+            $dateBegin = $_POST['afleverDatum'];
+            $afleverDatumCalc = strtotime($dateBegin);
+            $dateEinde = $_POST['ophaalDatum'];
+            $ophaalDatumCalc = strtotime($dateEinde);
+            $diff = $ophaalDatumCalc - $afleverDatumCalc;
+            $days = floor($diff / (60*60*24) ); //Seconden naar dagen omrekenen
+
             ?>
-            <h4><b>Aflever datum: <?php echo $_POST['afleverDatum'] ?></b></h4>
-            <h4><b>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></b></h4><hr></hr>
-            <h4><b>Ophaal Datum: <?php echo $_POST['ophaalDatum'] ?></b></h4>
+            <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
+            <h4>Aflever Tijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
+            <h4>Huur periode :
+              <?php
+              if($days == 1){
+                echo $days . " dag";
+              }else{
+                echo $days . " dagen";
+              }
+              ?>
+            </h4>
+            <hr></hr>
+            <h4>Ophaal Datum: <?php echo $_POST['ophaalDatum'] ?></h4>
             <h2>OPHAAL TIJD</h2>
             <form method="post" action="?action=ok">
               <select name="ophaalTijd" class="form-control">
