@@ -2,15 +2,26 @@
   <div class="panel-body">
 
     <div>
-        <div style="float:left">
+        <div>
         <h2> Contactformulier:</h2>
-    <form method="post">
-      <input type="text" name="naam" placeholder="Naam" required> <br>
-        <input type="text" name="email" placeholder="Email" required> <br>
-
-        <textarea name="bericht" class="col-xs-8" cols="50" placeholder="Uw bericht" required></textarea> <br><br><br>
-      <input type="submit" name="submit" value="VERSTUUR">
-    </form>
+            <div class="inner contact">
+                <div class="contact-form">
+                    <form id="contact-us" method="post" action="#">
+                        <div class="col-xs-6 wow animated slideInLeft" data-wow-delay=".5s">
+                            <input type="text" name="name" id="name" required="required" class="form" placeholder="Naam" />
+                            <input type="email" name="mail" id="mail" required="required" class="form" placeholder="Email" />
+                            <input type="text" name="subject" id="subject" required="required" class="form" placeholder="Onderwerp" />
+                        </div>
+                        <div class="col-xs-6 wow animated slideInRight" data-wow-delay=".5s">
+                            <textarea name="message" id="message" class="form textarea"  placeholder="Uw bericht"></textarea>
+                        </div>
+                        <div class="relative fullwidth col-xs-12">
+                            <button type="submit" id="submit" name="submit" class="form-btn semibold">Verzenden</button>
+                        </div>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+            </div>
         </div>
       <div style="float:right">
           <h2>Contactgegevens: </h2>
@@ -20,10 +31,4 @@
       </div>
     </div>
   </div>
-
 </div>
-
-<?php
-echo($_POST['naam']);
-echo($_POST['email']);
-echo($_POST['bericht']);
