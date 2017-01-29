@@ -54,7 +54,7 @@ function confirmMail($naam, $email, $id){
 
   $mail->Subject = 'Registratie bevestiging';
   $mail->Body    = 'Geachte ' . $naam . ', <br><br>
-                    Activeer uw <a href="http://tempovideo.nl?action=activate&code='.$id.'">TempoVideo</a> account.<br><br>
+                    Activeer uw <a href="http://tempovideo.nl/login?action=activate&code='.$id.'">TempoVideo</a> account.<br><br>
                     Hoogachtend,<br><br>
                     Tempovideo';
   $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';

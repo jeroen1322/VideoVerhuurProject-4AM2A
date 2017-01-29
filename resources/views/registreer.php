@@ -32,10 +32,10 @@ if(!empty($_POST)){
 
     //RolId
     $rolid = 1;
-
+    $active = 0;
     //Gegevens invoeren in Persoon tabel
-    $stmt = DB::conn()->prepare("INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, rolid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssii", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id, $rolid);
+    $stmt = DB::conn()->prepare("INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, active, rolid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssiii", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id, $active, $rolid);
     $stmt->execute();
 
     echo "<div class='succes'>Account aangemaakt.</div>";
