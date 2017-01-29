@@ -32,3 +32,9 @@
     </div>
   </div>
 </div>
+
+
+<?php
+echo($_POST['naam']);
+echo($_POST['email']);
+echo($_POST['bericht']);
