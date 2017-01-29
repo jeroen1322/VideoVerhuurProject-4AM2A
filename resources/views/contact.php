@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-      <div style="float:right">
+      <div>
           <h2>Contactgegevens: </h2>
           TempoVideo <br>
           info@tempovideo.nl <br>
@@ -33,8 +33,3 @@
   </div>
 </div>
 
-
-<?php
-echo($_POST['naam']);
-echo($_POST['email']);
-echo($_POST['bericht']);
