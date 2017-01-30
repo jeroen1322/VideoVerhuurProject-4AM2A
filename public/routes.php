@@ -180,6 +180,14 @@ $klein->respond('/baliemedewerker/bezorgdata', function ($request, $response, $s
     // This is the function that renders the view inside the layout.
     $service->render(VIEWS.'/baliemedewerkerbezorgdata.php');
 });
+// Extra opties baliemedewerker
+$klein->respond('/baliemedewerker/extraopties', function ($request, $response, $service) {
+    // add some data to the view.
+    $service->pageTitle = 'Extra opties';
+
+    // This is the function that renders the view inside the layout.
+    $service->render(VIEWS.'/baliemedewerkerextraopties.php');
+});
 // Register view
 $klein->respond('/uitloggen', function ($request, $response, $service) {
     // add some data to the view.
