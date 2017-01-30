@@ -61,7 +61,6 @@ if(!empty($_SESSION['login'])){
         if(!empty($_GET['action'])){
           if($_GET['action'] == 'ok'){
 
-            $code = $_GET['code'];
             $action = $_GET['action'];
             $ophaalTijd = $_POST['ophaalTijd'];
             $subTotaal = $_POST['subTotaal'];
