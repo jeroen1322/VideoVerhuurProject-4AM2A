@@ -83,7 +83,7 @@ function ophaalMail($order, $filmtitel, $naam, $email, $afleverdatum){
 
   $mail->isHTML(true);                                  // Set email format to HTML
 
-  $mail->Subject = 'Registratie bevestiging';
+  $mail->Subject = 'Ophalen bestelling';
   $mail->Body    = 'Geachte ' . $naam . ', <br><br>
                     Uw bestelling nr '.$order.' (afgeleverd op '.$afleverdatum.') wordt morgen opgehaald door de Tempovideo Bezorger.<br>
                     Het betreft de film "'.$filmtitel.'".<br><br>
