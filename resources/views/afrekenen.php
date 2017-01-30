@@ -72,6 +72,26 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->bind_param("si", $ophaalTijd, $e);
               $exm_order_stmt->execute();
               $exm_order_stmt->close();
+
+              $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+              $stmt->bind_param("i", $e);
+              $stmt->execute();
+              $stmt->bind_result($exm_id);
+              $stmt->fetch();
+              $stmt->close();
+
+              $stmt = DB::conn()->prepare("SELECT aantalVerhuur FROM `Exemplaar` WHERE id=?");
+              $stmt->bind_param("i", $exm_id);
+              $stmt->execute();
+              $stmt->bind_result($aantalVerhuur);
+              $stmt->fetch();
+              $stmt->close();
+
+              $nieuwAantalVerhuur = $aantalVerhuur + 1;
+              $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET aantalVerhuur=? WHERE id=?");
+              $stmt->bind_param('ii', $nieuwAantalVerhuur, $exm_id);
+              $stmt->execute();
+              $stmt->execute();
             }
             // print_r($_POST);
             ?>
@@ -404,10 +424,10 @@ if(!empty($_SESSION['login'])){
                 $stmt->fetch();
                 $stmt->close();
 
-                $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
+                $stmt = DB::conn()->prepare("SELECT filmid, aantalVerhuur FROM `Exemplaar` WHERE id=?");
                 $stmt->bind_param("i", $exm_id);
                 $stmt->execute();
-                $stmt->bind_result($filmid);
+                $stmt->bind_result($filmid, $aantalVerhuur);
                 $stmt->fetch();
                 $stmt->close();
 
