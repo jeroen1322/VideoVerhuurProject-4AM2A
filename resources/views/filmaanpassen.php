@@ -61,7 +61,7 @@ if(!empty($_SESSION['login'])){
         $stmt->fetch();
         $stmt->close();
         $cover = "/cover/" . $img;
-        $URL = "/film/" . $titel;
+        $URL = "/film/" . $id;
 
         if($edit == true && $code == $id){
           ?>

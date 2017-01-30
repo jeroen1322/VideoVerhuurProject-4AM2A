@@ -106,7 +106,7 @@ if(!empty($_SESSION['login'])){
         ?>
       </div>
         <div class="klant_right">
-          <h4>ORDERS</h4>
+          <h4>MEEST POPULAIRE FILMS</h4>
           <?php
           //Haal id op van Order op
           $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE besteld=1");
@@ -168,7 +168,7 @@ if(!empty($_SESSION['login'])){
 
               if(!empty($film_id)){
                 $cover = "/cover/" . $img;
-                $URL = "/film/" . $titel;
+                $URL = "/film/" . $film_id;
                 $titel = strtoupper($titel);
                 $titel = str_replace('_', ' ', $titel);
                 ?>
