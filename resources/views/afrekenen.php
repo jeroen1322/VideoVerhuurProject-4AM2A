@@ -99,7 +99,7 @@ if(!empty($_SESSION['login'])){
               <select class="form-control" name="afleverDatum">
                 <?php
                 $ophaalDatum = date('d-m-Y');
-                // $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
                 for($x=0; $x <= 14; $x++){
                   $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                   ?>
@@ -166,9 +166,9 @@ if(!empty($_SESSION['login'])){
             <form method="post" action="?action=ophaalTijd">
               <select class="form-control" name="ophaalDatum">
                 <?php
-                $ophaalDatum = date('d-m-Y');
+                $ophaalDatum = $_POST['afleverDatum'];
                 $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
-                for($x=0; $x <= 14; $x++){
+                for($x=0; $x < 14; $x++){
                   $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                   ?>
                   <option value="<?php echo $date ?>"><?php echo $date ?></option>
@@ -216,6 +216,16 @@ if(!empty($_SESSION['login'])){
                 echo $days . " dag";
               }else{
                 echo $days . " dagen";
+              }
+
+              if($days <=7){
+                $bedrag = 7.5;
+                // echo $bedrag;
+              }elseif($days > 7){
+                $extra = $days - 7;
+                $bedrag = $bedrag + $extra;
+                echo "<br><br>".$bedrag;
+
               }
               ?>
             </h4>
