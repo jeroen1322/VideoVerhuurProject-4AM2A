@@ -73,28 +73,27 @@ if(!empty($_SESSION['login'])){
                 $stmt->fetch();
                 $stmt->close();
                 ?>
-    <tr>
-        <td><?php echo $id ?></td>
-        <td><?php echo $naam ?></td>
-        <td><?php echo $woonplaats ?></td>
-        <td><?php echo $ophaaldatum ?></td>
-        <td><?php echo $ophaaltijd ?></td>
-        <td><?php echo $afleverdatum ?></td>
-        <td><?php echo $aflevertijd ?></td>
-        <td> <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
-                <button type="submit" class="btn btn-success">
-                    <i class="fa fa-ban unblock"></i>
-                </button>
-            </form></td></tr></table>
-
-            <?php if($id = null){
-                echo "geen inkomende orders aanwezig";
-                }
-        ?>
-
-
-<?php
-  }
+                <tr>
+                    <td><?php echo $id ?></td>
+                    <td><?php echo $naam ?></td>
+                    <td><?php echo $woonplaats ?></td>
+                    <td><?php echo $ophaaldatum ?></td>
+                    <td><?php echo $ophaaltijd ?></td>
+                    <td><?php echo $afleverdatum ?></td>
+                    <td><?php echo $aflevertijd ?></td>
+                    <td>
+                      <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-ban unblock"></i>
+                            </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <?php
+          }
+          ?>
+          </table>
+          <?php
 }else{
   header("Refresh:0; url=/login");
 }}}
