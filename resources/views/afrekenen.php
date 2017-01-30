@@ -150,7 +150,7 @@ if(!empty($_SESSION['login'])){
                 ?>
                 <div class="vraag">
                   <h4><i>Op <?php echo $OHdata ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan bezorgen?</i></h4>
-                  <form method="post" action="?action=ophaalDatum&afleverDatum=<?php echo $OHdata ?>&afleverTijd=<?php echo $OHtijd?>">
+                  <form method="post" class="afleverDatum" action="?action=ophaalDatum&afleverDatum=<?php echo $OHdata ?>&afleverTijd=<?php echo $OHtijd?>">
                     <button class="btn btn-primary bestel">JA</button>
                   </form>
 
@@ -159,7 +159,7 @@ if(!empty($_SESSION['login'])){
                 <?php
               }
               ?>
-              <form method="post" class="afleverDatum" action="?action=afleverTijd">
+              <form method="post" action="?action=afleverTijd">
               <?php
             }else{
               ?>
@@ -254,6 +254,8 @@ if(!empty($_SESSION['login'])){
                 if(!empty($_GET['afleverDatum'])){
                   $ophaalDatum = $_GET['afleverDatum'];
                   $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                }else{
+                  $ophaalDatum = date('d-m-Y', strtotime("+2 day"));
                 }
                 for($x=0; $x < 14; $x++){
                   $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
