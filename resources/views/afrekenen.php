@@ -219,13 +219,53 @@ if(!empty($_SESSION['login'])){
               }
 
               if($days <=7){
-                $bedrag = 7.5;
-                // echo $bedrag;
-              }elseif($days > 7){
-                $extra = $days - 7;
-                $bedrag = $bedrag + $extra;
-                echo "<br><br>".$bedrag;
 
+                if($bedrag >= 50){
+                  $bezorg = 0;
+                }else{
+                  $bezorg = 2;
+                }
+                echo "<br><br>Aantal Films: ". count($orderIdResult);
+                echo "<br><br>Subtotaal: €".$bedrag;
+                if($bezorg == 0){
+                  echo "<br>Bezorgkosten: GRATIS";
+                }else{
+                  echo "<br>Bezorgkosten: €2";
+                }
+                $totaal = $bezorg + $bedrag;
+                echo "<br><br><b>Totaal: €" . $totaal."</b>";
+
+              }elseif($days > 7){
+                if($bedrag >= 50){
+                  $bezorg = 0;
+                }else{
+                  $bezorg = 2;
+                }
+
+                $aantalDagen = $days-7;
+
+                if($aantalDagen == 7){
+                  $extra = 6;
+                }else {
+                  $extra = $aantalDagen * count($orderIdResult);
+                }
+                echo "<br><br>Subtotaal: €".$bedrag;
+                echo "<br>Extra kosten (€1 per dag): €". $extra . "<br>";
+                $bedrag = $bedrag + $extra;
+                if($bezorg == 0){
+                  echo "<br>Bezorgkosten: GRATIS";
+                }else{
+                  echo "<br>Bezorgkosten: €2";
+                }
+                $totaal = $bezorg + $bedrag;
+                echo "<br><br><b>Totaal: €" . $totaal."</b>";
+              }
+
+              foreach($orderIdResult as $i){
+                $stmt = DB::conn()->prepare("UPDATE `Order` SET bedrag=? WHERE id=?");
+                $stmt->bind_param('ii', $totaal, $i);
+                $stmt->execute();
+                $stmt->close();
               }
               ?>
             </h4>
