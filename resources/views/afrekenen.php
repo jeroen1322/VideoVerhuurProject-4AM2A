@@ -340,8 +340,10 @@ if(!empty($_SESSION['login'])){
                 }else {
                   $extra = $aantalDagen * count($orderIdResult);
                 }
+
                 echo "<br>Aantal Films: ". $aantalFilms;
-                echo "<br><br>Subtotaal: €".$bedrag;
+                $subtot = $extra + $bedrag;
+                echo "<br><br>Subtotaal: €".$subtot;
 
                 $bedrag = $bedrag + $extra;
                 if($bezorg == "GRATIS"){
