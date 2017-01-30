@@ -123,6 +123,10 @@ if(!empty($titel)){
                                       ?>
                                       <button type="submit" class="btn btn-success bestel filmaanbodbestel"><li class="fa fa-shopping-cart"></li></button>
                                       <?php
+                                  }elseif($count == 0){
+                                    ?>
+                                    <button type="submit" class="btn btn-success bestel filmaanbodbestel" disabled><b>UITVERKOCHT</b></button>
+                                    <?php
                                   }else{
                                     ?>
                                     <button type="submit" class="btn btn-success bestel filmaanbodbestel" disabled><li class="fa fa-shopping-cart"></li></button>
