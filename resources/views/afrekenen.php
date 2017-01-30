@@ -167,7 +167,7 @@ if(!empty($_SESSION['login'])){
               <select class="form-control" name="ophaalDatum">
                 <?php
                 $ophaalDatum = date('d-m-Y');
-                $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 week"));
                 for($x=0; $x <= 14; $x++){
                   $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                   ?>
