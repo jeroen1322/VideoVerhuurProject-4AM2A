@@ -13,17 +13,25 @@ if(!empty($_SESSION['login'])){
     if(isBalieMedewerker($klantRolId)) {
         ?>
         <div class="panel panel-default">
-        <div class="panel-body">
+            <div class="panel-body">
+                <div class="btn-group admin">
+                    <a href="/baliemedewerker/inkomendeorders" class="btn btn-primary actief admin_menu">BINNENGEKOMEN ORDERS</a>
+                    <a href="/baliemedewerker/bezorgdata" class="btn btn-primary admin_menu">BEZORGDATA</a>
+                    <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
+                </div>
+                <h1> Binnengekomen orders</h1>
+            </div>
+
         <div class="calendarophaaldata"> <?php
-            $huidigeWeek = date('d-m-Y');
-            echo $huidigeWeek;
+            $vandaag = date('d-m-Y');
+            echo $vandaag;
 
             ?>
         </div>
         <div>
         <?php
         $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE besteld = 1 AND (afleverdatum=? OR ophaaldatum=?) AND afhandeling = 1");
-        $stmt->bind_param('ss', $huidigeWeek, $huidigeWeek);
+        $stmt->bind_param('ss', $vandaag, $vandaag);
         $stmt->execute();
 
         $stmt->bind_result($order_id);
@@ -48,28 +56,47 @@ if(!empty($_SESSION['login'])){
             <tbody>
             <?php
             foreach($orderIdResult as $i){
-                $stmt = DB::conn()->prepare("SELECT p.naam, p.adres, p.woonplaats FROM Persoon p, `Order` o where p.id = o.klantid and o.id=?");
+                $stmt = DB::conn()->prepare("SELECT p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd FROM Persoon p, `Order` o where p.id = o.klantid and o.id=?");
                 $stmt->bind_param('i', $i);
                 $stmt->execute();
-                $stmt->bind_result($naam, $adres, $woonplaats);
+                $stmt->bind_result($naam, $adres, $woonplaats, $aflevertijd, $ophaaltijd);
+                $stmt->fetch();
+                $stmt->close();
+                $stmt = DB::conn()->prepare("select afleverdatum from `Order` where afleverdatum=? and id=?");
+                $stmt->bind_param('si', $vandaag, $i);
+                $stmt->execute();
+                $stmt->bind_result($afleverdatum);
                 $stmt->fetch();
                 $stmt->close();
                 ?>
                 <tr>
-                    <td></td>
+                    <td><?php if($afleverdatum == null){
+                        echo "ophalen";
+                        }
+                        else {
+                        echo "wegbrengen";
+                        }?></td>
+                    <td><?php if($afleverdatum == null){
+                        echo $ophaaltijd;}
+                        else {
+                        echo $aflevertijd;
+                        } ?></td>
                     <td><?php echo $naam ?></td>
                     <td><?php echo $adres ?></td>
                     <td><?php echo $woonplaats ?></td>
                     <td></td>
-                    <td></td>
+                
                 </tr>
                 <?php
             }
         } else{
             echo "geen data";                            }
                       ?>
+            </tbody>
+            </table>
                 </div>
             </div>
+        </div>
         </div>
         <?php
     }
