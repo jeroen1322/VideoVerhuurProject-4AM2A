@@ -114,16 +114,18 @@ if(!empty($_SESSION['login'])){
               $data[] = $OHdata;
             }
             $stmt->close();
+            $nu = date("d-m-Y");
 
-            $current = strtotime("02-02-2017");
+            $current = strtotime("today");
             $date    = strtotime($OHdata);
 
-            $datediff = $current - $date;
+            $datediff = $date - $current;
             $difference = floor($datediff/(60*60*24));
 
             //$difference > 1 = toekomstige datum
             //$difference > 0 = morgen
             if(!empty($date)){
+
               if($difference > 1 || $difference > 0){
                 ?>
                 <div class="vraag">
@@ -136,10 +138,15 @@ if(!empty($_SESSION['login'])){
                 </div>
                 <?php
               }
+              ?>
+              <form method="post" class="afleverDatum" action="?action=afleverTijd">
+              <?php
+            }else{
+              ?>
+              <form method="post" action="?action=afleverTijd">
+              <?php
             }
-
             ?>
-            <form method="post" class="afleverDatum" action="?action=afleverTijd">
               <h2>AFLEVER DATUM</h2>
               <select class="form-control" name="afleverDatum">
                 <?php
