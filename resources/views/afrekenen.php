@@ -149,8 +149,8 @@ if(!empty($_SESSION['login'])){
               if($difference > 1 || $difference > 0){
                 ?>
                 <div class="vraag">
-                  <h4><i>Op <?php echo $OHdata ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan bezorgen?</i></h4>
-                  <form method="post" class="afleverDatum" action="?action=ophaalDatum&afleverDatum=<?php echo $OHdata ?>&afleverTijd=<?php echo $OHtijd?>">
+                  <h4><i>Op <?php echo $OHdata ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan laten bezorgen?</i></h4>
+                  <form method="post" action="?action=ophaalDatum&afleverDatum=<?php echo $OHdata ?>&afleverTijd=<?php echo $OHtijd?>">
                     <button class="btn btn-primary bestel">JA</button>
                   </form>
 
@@ -159,7 +159,7 @@ if(!empty($_SESSION['login'])){
                 <?php
               }
               ?>
-              <form method="post" action="?action=afleverTijd">
+              <form method="post" class="afleverDatum" action="?action=afleverTijd">
               <?php
             }else{
               ?>
