@@ -24,7 +24,7 @@ if(!empty($_SESSION['login'])){
             }
 
         }
-?>
+        ?>
 
         <div class="panel panel-default">
             <div class="panel-body">
@@ -35,35 +35,35 @@ if(!empty($_SESSION['login'])){
                 </div>
                 <h1> Binnengekomen orders</h1>
 
-        <?php
-        $stmt = DB::conn()->prepare("SELECT id FROM `Order`");
-        $stmt->execute();
-        $stmt->bind_result($id);
-        $order_id = array();
-        while($stmt->fetch()){
-            $order_id[] = $id;
-        }
-        ?>
-        <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Naam</th>
-                <th>Woonplaats</th>
-                <th>Datum wegbrengen</th>
-                <th>Tijd</th>
-                <th>Datum ophalen</th>
-                <th>Tijd</th>
-                <th>Titels</th>
-                <th>Afhandeling</th>
-            </tr>
-            </thead>
-            <tbody>
-    </div>
+                <?php
+                $stmt = DB::conn()->prepare("SELECT id FROM `Order`");
+                $stmt->execute();
+                $stmt->bind_result($id);
+                $order_id = array();
+                while($stmt->fetch()){
+                    $order_id[] = $id;
+                }
+                $stmt->close();
+                ?>
+                <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Naam</th>
+                        <th>Woonplaats</th>
+                        <th>Datum wegbrengen</th>
+                        <th>Tijd</th>
+                        <th>Datum ophalen</th>
+                        <th>Tijd</th>
+                        <th>Titels</th>
+                        <th>Afhandeling</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+            </div>
 
-<?php
-        $stmt->close();
+        <?php
         if(!empty($id)){
             foreach($order_id as $i){
                 $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1;");
@@ -91,7 +91,7 @@ if(!empty($_SESSION['login'])){
                 echo "geen inkomende orders aanwezig";
                 }
         ?>
-            
+
 
 <?php
   }
