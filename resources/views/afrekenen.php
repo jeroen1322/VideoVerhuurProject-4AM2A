@@ -64,6 +64,9 @@ if(!empty($_SESSION['login'])){
             $code = $_GET['code'];
             $action = $_GET['action'];
             $ophaalTijd = $_POST['ophaalTijd'];
+            $subTotaal = $_POST['subTotaal'];
+            $bezorgKosten = $_POST['bezorgKosten'];
+            $totaal = $_POST['totaal'];
 
             foreach($orderIdResult as $e){
               $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1, reminder=0 WHERE id=?");
@@ -71,6 +74,7 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->execute();
               $exm_order_stmt->close();
             }
+            // print_r($_POST);
             ?>
             <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
             <h4>Aflever tijd: <?php echo $_POST['aflvrTijd'] ?></h4>
@@ -83,13 +87,22 @@ if(!empty($_SESSION['login'])){
               }else{
                 echo $days . " dagen";
               }
+              $aantalFilms = count($orderIdResult);
+              echo "<br>Aantal Films: ". $aantalFilms;
+              echo "<br><br>Subtotaal: €".$bedrag;
+              if($bezorgKosten != "GRATIS"){
+                echo "<br>Bezorgkosten: €". $bezorgKosten;
+              }else{
+                echo "<br>Bezorgkosten: ". $bezorgKosten;
+              }
+              echo "<br><b>Totaal: €".$totaal."</b>"
               ?>
             </h4>
             <hr></hr>
             <h4>Ophaaldatum: <?php echo $_POST['ophaalDatum'] ?></h4>
             <h4>Ophaaltijd: <?php echo $_POST['ophaalTijd'] ?></h4>
             <hr></hr>
-            <h2><b>U HEEFT €<?php echo $bedrag ?> BETAALD</b></h2>
+            <h2><b>U HEEFT €<?php echo $totaal ?> BETAALD</b></h2>
             <a href="/"><button class="btn btn-success bestel">TERUG NAAR HOME</button></a>
             <?php
           }elseif($_GET['action'] == 'afleverDatum'){
@@ -208,6 +221,7 @@ if(!empty($_SESSION['login'])){
             $days = floor($diff / (60*60*24) ); //Seconden naar dagen omrekenen
 
             ?>
+            <form method="post" action="?action=ok">
             <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
             <h4>Aflever tijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
             <h4>Huur periode :
@@ -217,27 +231,28 @@ if(!empty($_SESSION['login'])){
               }else{
                 echo $days . " dagen";
               }
-
+              $aantalFilms = count($orderIdResult);
               if($days <=7){
 
                 if($bedrag >= 50){
-                  $bezorg = 0;
+                  $bezorg = "GRATIS";
                 }else{
                   $bezorg = 2;
                 }
-                echo "<br><br>Aantal Films: ". count($orderIdResult);
+                echo "<br>Aantal Films: ". $aantalFilms;
                 echo "<br><br>Subtotaal: €".$bedrag;
-                if($bezorg == 0){
+                if($bezorg == "GRATIS"){
                   echo "<br>Bezorgkosten: GRATIS";
                 }else{
+
                   echo "<br>Bezorgkosten: €2";
                 }
                 $totaal = $bezorg + $bedrag;
-                echo "<br><br><b>Totaal: €" . $totaal."</b>";
+                echo "<br><b>Totaal: €" . $totaal."</b>";
 
               }elseif($days > 7){
                 if($bedrag >= 50){
-                  $bezorg = 0;
+                  $bezorg = "GRATIS";
                 }else{
                   $bezorg = 2;
                 }
@@ -249,10 +264,11 @@ if(!empty($_SESSION['login'])){
                 }else {
                   $extra = $aantalDagen * count($orderIdResult);
                 }
+                echo "<br>Aantal Films: ". $aantalFilms;
                 echo "<br><br>Subtotaal: €".$bedrag;
-                echo "<br>Extra kosten (€1 per dag): €". $extra . "<br>";
+
                 $bedrag = $bedrag + $extra;
-                if($bezorg == 0){
+                if($bezorg == "GRATIS"){
                   echo "<br>Bezorgkosten: GRATIS";
                 }else{
                   echo "<br>Bezorgkosten: €2";
@@ -272,7 +288,6 @@ if(!empty($_SESSION['login'])){
             <hr></hr>
             <h4>Ophaal Datum: <?php echo $_POST['ophaalDatum'] ?></h4>
             <h2>OPHAAL TIJD</h2>
-            <form method="post" action="?action=ok">
               <select name="ophaalTijd" class="form-control">
                 <?php
                 // $beginTijd = '14:00';
@@ -287,6 +302,11 @@ if(!empty($_SESSION['login'])){
                 }
                 ?>
               </select>
+
+              <input type="hidden" value="<?php echo $aantalFilms ?>" name="aantalFilms">
+              <input type="hidden" value="<?php echo $bedrag ?>" name="subTotaal">
+              <input type="hidden" value="<?php echo $bezorg ?>" name="bezorgKosten">
+              <input type="hidden" value="<?php echo $totaal ?>" name="totaal">
               <input type="hidden" value="<?php echo $_POST['ophaalDatum']; ?>" name="ophaalDatum">
               <input type="hidden" value="<?php echo $_POST['afleverDatum']; ?>" name="afleverDatum">
               <input type="hidden" value="<?php echo $_POST['afleverTijd']; ?>" name="aflvrTijd">
