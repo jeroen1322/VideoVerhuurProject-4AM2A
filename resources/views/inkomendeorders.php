@@ -36,7 +36,7 @@ if(!empty($_SESSION['login'])){
                 <h1> Binnengekomen orders</h1>
 
                 <?php
-                $stmt = DB::conn()->prepare("SELECT id FROM `Order`");
+                $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE afhandeling=0");
                 $stmt->execute();
                 $stmt->bind_result($id);
                 $order_id = array();
@@ -66,6 +66,8 @@ if(!empty($_SESSION['login'])){
         <?php
         if(!empty($id)){
             foreach($order_id as $i){
+              echo $i . "<br>";
+
                 $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1;");
                 $stmt->execute();
                 $stmt->bind_result($id, $naam, $adres, $woonplaats, $aflevertijd, $ophaaltijd, $afleverdatum, $ophaaldatum);
@@ -94,7 +96,10 @@ if(!empty($_SESSION['login'])){
           ?>
           </table>
           <?php
-}else{
-  header("Refresh:0; url=/login");
-}}}
+        }else{
+          // header("Refresh:0; url=/login");
+          echo "GEEN FILMS";
+        }
+      }
+    }
 ?>
