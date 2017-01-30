@@ -86,8 +86,8 @@ if(!empty($_SESSION['login'])){
               ?>
             </h4>
             <hr></hr>
-            <h4>Ophaal datum: <?php echo $_POST['ophaalDatum'] ?></h4>
-            <h4>Ohaal tijd: <?php echo $_POST['ophaalTijd'] ?></h4>
+            <h4>Ophaaldatum: <?php echo $_POST['ophaalDatum'] ?></h4>
+            <h4>Ophaaltijd: <?php echo $_POST['ophaalTijd'] ?></h4>
             <hr></hr>
             <h2><b>U HEEFT €<?php echo $bedrag ?> BETAALD</b></h2>
             <a href="/"><button class="btn btn-success bestel">TERUG NAAR HOME</button></a>
@@ -108,7 +108,7 @@ if(!empty($_SESSION['login'])){
                 }
                 ?>
               </select>
-              <input type="submit" class="btn btn-success bestel" value="SELECTEER AFLEVER TIJD">
+              <input type="submit" class="btn btn-success bestel" value="SELECTEER AFLEVERTIJD">
             </form>
             <?php
           }elseif($_GET['action'] == 'afleverTijd'){
@@ -146,7 +146,7 @@ if(!empty($_SESSION['login'])){
                 }
                 ?>
               </select>
-              <input type="submit" class="btn btn-success bestel" value="OPHAAL DATUM">
+              <input type="submit" class="btn btn-success bestel" value="OPHAALDATUM">
               <input type="hidden" value="<?php echo $_POST['afleverDatum']; ?>" name="afleverDatum">
             </form>
             <?php
@@ -176,7 +176,7 @@ if(!empty($_SESSION['login'])){
                 }
                 ?>
               </select>
-              <input type="submit" class="btn btn-success bestel" value="SELECTEER OPHAAL TIJD">
+              <input type="submit" class="btn btn-success bestel" value="SELECTEER OPHAALTIJD">
               <input type="hidden" value="<?php echo $_POST['afleverTijd']?>" name="afleverTijd">
               <input type="hidden" value="<?php echo $_POST['afleverDatum']?>" name="afleverDatum">
             </form>
