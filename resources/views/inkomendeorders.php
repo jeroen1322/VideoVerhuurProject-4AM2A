@@ -31,7 +31,7 @@ if(!empty($_SESSION['login'])){
                 <div class="btn-group admin">
                     <a href="/baliemedewerker/inkomendeorders" class="btn btn-primary actief admin_menu">BINNENGEKOMEN ORDERS</a>
                     <a href="/baliemedewerker/bezorgdata" class="btn btn-primary admin_menu">BEZORGDATA</a>
-                    <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
+                    <a href="/baliemedewerker/extraopties" class="btn btn-primary admin_menu">EXTRA OPTIES</a>
                 </div>
                 <h1> Binnengekomen orders</h1>
 
@@ -66,12 +66,10 @@ if(!empty($_SESSION['login'])){
         <?php
         if(!empty($id)){
             foreach($order_id as $i){
-
                 $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1 and o.id=?;");
                 $stmt->bind_param("i", $i);
                 $stmt->execute();
                 $stmt->bind_result($id, $naam, $adres, $woonplaats, $aflevertijd, $ophaaltijd, $afleverdatum, $ophaaldatum);
-
                 $stmt->fetch();
                 $stmt->close();
                 ?>
@@ -104,3 +102,4 @@ if(!empty($_SESSION['login'])){
       }
     }
 ?>
+            </div>

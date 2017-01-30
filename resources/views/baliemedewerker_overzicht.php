@@ -17,9 +17,9 @@ if(!empty($_SESSION['login'])){
                 <div class="btn-group admin">
                     <a href="/baliemedewerker/inkomendeorders" class="btn btn-primary actief admin_menu">BINNENGEKOMEN ORDERS</a>
                     <a href="/baliemedewerker/bezorgdata" class="btn btn-primary admin_menu">BEZORGDATA</a>
-                    <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
+                    <a href="/baliemedewerker/extraopties" class="btn btn-primary admin_menu">EXTRA OPTIES</a>
                 </div>
-                <h1> Binnengekomen orders</h1>
+                <h1> </h1>
             </div>
         </div>
     <?php
