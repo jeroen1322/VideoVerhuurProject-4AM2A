@@ -28,7 +28,7 @@ if(!empty($_SESSION['login'])){
         <tr>
           <th>Foto</th>
           <th>Titel</th>
-          <th>Prijs</th>
+          <th>Omschrijving</th>
           <th></th>
         </tr>
       </thead>
@@ -84,7 +84,7 @@ if(!empty($_SESSION['login'])){
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
             <td><?php echo $titel ?></td>
-            <td>€<?php echo $bedrag ?><td>
+            <td><?php echo $omschr ?><td>
             <td>
               <form method="post" action="?action=delete&code=<?php echo $OR_id ?>">
                 <button type="submit" class="btn btn-success">
@@ -145,18 +145,10 @@ if(!empty($_SESSION['login'])){
 ?>
     </tbody>
   </table>
-  <?php
-  if(!empty($bedrag)){
-    $totaal = $bedrag * count($orderIdResult);
-    ?>
     <div class="winkelmand_onder">
-      <h4 class="totaal"><b>TOTAAL: €<?php echo $totaal; ?></b></h4>
       <a href="/winkelmand/afrekenen">
         <button class="btn btn-success bestel">AFREKENEN</button>
       </a>
     </div>
-    <?php
-  }
-  ?>
   </div>
 </div>

@@ -56,14 +56,13 @@ if(!empty($_GET['action'])){
     // echo $product_cart_id;
 
     $order_id = rand(1, 2100);
-    $bedrag = 7.50;
     $klant = $_SESSION['login']['0'];
     $besteld = 0;
     $afhandeling = 0;
     $huidigeWeek = date('d-m-Y');
     $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
-    $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, bedrag, afhandeling, besteld) VALUES (?, ?, ?, ?, ?)");
-    $cart_stmt->bind_param("iidii", $order_id, $klant, $bedrag, $afhandeling, $besteld );
+    $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, besteld) VALUES (?, ?, ?, ?)");
+    $cart_stmt->bind_param("iiii", $order_id, $klant, $bedrag, $besteld );
     $cart_stmt->execute();
     $cart_stmt->close();
 
