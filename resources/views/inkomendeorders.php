@@ -66,9 +66,9 @@ if(!empty($_SESSION['login'])){
         <?php
         if(!empty($id)){
             foreach($order_id as $i){
-              echo $i . "<br>";
 
-                $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1;");
+                $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1 and o.id=?;");
+                $stmt->bind_param("i", $i);
                 $stmt->execute();
                 $stmt->bind_result($id, $naam, $adres, $woonplaats, $aflevertijd, $ophaaltijd, $afleverdatum, $ophaaldatum);
 
@@ -83,10 +83,11 @@ if(!empty($_SESSION['login'])){
                     <td><?php echo $ophaaltijd ?></td>
                     <td><?php echo $afleverdatum ?></td>
                     <td><?php echo $aflevertijd ?></td>
+                    <td></td>
                     <td>
                       <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
                             <button type="submit" class="btn btn-success">
-                                <i class="fa fa-ban unblock"></i>
+                                <i class="fa fa-check unblock"></i>
                             </button>
                         </form>
                       </td>
