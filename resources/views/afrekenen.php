@@ -278,7 +278,7 @@ if(!empty($_SESSION['login'])){
 
               foreach($orderIdResult as $i){
                 $stmt = DB::conn()->prepare("UPDATE `Order` SET bedrag=? WHERE id=?");
-                $stmt->bind_param('ii', $totaal, $i);
+                $stmt->bind_param('di', $totaal, $i);
                 $stmt->execute();
                 $stmt->close();
               }
