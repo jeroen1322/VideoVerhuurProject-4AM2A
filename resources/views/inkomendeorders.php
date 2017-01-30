@@ -11,14 +11,31 @@ if(!empty($_SESSION['login'])){
         }
     }
     if(isEigenaar($klantRolId)){
+        if(!empty($_GET)){
+            $code = $_GET['code'];
+            $action = $_GET['action'];
+            if($action == 'afgehandeld') {
+                $afhandeling = 1;
+
+                $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=? WHERE id=?;");
+                $stmt->bind_param("ii", $afhandeling, $code);
+                $stmt->execute();
+                $stmt->close();
+            }
+
+        }
 ?>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <h1></h1>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="btn-group admin">
+                    <a href="/baliemedewerker/inkomendeorders" class="btn btn-primary actief admin_menu">BINNENGEKOMEN ORDERS</a>
+                    <a href="/baliemedewerker/bezorgdata" class="btn btn-primary admin_menu">BEZORGDATA</a>
+                    <a href="/eigenaar/film_aanpassen" class="btn btn-primary admin_menu">FILM INFO BEHEREN</a>
+                </div>
+                <h1> Binnengekomen orders</h1>
 
         <?php
-        //test
-        //Pak de foto van de film
         $stmt = DB::conn()->prepare("SELECT id FROM `Order`");
         $stmt->execute();
         $stmt->bind_result($id);
@@ -43,10 +60,8 @@ if(!empty($_SESSION['login'])){
             </tr>
             </thead>
             <tbody>
-
     </div>
 
-</div>
 <?php
         $stmt->close();
         if(!empty($id)){
@@ -57,36 +72,30 @@ if(!empty($_SESSION['login'])){
 
                 $stmt->fetch();
                 $stmt->close();
-                //$url =  "/film/" . $titel;
-                //$titel = str_replace('_', ' ', $titel);
-                //$titel = strtoupper($titel);
-                //$cover = "/cover/" . $img;
-
                 ?>
     <tr>
-
         <td><?php echo $id ?></td>
         <td><?php echo $naam ?></td>
         <td><?php echo $woonplaats ?></td>
-
         <td><?php echo $ophaaldatum ?></td>
         <td><?php echo $ophaaltijd ?></td>
         <td><?php echo $afleverdatum ?></td>
         <td><?php echo $aflevertijd ?></td>
-        <td></td></tr></table>
+        <td> <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-ban unblock"></i>
+                </button>
+            </form></td></tr></table>
 
-            <?php
-            }
-          }
-          else {
-              echo "geen data";
-          }
+            <?php if($id = null){
+                echo "geen inkomende orders aanwezig";
+                }
         ?>
-    </div>
-</div>
+            
+
 <?php
   }
 }else{
   header("Refresh:0; url=/login");
-}
+}}}
 ?>
