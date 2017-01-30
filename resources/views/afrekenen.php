@@ -105,9 +105,42 @@ if(!empty($_SESSION['login'])){
             <a href="/"><button class="btn btn-success bestel">TERUG NAAR HOME</button></a>
             <?php
           }elseif($_GET['action'] == 'afleverDatum'){
+            $stmt = DB::conn()->prepare("SELECT ophaaldatum, ophaaltijd FROM `Order` WHERE besteld=1 AND klantid=?");
+            $stmt->bind_param('i', $klantId);
+            $stmt->execute();
+            $stmt->bind_result($OHdata, $OHtijd);
+            $data = array();
+            while($stmt->fetch()){
+              $data[] = $OHdata;
+            }
+            $stmt->close();
+
+            $current = strtotime("02-02-2017");
+            $date    = strtotime($OHdata);
+
+            $datediff = $current - $date;
+            $difference = floor($datediff/(60*60*24));
+
+            //$difference > 1 = toekomstige datum
+            //$difference > 0 = morgen
+            if(!empty($date)){
+              if($difference > 1 || $difference > 0){
+                ?>
+                <div class="vraag">
+                  <h4><i>Op <?php echo $OHdata ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan bezorgen?</i></h4>
+                  <form method="post" action="?action=ophaalDatum&afleverDatum=<?php echo $OHdata ?>&afleverTijd=<?php echo $OHtijd?>">
+                    <button class="btn btn-primary bestel">JA</button>
+                  </form>
+
+                  <button class="btn btn-primary bestel nee">NEE</button>
+                </div>
+                <?php
+              }
+            }
+
             ?>
-            <h2>AFLEVER DATUM</h2>
-            <form method="post" action="?action=afleverTijd">
+            <form method="post" class="afleverDatum" action="?action=afleverTijd">
+              <h2>AFLEVER DATUM</h2>
               <select class="form-control" name="afleverDatum">
                 <?php
                 $ophaalDatum = date('d-m-Y');
@@ -164,6 +197,19 @@ if(!empty($_SESSION['login'])){
             <?php
           }elseif($_GET['action'] == 'ophaalDatum'){
             $afleverTijd = $_POST['afleverTijd'];
+            if(!empty($_GET['afleverDatum'])){
+              $afleverDatum = $_GET['afleverDatum'];
+              $afleverTijd = $_GET['afleverTijd'];
+              foreach($orderIdResult as $e){
+                $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=?, aflevertijd=? WHERE id=?");
+                $exm_order_stmt->bind_param("ssi", $afleverDatum, $afleverTijd, $e);
+                $exm_order_stmt->execute();
+                $exm_order_stmt->close();
+              }
+            }else{
+              $afleverDatum = $_POST['afleverDatum'];
+              $afleverTijd = $_POST['afleverTijd'];
+            }
 
             foreach($orderIdResult as $e){
               $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET aflevertijd=? WHERE id=?");
@@ -172,14 +218,16 @@ if(!empty($_SESSION['login'])){
               $exm_order_stmt->close();
             }
             ?>
-            <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
-            <h4>Aflever tijd: <?php echo $_POST['afleverTijd'] ?></h4>
+            <h4>Aflever datum: <?php echo $afleverDatum ?></h4>
+            <h4>Aflever tijd: <?php echo $afleverTijd ?></h4>
             <h2>OPHAAL DATUM</h2>
             <form method="post" action="?action=ophaalTijd">
               <select class="form-control" name="ophaalDatum">
                 <?php
-                $ophaalDatum = $_POST['afleverDatum'];
-                $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                if(!empty($_GET['afleverDatum'])){
+                  $ophaalDatum = $_GET['afleverDatum'];
+                  $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                }
                 for($x=0; $x < 14; $x++){
                   $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                   ?>
@@ -189,8 +237,8 @@ if(!empty($_SESSION['login'])){
                 ?>
               </select>
               <input type="submit" class="btn btn-success bestel" value="SELECTEER OPHAALTIJD">
-              <input type="hidden" value="<?php echo $_POST['afleverTijd']?>" name="afleverTijd">
-              <input type="hidden" value="<?php echo $_POST['afleverDatum']?>" name="afleverDatum">
+              <input type="hidden" value="<?php echo $afleverTijd?>" name="afleverTijd">
+              <input type="hidden" value="<?php echo $afleverDatum?>" name="afleverDatum">
             </form>
             <?php
           }elseif($_GET['action'] == 'ophaalTijd'){
