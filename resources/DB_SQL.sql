@@ -45,7 +45,9 @@ aflevertijd VARCHAR(50),
 ophaaldatum VARCHAR(50),
 ophaaltijd VARCHAR(50), 
 bedrag float,
-reminder bool
+reminder bool, 
+openbedrag float,
+orderdatum varchar(50)
 );
 
 create table Orderregel(
@@ -94,9 +96,6 @@ ADD rolid int;
 ALTER TABLE `Persoon`
 ADD FOREIGN KEY (rolid)
 REFERENCES Rol(id);
-
-ALTER TABLE Film
-ADD afbeelding varchar(50);
 
 create table Status(
 id int primary key, 
