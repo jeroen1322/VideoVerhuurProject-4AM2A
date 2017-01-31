@@ -223,7 +223,9 @@ if(!empty($_SESSION['login'])){
             </form>
             <?php
           }elseif($_GET['action'] == 'ophaalDatum'){
-            $afleverTijd = $_POST['afleverTijd'];
+            if(!empty($_POST)){
+              $afleverTijd = $_POST['afleverTijd'];
+            }
             if(!empty($_GET['afleverDatum'])){
               $afleverDatum = $_GET['afleverDatum'];
               $afleverTijd = $_GET['afleverTijd'];
