@@ -342,10 +342,10 @@ if(!empty($_SESSION['login'])){
                 }
 
                 echo "<br>Aantal Films: ". $aantalFilms;
-                $subtot = $extra + $bedrag;
-                echo "<br><br>Subtotaal: €".$subtot;
-
                 $bedrag = $bedrag + $extra;
+                echo "<br><br>Subtotaal: €".$bedrag;
+
+
                 if($bezorg == "GRATIS"){
                   echo "<br>Bezorgkosten: GRATIS";
                 }else{
