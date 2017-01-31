@@ -163,7 +163,7 @@ if(!empty($_SESSION['login'])){
               }
               rsort($resultaten);
             }else{
-              echo "<div class='warning'><b>ER ZIJN DE AFGELOPEN 14 DAGEN GEEN FILMS BESTELD</b></div>";
+              echo "<div class='warning'><b>ER ZIJN DE AFGELOPEN 4 WEKEN GEEN FILMS BESTELD</b></b>";
             }
 
           ?>
