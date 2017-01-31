@@ -257,7 +257,7 @@ if(!empty($_SESSION['login'])){
                   $ophaalDatum = $_GET['afleverDatum'];
                   $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
                 }else{
-                  $ophaalDatum = date('d-m-Y', strtotime("+2 day"));
+                  $ophaalDatum = date('d-m-Y', strtotime($afleverDatum."+1 day"));
                 }
                 for($x=0; $x < 14; $x++){
                   $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
