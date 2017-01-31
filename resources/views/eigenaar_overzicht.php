@@ -106,85 +106,58 @@ if(!empty($_SESSION['login'])){
         ?>
       </div>
         <div class="klant_right">
-          <h4>MEEST POPULAIRE FILMS</h4>
+          <h4>MEEST POPULAIRE FILMS VAN DE AFGELOPEN 4 WEKEN</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Titel</th>
+                <th>Omschrijving</th>
+                <th>Aantal keer verhuurd</th>
+              </tr>
+            </thead>
+            <tbody>
           <?php
-          //Haal id op van Order op
-          $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE besteld=1");
-          $stmt->execute();
-
-          $stmt->bind_result($order_id);
-
-          $orderIdResult = array();
-
-          while($stmt->fetch()){
-            $orderIdResult[] = $order_id;
-          }
-
-          $stmt->close();
-          if(!empty($orderIdResult)){
-            ?>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Foto</th>
-                  <th>Titel</th>
-                  <th>Omschrijving</th>
-                </tr>
-              </thead>
-              <tbody>
-            <?php
-            foreach($orderIdResult as $i){
-              //Haal exemplaarid van Orderregel dat bij de Order hoort op
-              $or_stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
-              $or_stmt->bind_param("i", $i);
-              $or_stmt->execute();
-
-              $or_stmt->bind_result($OR_id);
-              $exm_id = array();
-              while($or_stmt->fetch()){
-                $exm_id[] = $OR_id;
-              }
-              $or_stmt->close();
-              // print_r($exm_id);
-
-              //Haal de Filmid op van het exemplaar op
-              $exm_stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
-              $exm_stmt->bind_param("i", $OR_id);
-              $exm_stmt->execute();
-
-              $exm_stmt->bind_result($exm_film_id);
-              $exm_stmt->fetch();
-              $exm_stmt->close();
-
-              //Haal alles van de film op dat overeen komt met de filmid van het exemplaar
-              $exm_film_stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` WHERE id=?");
-              $exm_film_stmt->bind_param("i", $exm_film_id);
-              $exm_film_stmt->execute();
-
-              $exm_film_stmt->bind_result($film_id, $titel, $acteur, $omschr, $genre, $img);
-              $exm_film_stmt->fetch();
-              $exm_film_stmt->close();
-
-
-              if(!empty($film_id)){
-                $cover = "/cover/" . $img;
-                $URL = "/film/" . $film_id;
-                $titel = strtoupper($titel);
-                $titel = str_replace('_', ' ', $titel);
-                ?>
-                  <tr>
-                    <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
-                    <td><?php echo $titel ?></td>
-                    <td><?php echo $omschr ?><td>
-                  </tr>
-                <?php
-              }
+            $stmt = DB::conn()->prepare("SELECT filmid FROM Exemplaar WHERE aantalVerhuur>=1");
+            $stmt->execute();
+            $stmt->bind_result($film_id);
+            while($stmt->fetch()){
+              $exemplaren[] = $film_id;
             }
-          }else{
-            echo "<div class='warning'><b>ER ZIJN NOG GEEN ORDERS GEPLAATS</b></div>";
-          }
+            $stmt->close();
+            $result = array_unique($exemplaren);
+
+            foreach($result as $r){
+              $ids = array();
+              $stmt = DB::conn()->prepare("SELECT aantalVerhuur FROM Exemplaar WHERE filmid=?");
+              $stmt->bind_param('i', $r);
+              $stmt->execute();
+              $stmt->bind_result($id);
+              while($stmt->fetch()){
+                $ids[] = $id;
+              }
+              $stmt->close();
+              $res = array_sum($ids);
+              // echo $r . "<br>";
+              $stmt = DB::conn()->prepare("SELECT titel, omschr, img FROM Film WHERE id=?");
+              $stmt->bind_param('i', $r);
+              $stmt->execute();
+              $stmt->bind_result($titel, $omschr, $img);
+              $stmt->fetch();
+              $stmt->close();
+              $img = '/cover/'.$img;
+              $URL = '/film/'.$r;
+              ?>
+              <tr>
+                <td><a href="<?php echo $URL ?>"><img src="<?php echo $img ?>" class="winkelmand_img"></a></td>
+                <td><?php echo $titel ?></td>
+                <td><?php echo $omschr ?></td>
+                <td><b><?php echo $res ?></b></td>
+              </tr>
+              <?php
+            }
           ?>
-      </div>
+        </div>
       </div>
     </div>
   <?php
