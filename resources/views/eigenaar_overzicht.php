@@ -103,21 +103,6 @@ if(!empty($_SESSION['login'])){
           <?php
         }
 
-        ?>
-      </div>
-        <div class="klant_right">
-          <h4>MEEST POPULAIRE FILMS VAN DE AFGELOPEN 4 WEKEN</h4>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Foto</th>
-                <th>Titel</th>
-                <th>Omschrijving</th>
-                <th>Aantal keer verhuurd</th>
-              </tr>
-            </thead>
-            <tbody>
-          <?php
             $stmt = DB::conn()->prepare("SELECT filmid FROM Exemplaar WHERE aantalVerhuur>=1");
             $stmt->execute();
             $stmt->bind_result($film_id);
@@ -125,37 +110,62 @@ if(!empty($_SESSION['login'])){
               $exemplaren[] = $film_id;
             }
             $stmt->close();
-            $result = array_unique($exemplaren);
-
-            foreach($result as $r){
-              $ids = array();
-              $stmt = DB::conn()->prepare("SELECT aantalVerhuur FROM Exemplaar WHERE filmid=?");
-              $stmt->bind_param('i', $r);
-              $stmt->execute();
-              $stmt->bind_result($id);
-              while($stmt->fetch()){
-                $ids[] = $id;
-              }
-              $stmt->close();
-              $res = array_sum($ids);
-              // echo $r . "<br>";
-              $stmt = DB::conn()->prepare("SELECT titel, omschr, img FROM Film WHERE id=?");
-              $stmt->bind_param('i', $r);
-              $stmt->execute();
-              $stmt->bind_result($titel, $omschr, $img);
-              $stmt->fetch();
-              $stmt->close();
-              $img = '/cover/'.$img;
-              $URL = '/film/'.$r;
-              ?>
-              <tr>
-                <td><a href="<?php echo $URL ?>"><img src="<?php echo $img ?>" class="winkelmand_img"></a></td>
-                <td><?php echo $titel ?></td>
-                <td><?php echo $omschr ?></td>
-                <td><b><?php echo $res ?></b></td>
-              </tr>
+            ?>
+            </div>
+            <div class="klant_right">
+            <?php
+            if(!empty($exemplaren)){
+            ?>
+                <h4>MEEST POPULAIRE FILMS VAN DE AFGELOPEN 4 WEKEN</h4>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Foto</th>
+                      <th>Titel</th>
+                      <th>Omschrijving</th>
+                      <th>Aantal keer verhuurd</th>
+                    </tr>
+                  </thead>
+                  <tbody>
               <?php
+              $result = array_unique($exemplaren);
+              $resultaten = array();
+              foreach($result as $r){
+                $ids = array();
+                $stmt = DB::conn()->prepare("SELECT aantalVerhuur FROM Exemplaar WHERE filmid=?");
+                $stmt->bind_param('i', $r);
+                $stmt->execute();
+                $stmt->bind_result($id);
+                while($stmt->fetch()){
+                  $ids[] = $id;
+                }
+                $stmt->close();
+
+                $res = array_sum($ids);
+                $resultaten[] = $res;
+
+                $stmt = DB::conn()->prepare("SELECT titel, omschr, img FROM Film WHERE id=?");
+                $stmt->bind_param('i', $r);
+                $stmt->execute();
+                $stmt->bind_result($titel, $omschr, $img);
+                $stmt->fetch();
+                $stmt->close();
+                $img = '/cover/'.$img;
+                $URL = '/film/'.$r;
+                ?>
+                <tr>
+                  <td><a href="<?php echo $URL ?>"><img src="<?php echo $img ?>" class="winkelmand_img"></a></td>
+                  <td><?php echo $titel ?></td>
+                  <td><?php echo $omschr ?></td>
+                  <td><b><?php echo $res ?></b></td>
+                </tr>
+                <?php
+              }
+              rsort($resultaten);
+            }else{
+              echo "<div class='warning'><b>ER ZIJN DE AFGELOPEN 14 DAGEN GEEN FILMS BESTELD</b></div>";
             }
+
           ?>
         </div>
       </div>
