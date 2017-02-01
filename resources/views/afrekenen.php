@@ -367,7 +367,7 @@ if(!empty($_SESSION['login'])){
             </h4>
             <hr></hr>
             <h4>Ophaaldatum: <?php echo $_POST['ophaalDatum'] ?></h4>
-            <h2>OPHAAL TIJD</h2>
+            <h2>OPHAALTIJD</h2>
               <select name="ophaalTijd" class="form-control">
                 <?php
                 // $beginTijd = '14:00';
@@ -398,17 +398,6 @@ if(!empty($_SESSION['login'])){
         }else{
 
         if(!empty($orderIdResult)){
-
-          // $stmt = DB::conn()->prepare("SELECT `aflevertijd` FROM `Order`");
-          // $stmt->execute();
-          // $bezetteAfleverTijden = array();
-          // $stmt->bind_result($f);
-          // while($stmt->fetch()){
-          //   $bezetteAfleverTijden[] = $f;
-          // }
-          // $stmt->close();
-
-
           ?>
           <br>
           <form  method="post" action="?action=afleverDatum">
