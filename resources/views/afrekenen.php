@@ -366,7 +366,7 @@ if(!empty($_SESSION['login'])){
               ?>
             </h4>
             <hr></hr>
-            <h4>Ophaal Datum: <?php echo $_POST['ophaalDatum'] ?></h4>
+            <h4>Ophaaldatum: <?php echo $_POST['ophaalDatum'] ?></h4>
             <h2>OPHAAL TIJD</h2>
               <select name="ophaalTijd" class="form-control">
                 <?php
