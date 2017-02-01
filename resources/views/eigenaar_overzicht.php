@@ -123,7 +123,7 @@ if(!empty($_SESSION['login'])){
                       <th>Foto</th>
                       <th>Titel</th>
                       <th>Omschrijving</th>
-                      <th>Aantal keer verhuurd</th>
+                      <th>Totaal aantal keer verhuurd</th>
                     </tr>
                   </thead>
                   <tbody>
