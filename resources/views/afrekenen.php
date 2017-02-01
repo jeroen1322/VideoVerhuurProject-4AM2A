@@ -68,10 +68,10 @@ if(!empty($_SESSION['login'])){
             $totaal = $_POST['totaal'];
 
             foreach($orderIdResult as $e){
-              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1, reminder=0 WHERE id=?");
-              $exm_order_stmt->bind_param("si", $ophaalTijd, $e);
-              $exm_order_stmt->execute();
-              $exm_order_stmt->close();
+              $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1, reminder=0 WHERE id=?");
+              $stmt->bind_param("si", $ophaalTijd, $e);
+              $stmt->execute();
+              $stmt->close();
 
               $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
               $stmt->bind_param("i", $e);
@@ -196,10 +196,10 @@ if(!empty($_SESSION['login'])){
             $stmt->close();
             $afleverDate = $_POST['afleverDatum'];
             foreach($orderIdResult as $e){
-              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=? WHERE id=?");
-              $exm_order_stmt->bind_param("si", $afleverDate, $e);
-              $exm_order_stmt->execute();
-              $exm_order_stmt->close();
+              $stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=? WHERE id=?");
+              $stmt->bind_param("si", $afleverDate, $e);
+              $stmt->execute();
+              $stmt->close();
             }
             ?>
             <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
@@ -230,10 +230,10 @@ if(!empty($_SESSION['login'])){
               $afleverDatum = $_GET['afleverDatum'];
               $afleverTijd = $_GET['afleverTijd'];
               foreach($orderIdResult as $e){
-                $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=?, aflevertijd=? WHERE id=?");
-                $exm_order_stmt->bind_param("ssi", $afleverDatum, $afleverTijd, $e);
-                $exm_order_stmt->execute();
-                $exm_order_stmt->close();
+                $stmt = DB::conn()->prepare("UPDATE `Order` SET afleverdatum=?, aflevertijd=? WHERE id=?");
+                $stmt->bind_param("ssi", $afleverDatum, $afleverTijd, $e);
+                $stmt->execute();
+                $stmt->close();
               }
             }else{
               $afleverDatum = $_POST['afleverDatum'];
@@ -241,10 +241,10 @@ if(!empty($_SESSION['login'])){
             }
 
             foreach($orderIdResult as $e){
-              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET aflevertijd=? WHERE id=?");
-              $exm_order_stmt->bind_param("si", $afleverTijd, $e);
-              $exm_order_stmt->execute();
-              $exm_order_stmt->close();
+              $stmt = DB::conn()->prepare("UPDATE `Order` SET aflevertijd=? WHERE id=?");
+              $stmt->bind_param("si", $afleverTijd, $e);
+              $stmt->execute();
+              $stmt->close();
             }
             ?>
             <h4>Aflever datum: <?php echo $afleverDatum ?></h4>
@@ -285,10 +285,10 @@ if(!empty($_SESSION['login'])){
             $stmt->close();
 
             foreach($orderIdResult as $e){
-              $exm_order_stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaldatum=? WHERE id=?");
-              $exm_order_stmt->bind_param("si", $ophaalDatum, $e);
-              $exm_order_stmt->execute();
-              $exm_order_stmt->close();
+              $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaldatum=? WHERE id=?");
+              $stmt->bind_param("si", $ophaalDatum, $e);
+              $stmt->execute();
+              $stmt->close();
             }
             //Bereken het aantal dagen tussen de aflever en ophaal datum
             $dateBegin = $_POST['afleverDatum'];

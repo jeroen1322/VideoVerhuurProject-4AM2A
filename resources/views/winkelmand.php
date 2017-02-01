@@ -100,34 +100,34 @@ if(!empty($_SESSION['login'])){
     if(!empty($_GET['action'])){
 
       $code = $_GET['code'];
-      $exm_order_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE id=? AND statusid=2");
-      $exm_order_stmt->bind_param("i", $code);
-      $exm_order_stmt->execute();
-      $exm_order_stmt->bind_result($exm_order_id);
-      $exm_order_stmt->fetch();
-      $exm_order_stmt->close();
+      $stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE id=? AND statusid=2");
+      $stmt->bind_param("i", $code);
+      $stmt->execute();
+      $stmt->bind_result($exm_order_id);
+      $stmt->fetch();
+      $stmt->close();
 
-      $exm_order_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?");
-      $exm_order_stmt->bind_param("i", $exm_order_id);
-      $exm_order_stmt->execute();
-      $exm_order_stmt->close();
+      $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?");
+      $stmt->bind_param("i", $exm_order_id);
+      $stmt->execute();
+      $stmt->close();
 
-      $exm_order_stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
-      $exm_order_stmt->bind_param("i", $exm_order_id);
-      $exm_order_stmt->execute();
-      $exm_order_stmt->bind_result($OR_order_id);
-      $exm_order_stmt->fetch();
-      $exm_order_stmt->close();
+      $stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
+      $stmt->bind_param("i", $exm_order_id);
+      $stmt->execute();
+      $stmt->bind_result($OR_order_id);
+      $stmt->fetch();
+      $stmt->close();
 
-      $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Order` WHERE id=?");
-      $exm_order_stmt->bind_param("i", $OR_order_id);
-      $exm_order_stmt->execute();
-      $exm_order_stmt->close();
+      $stmt = DB::conn()->prepare("DELETE FROM `Order` WHERE id=?");
+      $stmt->bind_param("i", $OR_order_id);
+      $stmt->execute();
+      $stmt->close();
 
-      $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Orderregel` WHERE orderid=?");
-      $exm_order_stmt->bind_param("i", $OR_order_id);
-      $exm_order_stmt->execute();
-      $exm_order_stmt->close();
+      $stmt = DB::conn()->prepare("DELETE FROM `Orderregel` WHERE orderid=?");
+      $stmt->bind_param("i", $OR_order_id);
+      $stmt->execute();
+      $stmt->close();
 
       header("Refresh:0; url=/winkelmand");
     }

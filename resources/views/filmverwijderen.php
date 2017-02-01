@@ -73,50 +73,54 @@ if(!empty($_SESSION['login'])){
         if($_GET['action'] == 'delete'){
           $code = $_GET['code'];
 
-          $exm_film_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=?");
-          $exm_film_stmt->bind_param("i", $code);
-          $exm_film_stmt->execute();
+          $stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=?");
+          $stmt->bind_param("i", $code);
+          $stmt->execute();
+          $stmt->bind_result($x);
+          while($stmt->fetch()){
+            $ids[] = $x;
+          }
+          $stmt->close();
 
-          $exm_film_stmt->bind_result($x);
-          $exm_film_stmt->fetch();
-          $exm_film_stmt->close();
 
-          $exm_order_stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
-          $exm_order_stmt->bind_param("i", $x);
-          $exm_order_stmt->execute();
-          $exm_order_stmt->bind_result($OR_order_id);
-          $exm_order_stmt->fetch();
-          $exm_order_stmt->close();
+          foreach($ids as $i){
+            $stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
+            $stmt->bind_param("i", $i);
+            $stmt->execute();
+            $stmt->bind_result($OR_order_id);
+            $stmt->fetch();
+            $stmt->close();
 
-          $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Order` WHERE id=?");
-          $exm_order_stmt->bind_param("i", $OR_order_id);
-          $exm_order_stmt->execute();
-          $exm_order_stmt->close();
+            $stmt = DB::conn()->prepare("DELETE FROM `Order` WHERE id=?");
+            $stmt->bind_param("i", $OR_order_id);
+            $stmt->execute();
+            $stmt->close();
 
-          $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Orderregel` WHERE exemplaarid=?");
-          $exm_order_stmt->bind_param("i", $x);
-          $exm_order_stmt->execute();
-          $exm_order_stmt->close();
+            $stmt = DB::conn()->prepare("DELETE FROM `Orderregel` WHERE exemplaarid=?");
+            $stmt->bind_param("i", $i);
+            $stmt->execute();
+            $stmt->close();
+          }
 
-          $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Exemplaar` WHERE filmid=?");
-          $exm_order_stmt->bind_param("i", $code);
-          $exm_order_stmt->execute();
-          $exm_order_stmt->close();
+          $stmt = DB::conn()->prepare("DELETE FROM `Exemplaar` WHERE filmid=?");
+          $stmt->bind_param("i", $code);
+          $stmt->execute();
+          $stmt->close();
 
-          $exm_film_stmt = DB::conn()->prepare("SELECT img FROM `Film` WHERE id=?");
-          $exm_film_stmt->bind_param("i", $code);
-          $exm_film_stmt->execute();
+          $stmt = DB::conn()->prepare("SELECT img FROM `Film` WHERE id=?");
+          $stmt->bind_param("i", $code);
+          $stmt->execute();
 
-          $exm_film_stmt->bind_result($verwijderFoto);
-          $exm_film_stmt->fetch();
-          $exm_film_stmt->close();
+          $stmt->bind_result($verwijderFoto);
+          $stmt->fetch();
+          $stmt->close();
 
           unlink(FOTO . "/" . $verwijderFoto);
 
-          $exm_order_stmt = DB::conn()->prepare("DELETE FROM `Film` WHERE id=?");
-          $exm_order_stmt->bind_param("i", $code);
-          $exm_order_stmt->execute();
-          $exm_order_stmt->close();
+          $stmt = DB::conn()->prepare("DELETE FROM `Film` WHERE id=?");
+          $stmt->bind_param("i", $code);
+          $stmt->execute();
+          $stmt->close();
 
 
           header("Refresh:0; url=/eigenaar/film_verwijderen");
