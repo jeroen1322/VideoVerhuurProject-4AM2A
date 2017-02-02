@@ -62,21 +62,25 @@ if(!empty($_POST)){
     echo "<div class='alert'>Controlleer of u alle informatie correct heeft ingevuld.</div>";
   }
 }
+if(!empty($_SESSION['login'])){
+  echo "<div class='warning'><b>U BENT AL INGELOGD</b></div>";
+}else{
 ?>
+  <div class="panel panel-default">
+    <div class="panel-body registreer-panel">
+      <h1>REGISTREER</h1>
+      <form method="post">
+        <input type="text" name="naam" placeholder="Naam" class="form-control" required>
+        <input type="text" name="adres" placeholder="Adres" class="form-control" required>
+        <input type="text" name="postcode" placeholder="Postcode" class="form-control"  required>
+        <input type="text" name="woonplaats" placeholder="Woonplaats" class="form-control"  required>
+        <input type="text" name="telefoonnummer" placeholder="Telefoonnummer" class="form-control"  required>
+        <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control"  required>
+        <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control"  required>
 
-<div class="panel panel-default">
-  <div class="panel-body registreer-panel">
-    <h1>REGISTREER</h1>
-    <form method="post">
-      <input type="text" name="naam" placeholder="Naam" class="form-control" required>
-      <input type="text" name="adres" placeholder="Adres" class="form-control" required>
-      <input type="text" name="postcode" placeholder="Postcode" class="form-control"  required>
-      <input type="text" name="woonplaats" placeholder="Woonplaats" class="form-control"  required>
-      <input type="text" name="telefoonnummer" placeholder="Telefoonnummer" class="form-control"  required>
-      <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control"  required>
-      <input type="password" name="wachtwoord" placeholder="Wachtwoord" autocomplete="off" class="form-control"  required>
-
-      <input type="submit" name="submit" class="btn btn-primary form-knop" value="REGISTREER">
-    </form>
+        <input type="submit" name="submit" class="btn btn-primary form-knop" value="REGISTREER">
+      </form>
+    </div>
   </div>
-</div>
+<?php
+}
