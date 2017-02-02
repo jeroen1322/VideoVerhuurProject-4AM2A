@@ -130,7 +130,7 @@ if(!empty($_SESSION['login'])){
                 $nieuweVandaag = strtotime($vandaag);
                 if($nieuweVierWekenGeleden <= $nieuweOrderDatum && $nieuweOrderDatum <= $nieuweVandaag){
 
-                  $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE id=?");
+                  $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE id=? AND besteld=1");
                   $stmt->bind_param('i', $i);
                   $stmt->execute();
                   $stmt->bind_result($O_id);
