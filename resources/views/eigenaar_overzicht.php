@@ -136,7 +136,6 @@ if(!empty($_SESSION['login'])){
                   $stmt->bind_result($O_id);
                   $stmt->fetch();
                   $stmt->close();
-                  // echo $O_id."<br>";
 
                   $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
                   $stmt->bind_param('i', $O_id);
@@ -171,7 +170,6 @@ if(!empty($_SESSION['login'])){
                 <?php
                 $aantalVerhuurdPerFilm = array_count_values($films);
 
-                $u_films = array_unique($films);
                 ksort($aantalVerhuurdPerFilm);
                 foreach($aantalVerhuurdPerFilm as $a => $v){
                   $stmt = DB::conn()->prepare("SELECT titel, img FROM `Film` WHERE id=?");
