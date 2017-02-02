@@ -147,8 +147,6 @@ if(!empty($_SESSION['login'])){
   }else{
     echo "<div class='warning'>UW WINKELMAND IS LEEG</div>";
   }
-
-
 }else{
   echo "U MOET <a href='/login'>INGELOGD</a> ZIJN";
 }
