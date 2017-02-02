@@ -52,9 +52,10 @@ if(!empty($_POST)){
     echo '<div class="alert">Controleer of u alle velden correct heeft ingevuld.</div>';
   }
 }
-if(!empty($_SESSION['login'])){
-  echo "<div class='warning'><b>U BENT AL INGELOGD</b></div>";
-}else{
+if(empty($_POST)){
+  if(!empty($_SESSION['login'])){
+    echo "<div class='warning'><b>U BENT AL INGELOGD</b></div>";
+  }else{
 ?>
   <div class="panel-body login-panel">
     <h1>LOGIN</h1>
@@ -66,4 +67,5 @@ if(!empty($_SESSION['login'])){
   </div>
 </div>
 <?php
+  }
 }
