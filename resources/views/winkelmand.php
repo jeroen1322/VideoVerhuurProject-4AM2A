@@ -133,6 +133,17 @@ if(!empty($_SESSION['login'])){
     }
 
     DB::conn()->close();
+    ?>
+    </tbody>
+    </table>
+    <div class="winkelmand_onder">
+    <a href="/winkelmand/afrekenen">
+    <button class="btn btn-success bestel">AFREKENEN</button>
+    </a>
+    </div>
+    </div>
+    </div>
+    <?php
   }else{
     echo "<div class='warning'>UW WINKELMAND IS LEEG</div>";
   }
@@ -143,12 +154,3 @@ if(!empty($_SESSION['login'])){
 }
 
 ?>
-    </tbody>
-  </table>
-    <div class="winkelmand_onder">
-      <a href="/winkelmand/afrekenen">
-        <button class="btn btn-success bestel">AFREKENEN</button>
-      </a>
-    </div>
-  </div>
-</div>
