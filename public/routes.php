@@ -25,15 +25,6 @@ $klein->respond('/', function ($request, $response, $service) {
     $service->render(VIEWS.'/home.php');
 });
 
-// Home page view
-$klein->respond('/mail', function ($request, $response, $service) {
-    // add some data to the view.
-    $service->pageTitle = 'TempoVideo';
-
-    // This is the function that renders the view inside the layout.
-    $service->render(MAIL.'/testmail.php');
-});
-
 // Filmaanbod view
 $klein->respond('/film/aanbod', function ($request, $response, $service) {
     // add some data to the view.
