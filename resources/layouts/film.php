@@ -70,23 +70,21 @@ if(!empty($_SESSION['login'])){
               ?>
               <ul class="nav navbar-nav menu_right">
                 <?php
-                //Haal id op van Order op
                 $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=0");
                 $stmt->bind_param("i", $klantId);
                 $stmt->execute();
-
                 $stmt->bind_result($order_id);
-
-                $orderIdResult = array();
-
-                while($stmt->fetch()){
-                  $orderIdResult[] = $order_id;
-                }
-
+                $stmt->fetch();
                 $stmt->close();
-                if(!empty($orderIdResult)){
+                $stmt = DB::conn()->prepare("select count(exemplaarid) from Orderregel where orderid =?;");
+                $stmt->bind_param("i", $order_id);
+                $stmt->execute();
+                $stmt->bind_result($count);
+                $stmt->fetch();
+                $stmt->close();
+                if(!empty($order_id)){
                   ?>
-                  <li><a href="/winkelmand" class="menu_winkelmand"><i class="fa fa-shopping-cart" aria-hidden="true"></i>(<?php echo(count($orderIdResult)); ?>)</a></li>
+                  <li><a href="/winkelmand" class="menu_winkelmand"><i class="fa fa-shopping-cart" aria-hidden="true"></i>(<?php echo $count; ?>)</a></li>
                   <?php
 
                 }

@@ -21,8 +21,8 @@ if(!empty($_SESSION['login'])){
   }
 
 }
-$film = $this->filmNaam;
 
+$film = $this->filmNaam;
 //Pak de foto van de film
 $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM Film WHERE id=?");
 $stmt->bind_param("s", $film);
@@ -55,16 +55,33 @@ if(!empty($_GET['action'])){
     $product_cart_id = $_SESSION['cart_item']['id'];
     // echo $product_cart_id;
 
-    $order_id = rand(1, 2100);
+
     $klant = $_SESSION['login']['0'];
     $besteld = 0;
     $afhandeling = 0;
     $huidigeWeek = date('d-m-Y');
     $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
-    $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, orderdatum, besteld) VALUES (?, ?, ?, ?, ?)");
-    $cart_stmt->bind_param("iiisi", $order_id, $klant, $afhandeling, $huidigeWeek, $besteld );
+
+    $cart_stmt = DB::conn()->prepare("select count(o.id) from `Order` o where o.klantid =? and ifnull(besteld, false) = false;");
+    $cart_stmt->bind_param("i", $klantId);
     $cart_stmt->execute();
+    $cart_stmt->bind_result($countorder);
+    $cart_stmt->fetch();
     $cart_stmt->close();
+
+    if($countorder == 0){
+        $order_id = rand(1, 2100);
+        $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, orderdatum, besteld) VALUES (?, ?, ?, ?, ?)");
+        $cart_stmt->bind_param("iiisi", $order_id, $klant, $afhandeling, $huidigeWeek, $besteld);
+        $cart_stmt->execute();
+        $cart_stmt->close();
+    }
+    $orderid_stmt = DB::conn()->prepare("select id FROM `Order` WHERE klantid =? AND besteld = 0");
+    $orderid_stmt->bind_param("i", $klantId);
+    $orderid_stmt->execute();
+    $orderid_stmt->bind_result($order_id);
+    $orderid_stmt->fetch();
+    $orderid_stmt->close();
 
     //VOEG TOE AAN `ORDERREGEL`
     $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
