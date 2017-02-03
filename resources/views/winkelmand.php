@@ -53,13 +53,6 @@ print_r($orderIdResult);
     print_r($exm_id);
     foreach($exm_id as $i){
 
-      //Haal de Filmid op van het exemplaar op
-        $exm_stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
-        $exm_stmt->bind_param("i", $order_id);
-        $exm_stmt->execute();
-        $exm_stmt->bind_result($exemplaarid);
-        $exm_stmt->fetch();
-        $exm_stmt->close();
       $exm_stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
       $exm_stmt->bind_param("i", $i);
       $exm_stmt->execute();
@@ -90,7 +83,7 @@ print_r($orderIdResult);
             <td><?php echo $titel ?></td>
             <td><?php echo $omschr ?><td>
             <td>
-              <form method="post" action="?action=delete&code=<?php echo $exemplaarid ?>">
+              <form method="post" action="?action=delete&code=<?php echo $i ?>">
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
