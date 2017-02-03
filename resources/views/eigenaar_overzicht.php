@@ -111,50 +111,58 @@ if(!empty($_SESSION['login'])){
 
               $stmt = DB::conn()->prepare("SELECT id FROM `Order`");
               $stmt->execute();
-              $stmt->bind_result($id);
-              while($stmt->fetch()){
-                $ids[] = $id;
-              }
+              $stmt->bind_result($o);
+              $stmt->fetch();
               $stmt->close();
-              $films = array();
-              foreach($ids as $i){
-                $stmt = DB::conn()->prepare("SELECT orderdatum FROM `Order` WHERE id=?");
-                $stmt->bind_param('i', $i);
+              if(!empty($o)){
+                $stmt = DB::conn()->prepare("SELECT id FROM `Order`");
                 $stmt->execute();
-                $stmt->bind_result($orderdatum);
-                $stmt->fetch();
+                $stmt->bind_result($id);
+                while($stmt->fetch()){
+                  $ids[] = $id;
+                }
                 $stmt->close();
-
-                $nieuweVierWekenGeleden = strtotime($vierWekenGeleden);
-                $nieuweOrderDatum = strtotime($orderdatum);
-                $nieuweVandaag = strtotime($vandaag);
-                if($nieuweVierWekenGeleden <= $nieuweOrderDatum && $nieuweOrderDatum <= $nieuweVandaag){
-
-                  $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE id=? AND besteld=1");
+                $films = array();
+                foreach($ids as $i){
+                  $stmt = DB::conn()->prepare("SELECT orderdatum FROM `Order` WHERE id=?");
                   $stmt->bind_param('i', $i);
                   $stmt->execute();
-                  $stmt->bind_result($O_id);
+                  $stmt->bind_result($orderdatum);
                   $stmt->fetch();
                   $stmt->close();
 
-                  $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
-                  $stmt->bind_param('i', $O_id);
-                  $stmt->execute();
-                  $stmt->bind_result($exm_id);
-                  $stmt->fetch();
-                  $stmt->close();
+                  $nieuweVierWekenGeleden = strtotime($vierWekenGeleden);
+                  $nieuweOrderDatum = strtotime($orderdatum);
+                  $nieuweVandaag = strtotime($vandaag);
+                  if($nieuweVierWekenGeleden <= $nieuweOrderDatum && $nieuweOrderDatum <= $nieuweVandaag){
 
-                  $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
-                  $stmt->bind_param('i', $exm_id);
-                  $stmt->execute();
-                  $stmt->bind_result($f_id);
-                  while($stmt->fetch()){
-                    $films[] = $f_id;
+                    $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE id=? AND besteld=1");
+                    $stmt->bind_param('i', $i);
+                    $stmt->execute();
+                    $stmt->bind_result($O_id);
+                    $stmt->fetch();
+                    $stmt->close();
+
+                    $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+                    $stmt->bind_param('i', $O_id);
+                    $stmt->execute();
+                    $stmt->bind_result($exm_id);
+                    $stmt->fetch();
+                    $stmt->close();
+
+                    $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
+                    $stmt->bind_param('i', $exm_id);
+                    $stmt->execute();
+                    $stmt->bind_result($f_id);
+                    while($stmt->fetch()){
+                      $films[] = $f_id;
+                    }
+                    $stmt->close();
+
                   }
-                  $stmt->close();
-
                 }
               }
+
               if(!empty($films)){
                 ?>
                 <h4>MEEST GEHUURDE FILMS AFGELOPEN 4 WEKEN</h4>
@@ -170,7 +178,8 @@ if(!empty($_SESSION['login'])){
                 <?php
                 $aantalVerhuurdPerFilm = array_count_values($films);
 
-                ksort($aantalVerhuurdPerFilm);
+                usort($aantalVerhuurdPerFilm);
+
                 foreach($aantalVerhuurdPerFilm as $a => $v){
                   $stmt = DB::conn()->prepare("SELECT titel, img FROM `Film` WHERE id=?");
                   $stmt->bind_param('i', $a);
