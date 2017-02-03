@@ -1,3 +1,10 @@
+@media screen and (max-width: 593px) {
+  .filmThumbnail.filmAanbodFilm.col-md-3{
+    float: none !important;
+    width: 90% !important;
+    margin: 0 auto !important;
+  }
+}
 @media screen and (max-width: 660px) {
   .film_info{
     width: 100% !important;
@@ -26,6 +33,21 @@
   a.btn.btn-success.terug_button {
       margin-top: -50px !important;
       width: 100% !important;
+  }
+  .filmThumbnail.filmAanbodFilm.col-md-3 {
+      float: left;
+      width: 50%;
+      margin-bottom: 20px;
+  }
+  img.filmaanbod_img{
+    width: 200px !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .filmaanbod_img {
+    width: 100% !important;
+    height: 300px !important;
   }
 }
 .menu_right{

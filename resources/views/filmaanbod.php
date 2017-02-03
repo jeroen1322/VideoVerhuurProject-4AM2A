@@ -84,7 +84,9 @@ if(!empty($_GET['action'])){
     }
 
 }
-
+?>
+<div class="filmaanbod">
+<?php
 if(!empty($titel)){
       foreach($film_titel as $i){
         $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` where id=?");
@@ -115,7 +117,7 @@ if(!empty($titel)){
                   <a href="/">
                       <div class="thumb">
                           <a href=<?php echo"$url" ?>>
-                          <img src=<?php echo"$cover" ?> class="thumb_img"/></a>
+                          <img src=<?php echo"$cover" ?> class="thumb_img filmaanbod_img"/></a>
                           <h2 class="textfilmaanbod"><?php echo "$titel"?> </h2>
                               <form method="post" action="?action=add&code=<?php echo $id ?>">
                                 <?php
@@ -143,6 +145,6 @@ if(!empty($titel)){
 }
   DB::conn()->close();
   ?>
-
     </div>
+  </div>
 </div>
