@@ -20,7 +20,7 @@ if(!empty($_SESSION['login'])){
   }
 
   $stmt->close();
-print_r($orderIdResult);
+//print_r($orderIdResult);
   if(!empty($orderIdResult)){
     ?>
     <table class="table">
@@ -97,46 +97,46 @@ print_r($orderIdResult);
     if(!empty($_GET['action'])){
 
       $code = $_GET['code'];
-      echo $code;
-//      $stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE id=? AND statusid=2");
-//      $stmt->bind_param("i", $code);
-//      $stmt->execute();
-//      $stmt->bind_result($exm_order_id);
-//      $stmt->fetch();
-//      $stmt->close();
 
-//      $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?");
-//      $stmt->bind_param("i", $exm_order_id);
-//      $stmt->execute();
-//      $stmt->close();
-//
-//      $stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
-//      $stmt->bind_param("i", $i);
-//      $stmt->execute();
-//      $stmt->bind_result($OR_order_id);
-//      $stmt->fetch();
-//      $stmt->close();
-//
-//      $stmt = DB::conn()->prepare("select count(exemplaarid) from Orderregel where orderid =?;");
-//      $stmt->bind_param("i", $order_id );
-//      $stmt->execute();
-//      $stmt->bind_result($count);
-//      $stmt->fetch();
-//      $stmt->close();
-//      echo $count;
-//      if($count == 1) {
-//          $stmt = DB::conn()->prepare("DELETE FROM `Order` WHERE id=?");
-//          $stmt->bind_param("i", $OR_order_id);
-//          $stmt->execute();
-//          $stmt->close();
-//      }
-//
-//      $stmt = DB::conn()->prepare("DELETE FROM `Orderregel` WHERE exemplaarid=?");
-//      $stmt->bind_param("i", $i);
-//      $stmt->execute();
-//      $stmt->close();
+      $stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE id=? AND statusid=2");
+      $stmt->bind_param("i", $code);
+      $stmt->execute();
+      $stmt->bind_result($exm_order_id);
+      $stmt->fetch();
+      $stmt->close();
 
-    //  header("Refresh:0; url=/winkelmand");
+      $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?");
+      $stmt->bind_param("i", $code);
+      $stmt->execute();
+      $stmt->close();
+
+      $stmt = DB::conn()->prepare("SELECT orderid FROM `Orderregel` WHERE exemplaarid=?");
+      $stmt->bind_param("i", $code);
+      $stmt->execute();
+      $stmt->bind_result($OR_order_id);
+      $stmt->fetch();
+      $stmt->close();
+
+      $stmt = DB::conn()->prepare("select count(exemplaarid) from Orderregel where orderid =?;");
+      $stmt->bind_param("i", $order_id );
+      $stmt->execute();
+      $stmt->bind_result($count);
+      $stmt->fetch();
+      $stmt->close();
+
+      if($count == 1) {
+          $stmt = DB::conn()->prepare("DELETE FROM `Order` WHERE id=?");
+          $stmt->bind_param("i", $OR_order_id);
+          $stmt->execute();
+          $stmt->close();
+      }
+
+      $stmt = DB::conn()->prepare("DELETE FROM `Orderregel` WHERE exemplaarid=?");
+      $stmt->bind_param("i", $code);
+      $stmt->execute();
+      $stmt->close();
+
+      header("Refresh:0; url=/winkelmand");
     }
 
     DB::conn()->close();
