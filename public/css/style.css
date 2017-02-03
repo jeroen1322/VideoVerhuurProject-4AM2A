@@ -1,3 +1,15 @@
+@media screen and (max-width: 660px) {
+  .film_info{
+    width: 100% !important;
+  }
+  .details img{
+    float: none !important;
+    margin: 0 auto !important;
+  }
+  input.btn.btn-success.bestel {
+    width: 100% !important;
+  }
+}
 @media screen and (max-width: 765px) {
   .left{
     float: none !important;
@@ -9,11 +21,22 @@
     width: 100% !important;
   }
 }
+
+@media screen and (max-width: 992px) {
+  a.btn.btn-success.terug_button {
+      margin-top: -50px !important;
+      width: 100% !important;
+  }
+}
 .menu_right{
   float: right;
 }
 .filmAanbodPanel {
     height: 89vh;
+}
+.film_info {
+    width: 50%;
+    float: left;
 }
 .details img{
   float: left;
@@ -146,9 +169,7 @@ a.menu_winkelmand {
 .nieuweThumb {
   height: 300px;
 }
-/*.nieuweFilm {
-    width: 60% !important;
-}*/
+
 .textfilmaanbod {
     font-size:22px;
 }

@@ -154,6 +154,9 @@ if(!empty($id)){
                 </div>
                 <?php
               }else{
+                ?>
+                <div class="film_info">
+                <?php
                 if(!empty($_SESSION['login'])){
                   if(isEigenaar($klantRolId)){
                   ?>
@@ -168,7 +171,7 @@ if(!empty($id)){
                   }
                 }
               ?>
-              <div class="film_info">
+
               <h1><b><?php echo $titel ?></b></h1>
               <h3>Omschrijving</h3>
               <p><?php echo $omschr ?></p>
