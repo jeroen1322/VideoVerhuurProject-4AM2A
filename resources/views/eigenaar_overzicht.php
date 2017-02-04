@@ -142,23 +142,26 @@ if(!empty($_SESSION['login'])){
                     $stmt->bind_result($O_id);
                     $stmt->fetch();
                     $stmt->close();
-
+                    $exms = array();
                     $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
                     $stmt->bind_param('i', $O_id);
                     $stmt->execute();
                     $stmt->bind_result($exm_id);
-                    $stmt->fetch();
-                    $stmt->close();
-
-                    $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
-                    $stmt->bind_param('i', $exm_id);
-                    $stmt->execute();
-                    $stmt->bind_result($f_id);
                     while($stmt->fetch()){
-                      $films[] = $f_id;
+                      $exms[] = $exm_id;
                     }
                     $stmt->close();
 
+                    foreach($exms as $e){
+                      $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
+                      $stmt->bind_param('i', $e);
+                      $stmt->execute();
+                      $stmt->bind_result($f_id);
+                      while($stmt->fetch()){
+                        $films[] = $f_id;
+                      }
+                      $stmt->close();
+                    }
                   }
                 }
               }
