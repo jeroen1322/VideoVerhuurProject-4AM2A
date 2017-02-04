@@ -336,6 +336,7 @@ if(!empty($_SESSION['login'])){
                     $bezorg = 2;
                   }
                   echo "<br>Aantal Films: ". $aantalFilms;
+                  $a = $bedrag;
                   echo "<br><br>Subtotaalaaa: €".$bedrag;
                   if($bezorg == "GRATIS"){
                     echo "<br>Bezorgkosten: GRATIS";
@@ -398,9 +399,9 @@ if(!empty($_SESSION['login'])){
                       <?php
                     }
                   }
+
                   ?>
                 </select>
-
                 <input type="hidden" value="<?php echo $aantalFilms ?>" name="aantalFilms">
                 <input type="hidden" value="<?php echo $a ?>" name="subTotaal">
                 <input type="hidden" value="<?php echo $bezorg ?>" name="bezorgKosten">
