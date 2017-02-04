@@ -20,7 +20,7 @@ if(!empty($_SESSION['login'])){
   }
 
   $stmt->close();
-//print_r($orderIdResult);
+
   if(!empty($orderIdResult)){
     ?>
     <table class="table">
@@ -50,7 +50,7 @@ if(!empty($_SESSION['login'])){
         $exm_id[] = $exem_id;
     }
     $or_stmt->close();
-    print_r($exm_id);
+
     foreach($exm_id as $i){
 
       $exm_stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");

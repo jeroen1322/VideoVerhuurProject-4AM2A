@@ -39,7 +39,21 @@ if(!empty($_SESSION['login'])){
     }
 
     $stmt->close();
-    $bedrag = count($orderIdResult) * 7.50;
+
+    $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=0");
+    $stmt->bind_param("i", $klantId);
+    $stmt->execute();
+    $stmt->bind_result($order_id);
+    $stmt->fetch();
+    $stmt->close();
+    $stmt = DB::conn()->prepare("select count(exemplaarid) from Orderregel where orderid =?;");
+    $stmt->bind_param("i", $order_id);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+
+    $bedrag = $count * 7.50;
 
     $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=1");
     $stmt->bind_param("i", $klantId);
@@ -108,9 +122,10 @@ if(!empty($_SESSION['login'])){
                 }else{
                   echo $days . " dagen";
                 }
-                $aantalFilms = count($orderIdResult);
+                $aantalFilms = $count;
+
                 echo "<br>Aantal Films: ". $aantalFilms;
-                echo "<br><br>Subtotaal: €".$bedrag;
+                echo "<br><br>Subtotaal: €".$subTotaal;
                 if($bezorgKosten != "GRATIS"){
                   echo "<br>Bezorgkosten: €". $bezorgKosten;
                 }else{
@@ -311,7 +326,8 @@ if(!empty($_SESSION['login'])){
                 }else{
                   echo $days . " dagen";
                 }
-                $aantalFilms = count($orderIdResult);
+
+                $aantalFilms = $count;
                 if($days <=7){
 
                   if($bedrag >= 50){
@@ -320,7 +336,7 @@ if(!empty($_SESSION['login'])){
                     $bezorg = 2;
                   }
                   echo "<br>Aantal Films: ". $aantalFilms;
-                  echo "<br><br>Subtotaal: €".$bedrag;
+                  echo "<br><br>Subtotaalaaa: €".$bedrag;
                   if($bezorg == "GRATIS"){
                     echo "<br>Bezorgkosten: GRATIS";
                   }else{
@@ -348,7 +364,7 @@ if(!empty($_SESSION['login'])){
                   echo "<br>Aantal Films: ". $aantalFilms;
                   $bedrag = $bedrag + $extra;
                   echo "<br><br>Subtotaal: €".$bedrag;
-
+                  $a = $bedrag;
 
                   if($bezorg == "GRATIS"){
                     echo "<br>Bezorgkosten: GRATIS";
@@ -365,6 +381,7 @@ if(!empty($_SESSION['login'])){
                   $stmt->execute();
                   $stmt->close();
                 }
+
                 ?>
               </h4>
               <hr></hr>
@@ -385,7 +402,7 @@ if(!empty($_SESSION['login'])){
                 </select>
 
                 <input type="hidden" value="<?php echo $aantalFilms ?>" name="aantalFilms">
-                <input type="hidden" value="<?php echo $bedrag ?>" name="subTotaal">
+                <input type="hidden" value="<?php echo $a ?>" name="subTotaal">
                 <input type="hidden" value="<?php echo $bezorg ?>" name="bezorgKosten">
                 <input type="hidden" value="<?php echo $totaal ?>" name="totaal">
                 <input type="hidden" value="<?php echo $_POST['ophaalDatum']; ?>" name="ophaalDatum">
