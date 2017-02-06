@@ -329,7 +329,6 @@ if(!empty($_SESSION['login'])){
 
                 $aantalFilms = $count;
                 if($days <=7){
-
                   if($bedrag >= 50){
                     $bezorg = "GRATIS";
                   }else{
@@ -337,7 +336,7 @@ if(!empty($_SESSION['login'])){
                   }
                   echo "<br>Aantal Films: ". $aantalFilms;
                   $a = $bedrag;
-                  echo "<br><br>Subtotaalaaa: €".$bedrag;
+                  echo "<br><br>Subtotaal: €".$bedrag;
                   if($bezorg == "GRATIS"){
                     echo "<br>Bezorgkosten: GRATIS";
                   }else{
@@ -348,11 +347,6 @@ if(!empty($_SESSION['login'])){
                   echo "<br><b>Totaal: €" . $totaal."</b>";
 
                 }elseif($days > 7){
-                  if($bedrag >= 50){
-                    $bezorg = "GRATIS";
-                  }else{
-                    $bezorg = 2;
-                  }
 
                   $aantalDagen = $days-7;
 
@@ -362,8 +356,15 @@ if(!empty($_SESSION['login'])){
                     $extra = $aantalDagen * count($orderIdResult);
                   }
 
+                  $bedrag = (7.5+$extra)*$aantalFilms;
+                  if($bedrag >= 50){
+                    $bezorg = "GRATIS";
+                  }else{
+                    $bezorg = 2;
+                  }
+
                   echo "<br>Aantal Films: ". $aantalFilms;
-                  $bedrag = $bedrag + $extra;
+
                   echo "<br><br>Subtotaal: €".$bedrag;
                   $a = $bedrag;
 
