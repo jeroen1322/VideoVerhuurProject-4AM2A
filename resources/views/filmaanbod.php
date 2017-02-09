@@ -44,7 +44,6 @@ while($stmt->fetch()){
 $stmt->close();
 
 if(!empty($_GET['action'])){
-    echo "test";
     if($_GET['action'] == 'add') {
         $_SESSION['cart_item'] = array();
         $_SESSION['cart_item']['id'] = $_GET['code'];
