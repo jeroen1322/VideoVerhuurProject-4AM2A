@@ -44,26 +44,45 @@ while($stmt->fetch()){
 $stmt->close();
 
 if(!empty($_GET['action'])){
-    if($_GET['action'] == 'add'){
+    echo "test";
+    if($_GET['action'] == 'add') {
+        $_SESSION['cart_item'] = array();
+        $_SESSION['cart_item']['id'] = $_GET['code'];
         $product_cart_id = $_SESSION['cart_item']['id'];
-        $id = $_GET['code'];
+        // echo $product_cart_id;
 
-        //VOEG TO AAN `ORDER`
-        $order_id = rand(1, 2100);
-        $bedrag = 7.50;
         $klant = $_SESSION['login']['0'];
         $besteld = 0;
         $afhandeling = 0;
         $huidigeWeek = date('d-m-Y');
-        // $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
-        $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, orderdatum, besteld) VALUES (?, ?, ?, ?, ?)");
-        $cart_stmt->bind_param("iiisi", $order_id, $klant, $afhandeling, $huidigeWeek, $besteld );
+        $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
+
+        $cart_stmt = DB::conn()->prepare("select count(o.id) from `Order` o where o.klantid =? and ifnull(besteld, false) = false;");
+        $cart_stmt->bind_param("i", $klantId);
         $cart_stmt->execute();
+        $cart_stmt->bind_result($countorder);
+        $cart_stmt->fetch();
         $cart_stmt->close();
 
+        if ($countorder == 0) {
+            $order_id = rand(1, 2100);
+            $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, orderdatum, besteld) VALUES (?, ?, ?, ?, ?)");
+            $cart_stmt->bind_param("iiisi", $order_id, $klant, $afhandeling, $huidigeWeek, $besteld);
+            $cart_stmt->execute();
+            $cart_stmt->close();
+        }
+        $orderid_stmt = DB::conn()->prepare("select id FROM `Order` WHERE klantid =? AND besteld = 0");
+        $orderid_stmt->bind_param("i", $klantId);
+        $orderid_stmt->execute();
+        $orderid_stmt->bind_result($order_id);
+        $orderid_stmt->fetch();
+        $orderid_stmt->close();
 
+
+
+        //VOEG TOE AAN `ORDERREGEL`
         $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
-        $exm_stmt->bind_param("i", $id);
+        $exm_stmt->bind_param("i", $titel);
         $exm_stmt->execute();
         $exm_stmt->bind_result($exemplaar_id);
         $exm_stmt->fetch();
@@ -82,7 +101,6 @@ if(!empty($_GET['action'])){
         header("Refresh:0; url=/film/aanbod");
 
     }
-
 }
 ?>
 <div class="filmaanbod">
@@ -119,7 +137,7 @@ if(!empty($titel)){
                           <a href=<?php echo"$url" ?>>
                           <img src=<?php echo"$cover" ?> class="thumb_img filmaanbod_img"/></a>
                           <h2 class="textfilmaanbod"><?php echo "$titel"?> </h2>
-                              <form method="post" action="?action=add&code=<?php echo $id ?>">
+                              <form method="post" action="?action=add&code=<?php echo $i ?>">
                                 <?php
                                   if(!empty($_SESSION["login"]) && $count != 0){
                                       ?>
