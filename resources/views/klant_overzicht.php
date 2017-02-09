@@ -45,11 +45,11 @@ if(!empty($_SESSION['login'])){
       <h3><b><?php echo $naam ?></b></h3>
       <hr></hr>
       <div class="left">
-        <h4><b>INFORMATIE</b></h4>
         <?php
         if(!empty($_GET)){
           if($edit == true && $code == $id && $action == 'edit'){
             ?>
+            <h4><b>INFORMATIE</b></h4>
             <div class="info">
               <form method="post" action=?action=save&code=<?php echo $id ?>>
 
@@ -82,9 +82,129 @@ if(!empty($_SESSION['login'])){
             $stmt->execute();
             $stmt->close();
             header("Refresh:0; url=/klant/overzicht");
+          }elseif($action == 'verleng'){
+            ?>
+            <h3>VERLENG HUUR VAN ORDER #<?php echo $code ?></h3>
+            <?php
+            $stmt = DB::conn()->prepare("SELECT ophaaldatum, ophaaltijd FROM `Order` WHERE id=?");
+            $stmt->bind_param('i', $code);
+            $stmt->execute();
+            $stmt->bind_result($ophaalD, $ophaalT);
+            $stmt->fetch();
+            $stmt->close();
+            ?>
+            <hr></hr>
+            <h4>ORIGINELE OPHAAL DATA</h4>
+            <h4><b>OPHAALDATUM:</b> <?php echo $ophaalD ?></h4>
+            <h4><b>OPHAALTIJD:</b> <?php echo $ophaalT ?></h4>
+            <hr></hr>
+            <h4>NIEUWE OPHAAL DATA</h4>
+            <h4><b>OPHAALDATUM:</b></h4>
+            <form method="post" action="?action=ophaalTijd">
+              <select class="form-control" name="ophaalDatum">
+                <?php
+                $ophaalDatum = date($ophaalD);
+                $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
+                for($x=0; $x <= 14; $x++){
+                  $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                  ?>
+                  <option value="<?php echo $date ?>"><?php echo $date ?></option>
+                  <?php
+                }
+                ?>
+              </select>
+              <input type="submit" class="btn btn-success bestel verlengbtn" value="SELECTEER NIEUWE OPHAALTIJD">
+              <input type="hidden" name="id" value="<?php echo $code ?>">
+            </form>
+            <?php
+          }elseif($action == 'ophaalTijd'){
+            // print_r($_POST);
+            $order_id = $_POST['id'];
+            $ophaalDatum = $_POST['ophaalDatum'];
+            ?>
+            <h3>VERLENG HUUR VAN ORDER #<?php echo $order_id ?></h3>
+            <hr></hr>
+            <?php
+            $stmt = DB::conn()->prepare("SELECT ophaaldatum, ophaaltijd FROM `Order` WHERE id=?");
+            $stmt->bind_param('i', $order_id);
+            $stmt->execute();
+            $stmt->bind_result($ophaalD, $ophaalT);
+            $stmt->fetch();
+            $stmt->close();
+            ?>
+            <h4>ORIGINELE OPHAAL DATA</h4>
+            <h4><b>OPHAALDATUM:</b> <?php echo $ophaalD ?></h4>
+            <h4><b>OPHAALTIJD:</b> <?php echo $ophaalT ?></h4>
+            <hr></hr>
+            <h4>NIEUWE OPHAAL DATA</h4>
+            <h4><b>OPHAALDATUM:</b> <?php echo $ophaalDatum ?></h4>
+            <h4><b>OPHAALTIJD:</b></h4>
+            <?php
+            $ophaalDatum = $_POST['ophaalDatum'];
+            $stmt = DB::conn()->prepare("SELECT `ophaaltijd` FROM `Order` WHERE ophaaldatum=?");
+            $stmt->bind_param('s', $ophaalDatum);
+            $stmt->execute();
+            $bezetteOphaalTijd = array();
+            $stmt->bind_result($f);
+            while($stmt->fetch()){
+              $bezetteOphaalTijd[] = $f;
+            }
+            $stmt->close();
+
+            ?>
+            <form method="post" action="?action=ok_verleng">
+              <select name="ophaalTijd" class="form-control">
+                <?php
+                for($x=0; $x <= 120; $x=$x+10){
+                  $ophaalTime = strtotime('14:00');
+                  $ophaalTime = Date('H:i', strtotime("+".$x. " minutes", $ophaalTime));
+                  if(!in_array($ophaalTime, $bezetteOphaalTijd)){
+                    ?>
+                    <option value="<?php echo $ophaalTime ?>"><?php echo $ophaalTime ?></option>
+                    <?php
+                  }
+                }
+
+                ?>
+              </select>
+              <input type="submit" class="btn btn-success bestel verlengbtn" value="VERLENG">
+              <input type="hidden" name="ophaalDatum" value="<?php echo $ophaalDatum?>">
+              <input type="hidden" name="id" value="<?php echo $order_id?>">
+            </form>
+            <?php
+          }elseif($action == 'ok_verleng'){
+            $order_id = $_POST['id'];
+            $ophaalDatum = $_POST['ophaalDatum'];
+            $ophaalTijd = $_POST['ophaalTijd'];
+            ?>
+            <div class='succes'><b>UW ORDER IS MET SUCCES VERLENGD</b></div>
+
+            <h3>VERLENG HUUR VAN ORDER #<?php echo $order_id ?></h3>
+            <hr></hr>
+            <?php
+            $stmt = DB::conn()->prepare("SELECT ophaaldatum, ophaaltijd FROM `Order` WHERE id=?");
+            $stmt->bind_param('i', $order_id);
+            $stmt->execute();
+            $stmt->bind_result($ophaalD, $ophaalT);
+            $stmt->fetch();
+            $stmt->close();
+            ?>
+            <h4>ORIGINELE OPHAAL DATA</h4>
+            <h4><b>OPHAALDATUM:</b> <?php echo $ophaalD ?></h4>
+            <h4><b>OPHAALTIJD:</b> <?php echo $ophaalT ?></h4>
+            <hr></hr>
+            <h4>NIEUWE OPHAAL DATA</h4>
+            <h4><b>OPHAALDATUM:</b> <?php echo $ophaalDatum ?></h4>
+            <h4><b>OPHAALTIJD:</b> <?php echo $ophaalTijd?></h4>
+            <?php
+            $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaldatum=?, ophaaltijd=? WHERE id=?");
+            $stmt->bind_param('ssi', $ophaalDatum, $ophaalTijd, $order_id);
+            $stmt->execute();
+            $stmt->close();
           }
         }else{
         ?>
+        <h4><b>INFORMATIE</b></h4>
         <div class="info">
           <h5>ALGEMENE INFORMATIE</h5>
           <ul class="list-group">
@@ -176,8 +296,8 @@ if(!empty($_SESSION['login'])){
           }
 
           ?>
-          <div class="order" data-toggle="collapse" data-target="#<?php echo $i ?>">
-            <p class="order_info"><?php echo $orderdatum ?> | #<?php echo $i ?><i class="fa fa-arrow-down neer" aria-hidden="true"></i></p>
+          <div class="order">
+            <p class="order_info" data-toggle="collapse" data-target="#<?php echo $i ?>"><?php echo $orderdatum ?> | #<?php echo $i ?><i class="fa fa-arrow-down neer" aria-hidden="true"></i></p>
             <div id="<?php echo $i ?>" class="collapse order_collapse">
               <h3>FILMS</h3>
               <table class="table">
@@ -213,6 +333,18 @@ if(!empty($_SESSION['login'])){
             <h4><b>AFLEVERDATUM:</b> <?php echo $afleverdatum ?></h4>
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaaldatum ?></h4>
 
+            <?php
+            $ophaalDatumCheck = strtotime($ophaaldatum);
+            $vandaag = strtotime("today");
+            if($ophaalDatumCheck > $vandaag){
+              ?>
+              <form method="post" action="?action=verleng&code=<?php echo $i ?>">
+                <input type="submit" class="btn bestel" value="VERLENG FILM">
+              </form>
+              <?php
+            }
+
+            ?>
             </div>
           </div>
           <?php
