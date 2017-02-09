@@ -29,7 +29,6 @@ if(!empty($_SESSION['login'])){
         $dis = false;
     }
 }
-//test
 //Pak de foto van de film
 $stmt = DB::conn()->prepare("SELECT id FROM `Film`");
 $stmt->execute();
