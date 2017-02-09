@@ -1,7 +1,5 @@
 <div class="panel panel-default">
     <div class="panel-body">
-        <h1></h1>
-
 <?php
 if(!empty($_SESSION['login'])){
     $klantId = $_SESSION['login'][0];
