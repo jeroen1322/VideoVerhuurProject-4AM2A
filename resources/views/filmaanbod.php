@@ -49,6 +49,7 @@ if(!empty($_GET['action'])){
         $_SESSION['cart_item'] = array();
         $_SESSION['cart_item']['id'] = $_GET['code'];
         $product_cart_id = $_SESSION['cart_item']['id'];
+        $code = $_GET['code'];
         // echo $product_cart_id;
 
         $klant = $_SESSION['login']['0'];
@@ -82,7 +83,7 @@ if(!empty($_GET['action'])){
 
         //VOEG TOE AAN `ORDERREGEL`
         $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
-        $exm_stmt->bind_param("i", $titel);
+        $exm_stmt->bind_param("i", $code);
         $exm_stmt->execute();
         $exm_stmt->bind_result($exemplaar_id);
         $exm_stmt->fetch();
