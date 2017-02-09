@@ -9,6 +9,14 @@
       echo "<div class='succes'><b>UW BERICHT IS VERSTUURD</b></div>";
     }
   }
+
+  $stmt = DB::conn()->prepare("SELECT email, telefoonnummer FROM Persoon where rolid=4");
+  $stmt->execute();
+  $stmt->bind_result($adminEmail, $adminTel);
+  $stmt->fetch();
+  $stmt->execute();
+  $stmt->close();
+
   ?>
   <div class="panel-body">
     <h2> Contactformulier:</h2>
@@ -32,9 +40,9 @@
         </div>
       <div>
         <h2>Contactgegevens: </h2>
-        TempoVideo <br>
-        info@tempovideo.nl <br>
-        088-1234567
+        <b>TempoVideo</b> <br>
+        <?php echo $adminEmail?> <br>
+        <?php echo $adminTel?>
       </div>
   </div>
 </div>
