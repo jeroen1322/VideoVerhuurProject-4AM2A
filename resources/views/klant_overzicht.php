@@ -146,10 +146,10 @@ if(!empty($_SESSION['login'])){
 
         foreach($u_orderIdResult as $i){
 
-          $stmt = DB::conn()->prepare("SELECT afleverdatum, ophaaldatum FROM `Order` WHERE id=?");
+          $stmt = DB::conn()->prepare("SELECT afleverdatum, ophaaldatum, orderdatum FROM `Order` WHERE id=?");
           $stmt->bind_param('i', $i);
           $stmt->execute();
-          $stmt->bind_result($afleverdatum, $ophaaldatum);
+          $stmt->bind_result($afleverdatum, $ophaaldatum, $orderdatum);
           $stmt->fetch();
           $stmt->close();
 
@@ -177,7 +177,7 @@ if(!empty($_SESSION['login'])){
 
           ?>
           <div class="order" data-toggle="collapse" data-target="#<?php echo $i ?>">
-            <p class="order_info">#<?php echo $i ?><i class="fa fa-arrow-down neer" aria-hidden="true"></i></p>
+            <p class="order_info"><?php echo $orderdatum ?> | #<?php echo $i ?><i class="fa fa-arrow-down neer" aria-hidden="true"></i></p>
             <div id="<?php echo $i ?>" class="collapse order_collapse">
               <h3>FILMS</h3>
               <table class="table">
