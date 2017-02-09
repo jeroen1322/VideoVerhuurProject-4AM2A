@@ -138,3 +138,6 @@ INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, w
 
 INSERT INTO Wachtwoord(id, wachtwoord) VALUES (3, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
 INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, active, rolid) VALUES ('Bezorger', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'bezorger@jeroengrooten.nl', 2, 1, 2);
+
+INSERT INTO Wachtwoord(id, wachtwoord) VALUES (4, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
+INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, active, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'klant@jeroengrooten.nl', 4, 1, 4);
