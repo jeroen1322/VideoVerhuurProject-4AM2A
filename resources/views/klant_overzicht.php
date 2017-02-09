@@ -188,7 +188,7 @@ if(!empty($_SESSION['login'])){
 
           if(!empty($film_id)){
             $cover = "/cover/" . $img;
-            $URL = "/film/" . $titel;
+            $URL = "/film/" . $film_id;
             $titel = strtoupper($titel);
             $titel = str_replace('_', ' ', $titel);
             // $bedrag = $bedrag / 100;
