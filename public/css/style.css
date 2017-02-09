@@ -124,7 +124,7 @@ img.img-responsive.cover {
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 0;
-    background-color: rgba(-7,204,11, 0.84) !important;
+    background-color: #00cc00 !important;
     color: rgba(255,255,255,1);
 }
 .warning{
@@ -210,6 +210,7 @@ a.menu_winkelmand {
 .left{
   float: left;
   width: 35%;
+  margin-right: 10px;
 }
 .right{
   width: 78%;
@@ -249,7 +250,7 @@ button.btn.btn-success.ban {
     display: inline-table;
 }
 .klant_right{
-  width: 65%;
+  width: 64%;
   float: left;
 }
 .filmDetail_right {
@@ -429,7 +430,11 @@ input {
 }
 .order_collapse{
   margin-bottom: 20px;
+  padding-bottom: 50px;
 }
 .order_collapse img{
   margin-bottom: 10px
+}
+.verlengbtn {
+    width: 100%;
 }

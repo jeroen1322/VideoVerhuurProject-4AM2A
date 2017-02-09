@@ -348,46 +348,6 @@ if(!empty($_SESSION['login'])){
             </div>
           </div>
           <?php
-
-          // //Haal exemplaarid van Orderregel dat bij de Order hoort op
-          // $or_stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
-          // $or_stmt->bind_param("i", $i);
-          // $or_stmt->execute();
-          //
-          // $or_stmt->bind_result($OR_id);
-          // $exm_id = array();
-          // while($or_stmt->fetch()){
-          //   $exm_id[] = $OR_id;
-          // }
-          // $or_stmt->close();
-          // // print_r($exm_id);
-          //
-          // //Haal de Filmid op van het exemplaar op
-          // $exm_stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
-          // $exm_stmt->bind_param("i", $OR_id);
-          // $exm_stmt->execute();
-          //
-          // $exm_stmt->bind_result($exm_film_id);
-          // $exm_stmt->fetch();
-          // $exm_stmt->close();
-          //
-          // //Haal alles van de film op dat overeen komt met de filmid van het exemplaar
-          // $exm_film_stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` WHERE id=?");
-          // $exm_film_stmt->bind_param("i", $exm_film_id);
-          // $exm_film_stmt->execute();
-          //
-          // $exm_film_stmt->bind_result($film_id, $titel, $acteur, $omschr, $genre, $img);
-          // $exm_film_stmt->fetch();
-          // $exm_film_stmt->close();
-          //
-          //
-          // if(!empty($film_id)){
-          //   $cover = "/cover/" . $img;
-          //   $URL = "/film/" . $film_id;
-          //   $titel = strtoupper($titel);
-          //   $titel = str_replace('_', ' ', $titel);
-          //   // $bedrag = $bedrag / 100;
-          // }
         }
       }else{
         echo "<div class='warning'><b>U HEEFT NOG GEEN FILMS BESTELD</b></div>";
