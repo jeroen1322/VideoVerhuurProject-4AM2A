@@ -131,10 +131,28 @@ if(!empty($_SESSION['login'])){
             $stmt->bind_result($ophaalD, $ophaalT);
             $stmt->fetch();
             $stmt->close();
+
+            $origineleOphaalDatum = strtotime($ophaalD);
+            $nieuweOphaalDatum = strtotime($ophaalDatum);
+
+            //Bereken het aantal dagen tussen de aflever en ophaal datum
+            $diff = $nieuweOphaalDatum - $origineleOphaalDatum;
+            $days = floor($diff / (60*60*24) ); //Seconden naar dagen omrekenen
+
             ?>
             <h4>ORIGINELE OPHAAL DATA</h4>
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalD ?></h4>
             <h4><b>OPHAALTIJD:</b> <?php echo $ophaalT ?></h4>
+            <hr></hr>
+            <h4><b>HUUR VERLENGEN MET: </b>
+              <?php
+              echo $days;
+              if($days == 1){
+                echo ' dag';
+              }else{
+                echo ' dagen';
+              }
+              ?>
             <hr></hr>
             <h4>NIEUWE OPHAAL DATA</h4>
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalDatum ?></h4>
