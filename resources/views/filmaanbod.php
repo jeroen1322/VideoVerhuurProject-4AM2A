@@ -60,11 +60,11 @@ if(!empty($_GET['action'])){
         $cart_stmt->bind_result($countorder);
         $cart_stmt->fetch();
         $cart_stmt->close();
-
-        if ($countorder == 0) {
+        $openBedrag = 0;
+        if($countorder == 0){
             $order_id = rand(1, 2100);
-            $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, orderdatum, besteld) VALUES (?, ?, ?, ?, ?)");
-            $cart_stmt->bind_param("iiisi", $order_id, $klant, $afhandeling, $huidigeWeek, $besteld);
+            $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?)");
+            $cart_stmt->bind_param("iiiisi", $order_id, $klant, $afhandeling, $openBedrag, $huidigeWeek, $besteld);
             $cart_stmt->execute();
             $cart_stmt->close();
         }
