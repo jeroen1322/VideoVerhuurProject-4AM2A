@@ -438,3 +438,7 @@ input {
 .verlengbtn {
     width: 100%;
 }
+.terug_order {
+    float: right;
+    margin-top: -18px;
+}

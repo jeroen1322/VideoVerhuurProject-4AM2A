@@ -56,6 +56,9 @@ if(!empty($_SESSION['login'])){
               }
             ?>
             </b>
+            <div class="terug_order">
+              <a href="/klant/overzicht"><button class="btn bestel">TERUG NAAR UW OVERZICHT</button></a>
+            </div>
           </div>
           <?php
         }
