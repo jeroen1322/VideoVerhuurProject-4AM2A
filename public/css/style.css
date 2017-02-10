@@ -187,6 +187,7 @@ a.menu_winkelmand {
 .thumb_img {
   /*width: 100%;*/
   height: 350px;
+  max-width: 235px;
 }
 .nieuweThumb {
   height: 300px;
