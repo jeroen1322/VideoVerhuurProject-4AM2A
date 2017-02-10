@@ -105,7 +105,7 @@ if(!empty($_SESSION['login'])){
                 <?php
                 $ophaalDatum = date($ophaalD);
                 $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
-                for($x=0; $x <= 14; $x++){
+                for($x=0; $x <= 6; $x++){
                   $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                   ?>
                   <option value="<?php echo $date ?>"><?php echo $date ?></option>
@@ -205,6 +205,8 @@ if(!empty($_SESSION['login'])){
               <input type="submit" class="btn btn-success bestel verlengbtn" value="VERLENG">
               <input type="hidden" name="ophaalDatum" value="<?php echo $ophaalDatum?>">
               <input type="hidden" name="id" value="<?php echo $order_id?>">
+              <input type="hidden" name="aantalDagen" value="<?php echo $days ?>">
+              <input type="hidden" name="extraKosten" value="<?php echo $extraKosten?>">
             </form>
             <?php
           }elseif($action == 'ok_verleng'){
@@ -228,6 +230,7 @@ if(!empty($_SESSION['login'])){
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalD ?></h4>
             <h4><b>OPHAALTIJD:</b> <?php echo $ophaalT ?></h4>
             <hr></hr>
+            <h4><b>
             <h4>NIEUWE OPHAAL DATA</h4>
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalDatum ?></h4>
             <h4><b>OPHAALTIJD:</b> <?php echo $ophaalTijd?></h4>
