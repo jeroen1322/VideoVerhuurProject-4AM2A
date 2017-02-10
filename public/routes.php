@@ -48,17 +48,17 @@ $klein->respond('/eigenaar/film_toevoegen', function ($request, $response, $serv
 });
 
 $klein->respond('/eigenaar/film_verwijderen', function ($request, $response, $service) {
-    $service->pageTitle = 'Film Verwijderen';
+    $service->pageTitle = 'Film verwijderen';
     $service->render(VIEWS.'/filmverwijderen.php');
 });
 
 $klein->respond('/eigenaar/film_aanpassen', function ($request, $response, $service) {
-    $service->pageTitle = 'Film Aanpassen';
+    $service->pageTitle = 'Film aanpassen';
     $service->render(VIEWS.'/filmaanpassen.php');
 });
 
 $klein->respond('/eigenaar/klant_blokkeren', function ($request, $response, $service) {
-    $service->pageTitle = 'Klant Blokkeren';
+    $service->pageTitle = 'Klant blokkeren';
     $service->render(VIEWS.'/klantblokkeren.php');
 });
 
