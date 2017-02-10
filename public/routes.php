@@ -78,11 +78,6 @@ $klein->respond('/winkelmand', function ($request, $response, $service) {
     $service->render(VIEWS.'/winkelmand.php');
 });
 
-$klein->respond('/over_ons', function ($request, $response, $service) {
-    $service->pageTitle = 'Over ons';
-    $service->render(VIEWS.'/over_ons.php');
-});
-
 $klein->respond('/contact', function ($request, $response, $service) {
     $service->pageTitle = 'Contact';
     $service->render(VIEWS.'/contact.php');

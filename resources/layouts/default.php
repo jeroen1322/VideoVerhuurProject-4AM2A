@@ -62,7 +62,6 @@ if(!empty($_SESSION['login'])){
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/film/aanbod">FILMAANBOD</a></li>
-            <li><a href="/over_ons">OVER ONS</a></li>
             <li><a href="/contact">CONTACT</a></li>
           </ul>
             <?php

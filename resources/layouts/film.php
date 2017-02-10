@@ -28,7 +28,7 @@ if(!empty($_SESSION['login'])){
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
-    
+
 
     <!-- Bootstrap -->
     <link href="../bootstrap/css/bootstrap.min.css " rel="stylesheet">
@@ -62,7 +62,6 @@ if(!empty($_SESSION['login'])){
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/film/aanbod">FILMAANBOD</a></li>
-            <li><a href="/over_ons">OVER ONS</a></li>
             <li><a href="/contact">CONTACT</a></li>
           </ul>
             <?php
