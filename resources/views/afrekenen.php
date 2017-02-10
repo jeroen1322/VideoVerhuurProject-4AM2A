@@ -219,13 +219,13 @@ if(!empty($_SESSION['login'])){
                 $stmt->close();
               }
               ?>
-              <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
-              <h2>AFLEVER TIJD</h2>
+              <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4>
+              <h2>AFLEVERTIJD</h2>
               <form method="post" action="?action=ophaalDatum">
                 <select name="afleverTijd" class="form-control">
                   <?php
-                  for($x=0; $x <= 120; $x=$x+10){
-                    $afleverTime = strtotime('14:00');
+                  for($x=0; $x <= 230; $x=$x+10){
+                    $afleverTime = strtotime('18:00');
                     $afleverTime = Date('H:i', strtotime("+".$x. " minutes", $afleverTime));
                     if(!in_array($afleverTime, $bezetteAfleverTijd)){
                       ?>
@@ -264,9 +264,9 @@ if(!empty($_SESSION['login'])){
                 $stmt->close();
               }
               ?>
-              <h4>Aflever datum: <?php echo $afleverDatum ?></h4>
-              <h4>Aflever tijd: <?php echo $afleverTijd ?></h4>
-              <h2>OPHAAL DATUM</h2>
+              <h4>Afleverdatum: <?php echo $afleverDatum ?></h4>
+              <h4>Aflevertijd: <?php echo $afleverTijd ?></h4>
+              <h2>OPHAALDATUM</h2>
               <form method="post" action="?action=ophaalTijd">
                 <select class="form-control" name="ophaalDatum">
                   <?php
@@ -391,8 +391,8 @@ if(!empty($_SESSION['login'])){
               <h2>OPHAALTIJD</h2>
                 <select name="ophaalTijd" class="form-control">
                   <?php
-                  for($x=0; $x <= 120; $x=$x+10){
-                    $ophaalTime = strtotime('14:00');
+                  for($x=0; $x <= 230; $x=$x+10){
+                    $ophaalTime = strtotime('18:00');
                     $ophaalTime = Date('H:i', strtotime("+".$x. " minutes", $ophaalTime));
                     if(!in_array($ophaalTime, $bezetteOphaalTijd)){
                       ?>
@@ -421,7 +421,7 @@ if(!empty($_SESSION['login'])){
             ?>
             <br>
             <form  method="post" action="?action=afleverDatum">
-            <h4>CONTROLLEER UW GEGEVENS</h4>
+            <h4>CONTROLEER UW GEGEVENS</h4>
             <div class="links">
               <ul class="list-group">
                 <li class="list-group-item"><b>Naam: </b><?php echo $naam?></li>
