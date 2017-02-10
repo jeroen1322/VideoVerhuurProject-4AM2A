@@ -131,6 +131,17 @@ if(!empty($_SESSION['login'])){
             $stmt->fetch();
             $stmt->close();
 
+            $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+            $stmt->bind_param('i', $order_id);
+            $stmt->execute();
+            $stmt->bind_result($exemplaar);
+            $exmplaars = array();
+            while($stmt->fetch()){
+              $exemplaars[] = $exemplaar;
+            }
+            $stmt->close();
+            $aantalFilmsInOrder = count($exemplaars);
+
             $origineleOphaalDatum = strtotime($ophaalD);
             $nieuweOphaalDatum = strtotime($ophaalDatum);
 
@@ -138,6 +149,11 @@ if(!empty($_SESSION['login'])){
             $diff = $nieuweOphaalDatum - $origineleOphaalDatum;
             $days = floor($diff / (60*60*24) ); //Seconden naar dagen omrekenen
 
+            if($days == 7){
+              $extraKosten = 6 * $aantalFilmsInOrder;
+            }else{
+              $extraKosten = $days * $aantalFilmsInOrder;
+            }
             ?>
             <h4>ORIGINELE OPHAAL DATA</h4>
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalD ?></h4>
@@ -152,6 +168,8 @@ if(!empty($_SESSION['login'])){
                 echo ' dagen';
               }
               ?>
+            </h4>
+            <h4><b>Extra kosten:</b> €<?php echo $extraKosten ?></h4>
             <hr></hr>
             <h4>NIEUWE OPHAAL DATA</h4>
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalDatum ?></h4>
