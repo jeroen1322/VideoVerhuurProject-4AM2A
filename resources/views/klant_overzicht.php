@@ -118,7 +118,6 @@ if(!empty($_SESSION['login'])){
             </form>
             <?php
           }elseif($action == 'ophaalTijd'){
-            // print_r($_POST);
             $order_id = $_POST['id'];
             $ophaalDatum = $_POST['ophaalDatum'];
             ?>
@@ -357,7 +356,7 @@ if(!empty($_SESSION['login'])){
             if($ophaalDatumCheck > $vandaag){
               ?>
               <form method="post" action="?action=verleng&code=<?php echo $i ?>">
-                <input type="submit" class="btn bestel" value="VERLENG FILM">
+                <input type="submit" class="btn bestel" value="VERLENG HUUR">
               </form>
               <?php
             }
