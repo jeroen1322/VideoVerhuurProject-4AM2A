@@ -42,6 +42,25 @@ if(!empty($_SESSION['login'])){
       }
       ?>
       <h1>OVERZICHT</h1>
+      <?php
+      if(!empty($_GET)){
+        if($_GET['action'] == 'ok_verleng'){
+          ?>
+          <div class='succes'><b>UW ORDER IS MET SUCCES VERLENGD MET
+            <?php
+              echo $_POST['aantalDagen'];
+              if($_POST['aantalDagen'] == 1){
+                echo ' DAG';
+              }else{
+                echo ' DAGEN';
+              }
+            ?>
+            </b>
+          </div>
+          <?php
+        }
+      }
+      ?>
       <h3><b><?php echo $naam ?></b></h3>
       <hr></hr>
       <div class="left">
@@ -216,7 +235,6 @@ if(!empty($_SESSION['login'])){
             $days = $_POST['aantalDagen'];
             $extraKosten = $_POST['extraKosten'];
             ?>
-            <div class='succes'><b>UW ORDER IS MET SUCCES VERLENGD</b></div>
 
             <h3>VERLENG HUUR VAN ORDER #<?php echo $order_id ?></h3>
             <hr></hr>
