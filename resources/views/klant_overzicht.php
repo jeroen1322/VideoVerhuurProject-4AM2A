@@ -213,6 +213,8 @@ if(!empty($_SESSION['login'])){
             $order_id = $_POST['id'];
             $ophaalDatum = $_POST['ophaalDatum'];
             $ophaalTijd = $_POST['ophaalTijd'];
+            $days = $_POST['aantalDagen'];
+            $extraKosten = $_POST['extraKosten'];
             ?>
             <div class='succes'><b>UW ORDER IS MET SUCCES VERLENGD</b></div>
 
@@ -230,13 +232,25 @@ if(!empty($_SESSION['login'])){
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalD ?></h4>
             <h4><b>OPHAALTIJD:</b> <?php echo $ophaalT ?></h4>
             <hr></hr>
+            <h4><b>HUUR VERLENGEN MET: </b>
+              <?php
+              echo $days;
+              if($days == 1){
+                echo ' dag';
+              }else{
+                echo ' dagen';
+              }
+              ?>
+            </h4>
+            <h4><b>Extra kosten:</b> €<?php echo $extraKosten ?></h4>
+            <hr></hr>
             <h4><b>
             <h4>NIEUWE OPHAAL DATA</h4>
             <h4><b>OPHAALDATUM:</b> <?php echo $ophaalDatum ?></h4>
             <h4><b>OPHAALTIJD:</b> <?php echo $ophaalTijd?></h4>
             <?php
-            $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaldatum=?, ophaaltijd=? WHERE id=?");
-            $stmt->bind_param('ssi', $ophaalDatum, $ophaalTijd, $order_id);
+            $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaldatum=?, ophaaltijd=?, openbedrag=? WHERE id=?");
+            $stmt->bind_param('ssdi', $ophaalDatum, $ophaalTijd, $extraKosten, $order_id);
             $stmt->execute();
             $stmt->close();
           }
