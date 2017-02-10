@@ -43,7 +43,7 @@ $klein->respond('/eigenaar/overzicht', function ($request, $response, $service) 
 });
 
 $klein->respond('/eigenaar/film_toevoegen', function ($request, $response, $service) {
-    $service->pageTitle = 'Filmtoevoegen';
+    $service->pageTitle = 'Film toevoegen';
     $service->render(VIEWS.'/filmtoevoegen.php');
 });
 
