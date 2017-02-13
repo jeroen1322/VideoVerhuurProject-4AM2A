@@ -23,10 +23,22 @@ if(!empty($_SESSION['login'])){
                 $stmt->execute();
                 $stmt->close();
 
-                $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?;");
-                $stmt->bind_param("i", $exm);
+                $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+                $stmt->bind_param('i', $code);
                 $stmt->execute();
+                $stmt->bind_result($e);
+                while($stmt->fetch()){
+                  $exms[] = $e;
+                }
                 $stmt->close();
+
+                foreach($exms as $ex){
+                  $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?;");
+                  $stmt->bind_param("i", $ex);
+                  $stmt->execute();
+                  $stmt->close();
+                }
+
             }
 
         }
