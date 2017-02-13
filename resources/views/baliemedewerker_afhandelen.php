@@ -14,11 +14,17 @@ if(!empty($_SESSION['login'])){
         if(!empty($_GET)){
             $code = $_GET['code'];
             $action = $_GET['action'];
+            $exm = $_GET['exm'];
             if($action == 'afgehandeld') {
                 $afhandeling = 1;
 
-                $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=? WHERE id=?;");
-                $stmt->bind_param("ii", $afhandeling, $code);
+                $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=1, besteld=1 WHERE id=?;");
+                $stmt->bind_param("i", $code);
+                $stmt->execute();
+                $stmt->close();
+
+                $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?;");
+                $stmt->bind_param("i", $exm);
                 $stmt->execute();
                 $stmt->close();
             }
@@ -66,31 +72,38 @@ if(!empty($_SESSION['login'])){
           </div>
           <?php
             foreach($order_id as $i){
-                $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1 and o.id=?;");
-                $stmt->bind_param("i", $i);
-                $stmt->execute();
-                $stmt->bind_result($id, $naam, $adres, $woonplaats, $aflevertijd, $ophaaltijd, $afleverdatum, $ophaaldatum);
-                $stmt->fetch();
-                $stmt->close();
-                ?>
-                <tr>
-                  <td><?php echo $id ?></td>
-                  <td><?php echo $naam ?></td>
-                  <td><?php echo $woonplaats ?></td>
-                  <td><?php echo $ophaaldatum ?></td>
-                  <td><?php echo $ophaaltijd ?></td>
-                  <td><?php echo $afleverdatum ?></td>
-                  <td><?php echo $aflevertijd ?></td>
-                  <td></td>
-                  <td>
-                    <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
-                          <button type="submit" class="btn btn-success">
-                              <i class="fa fa-check unblock"></i>
-                          </button>
-                      </form>
-                    </td>
-                  </tr>
-                  <?php
+              $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+              $stmt->bind_param('i', $i);
+              $stmt->execute();
+              $stmt->bind_result($exmid);
+              $stmt->fetch();
+              $stmt->close();
+
+              $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1 and o.id=?;");
+              $stmt->bind_param("i", $i);
+              $stmt->execute();
+              $stmt->bind_result($id, $naam, $adres, $woonplaats, $aflevertijd, $ophaaltijd, $afleverdatum, $ophaaldatum);
+              $stmt->fetch();
+              $stmt->close();
+              ?>
+              <tr>
+                <td><?php echo $id ?></td>
+                <td><?php echo $naam ?></td>
+                <td><?php echo $woonplaats ?></td>
+                <td><?php echo $ophaaldatum ?></td>
+                <td><?php echo $ophaaltijd ?></td>
+                <td><?php echo $afleverdatum ?></td>
+                <td><?php echo $aflevertijd ?></td>
+                <td></td>
+                <td>
+                  <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>&exm=<?php echo $exmid?>">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check unblock"></i>
+                        </button>
+                    </form>
+                  </td>
+                </tr>
+                <?php
           }
           ?>
           </table>
