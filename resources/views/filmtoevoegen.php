@@ -87,18 +87,38 @@ if(!empty($_SESSION['login'])){
     }else{
       echo "Er was een fout tijdens het uploaden van de foto.";
     }
-    $randId = rand(1, 9999);
+    $stmt = DB::conn()->prepare("select id from Film");
+    $stmt->execute();
+    $stmt->bind_result($films);
+    $testarray = array();
+    while ($stmt->fetch()){
+        $testarray[]= $films;
+    }
+    $stmt->close();
+    print_r($testarray);
+    if($films == null){
+        $filmid = 1;
+    }
+    else {
+        $stmt = DB::conn()->prepare("select MAX(id) from Film");
+        $stmt->execute();
+        $stmt->bind_result($filmidlast);
+        $stmt->fetch();
+        $stmt->close();
+        $filmid = $filmidlast + 1;
+    }
+
     //Gegevens invoeren in Film tabel
     $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssss", $randId, $uploadName, $acteur, $oms, $genre, $name);
+    $stmt->bind_param("isssss", $filmid, $uploadName, $acteur, $oms, $genre, $name);
     $stmt->execute();
 
 
     $stmt->close();
 
     //EXEMPLAAR
-    $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=? AND id=?");
-    $ex_stmt->bind_param("si", $uploadName, $randId);
+    $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=? and id=?");
+    $ex_stmt->bind_param("si", $uploadName, $filmid);
     $ex_stmt->execute();
     $ex_stmt->bind_result($id);
     $ex_stmt->fetch();
@@ -112,7 +132,7 @@ if(!empty($_SESSION['login'])){
       $add_ex_stmt->execute();
       $add_ex_stmt->close();
     }
-    header("Refresh:0; url=/film/$randId");
+    header("Refresh:0; url=/film/$filmid");
   }else{
     echo "<div class='alert'><b>U HEEFT GEEN GELDIG FOTO BESTAND GEUPLOAD</b></div>";
   }
