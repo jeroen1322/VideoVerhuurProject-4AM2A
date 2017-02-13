@@ -18,7 +18,7 @@ if(!empty($_SESSION['login'])){
             if($action == 'afgehandeld') {
                 $afhandeling = 1;
 
-                $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=1, besteld=1 WHERE id=?;");
+                $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=1, openbedrag=0, besteld=1 WHERE id=?;");
                 $stmt->bind_param("i", $code);
                 $stmt->execute();
                 $stmt->close();
