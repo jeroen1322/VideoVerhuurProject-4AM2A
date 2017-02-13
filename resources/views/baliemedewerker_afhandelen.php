@@ -102,10 +102,10 @@ if(!empty($_SESSION['login'])){
                 <td><?php echo $id ?></td>
                 <td><?php echo $naam ?></td>
                 <td><?php echo $woonplaats ?></td>
-                <td><?php echo $ophaaldatum ?></td>
-                <td><?php echo $ophaaltijd ?></td>
                 <td><?php echo $afleverdatum ?></td>
                 <td><?php echo $aflevertijd ?></td>
+                <td><?php echo $ophaaldatum ?></td>
+                <td><?php echo $ophaaltijd ?></td>
                 <td></td>
                 <td>
                   <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>&exm=<?php echo $exmid?>">
