@@ -17,10 +17,9 @@ if(!empty($_SESSION['login'])){
               <div class="btn-group admin">
                   <a href="/baliemedewerker/afhandelen" class="btn btn-primary admin_menu">Afhandelen</a>
                   <a href="/baliemedewerker/bezorgdata" class="btn btn-primary admin_menu">BEZORGDATA</a>
-                  <a href="/baliemedewerker/extraopties" class="btn btn-primary admin_menu">EXTRA OPTIES</a>
+                  <a href="/baliemedewerker/extraopties" class="btn btn-primary actief admin_menu">EXTRA OPTIES</a>
               </div>
-                <h1> </h1>
-            </div>
+                <h1>EXTRA OPTIES</h1>
         <?php
         $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE afhandeling=0 AND besteld=1");
         $stmt->execute();
@@ -105,6 +104,7 @@ if(!empty($_SESSION['login'])){
             } ?>
             </table> </div>
         </div>
+      </div>
         <?php
 
 }else{
