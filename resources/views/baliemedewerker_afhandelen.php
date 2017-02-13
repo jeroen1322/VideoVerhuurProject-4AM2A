@@ -122,7 +122,7 @@ if(!empty($_SESSION['login'])){
           <?php
         }else{
           // header("Refresh:0; url=/login");
-          echo "<div class='warning'><b>ER ZIJN GEEN GEEN OPEN BESTELLINGEN</b></div>";
+          echo "<div class='warning'><b>ER ZIJN GEEN OPEN BESTELLINGEN</b></div>";
         }
       }
     }
