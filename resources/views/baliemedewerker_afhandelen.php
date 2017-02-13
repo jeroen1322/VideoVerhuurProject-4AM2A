@@ -29,11 +29,11 @@ if(!empty($_SESSION['login'])){
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="btn-group admin">
-                    <a href="/baliemedewerker/inkomendeorders" class="btn btn-primary actief admin_menu">BINNENGEKOMEN ORDERS</a>
+                    <a href="/baliemedewerker/afhandelen" class="btn btn-primary actief admin_menu">Afhandelen</a>
                     <a href="/baliemedewerker/bezorgdata" class="btn btn-primary admin_menu">BEZORGDATA</a>
                     <a href="/baliemedewerker/extraopties" class="btn btn-primary admin_menu">EXTRA OPTIES</a>
                 </div>
-                <h1> Binnengekomen orders</h1>
+                <h1>Afhandelen</h1>
 
                 <?php
                 $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE afhandeling=0 AND besteld=1");

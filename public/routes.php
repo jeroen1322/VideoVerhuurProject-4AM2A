@@ -113,9 +113,9 @@ $klein->respond('/baliemedewerker/overzicht', function ($request, $response, $se
     $service->render(VIEWS.'/baliemedewerker_overzicht.php');
 });
 
-$klein->respond('/baliemedewerker/inkomendeorders', function ($request, $response, $service) {
+$klein->respond('/baliemedewerker/afhandelen', function ($request, $response, $service) {
     $service->pageTitle = 'Overzicht';
-    $service->render(VIEWS.'/inkomendeorders.php');
+    $service->render(VIEWS.'/baliemedewerker_afhandelen.php');
 });
 
 
