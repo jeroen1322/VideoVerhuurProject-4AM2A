@@ -124,7 +124,7 @@ if(!empty($_SESSION['login'])){
     $ex_stmt->fetch();
     $ex_stmt->close();
 
-    for($i = 1; $i < 11; $i++){
+    for($i = 1; $i < 12; $i++){
       $statusid = 1;
       $aantalVerhuur = 0;
       $add_ex_stmt = DB::conn()->prepare("INSERT INTO Exemplaar (filmid, statusid, aantalVerhuur) VALUES (?, ?, ?)");
