@@ -36,7 +36,7 @@ if(!empty($_SESSION['login'])){
                 <h1> Binnengekomen orders</h1>
 
                 <?php
-                $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE afhandeling=0");
+                $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE afhandeling=0 AND besteld=1");
                 $stmt->execute();
                 $stmt->bind_result($id);
                 $order_id = array();
@@ -44,27 +44,27 @@ if(!empty($_SESSION['login'])){
                     $order_id[] = $id;
                 }
                 $stmt->close();
-                ?>
-                <div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Naam</th>
-                        <th>Woonplaats</th>
-                        <th>Datum wegbrengen</th>
-                        <th>Tijd</th>
-                        <th>Datum ophalen</th>
-                        <th>Tijd</th>
-                        <th>Titels</th>
-                        <th>Afhandeling</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-            </div>
 
-        <?php
         if(!empty($id)){
+          ?>
+          <div>
+          <table class="table">
+              <thead>
+              <tr>
+                  <th>Id</th>
+                  <th>Naam</th>
+                  <th>Woonplaats</th>
+                  <th>Datum wegbrengen</th>
+                  <th>Tijd</th>
+                  <th>Datum ophalen</th>
+                  <th>Tijd</th>
+                  <th>Titels</th>
+                  <th>Afhandeling</th>
+              </tr>
+              </thead>
+              <tbody>
+          </div>
+          <?php
             foreach($order_id as $i){
                 $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1 and o.id=?;");
                 $stmt->bind_param("i", $i);
@@ -74,30 +74,30 @@ if(!empty($_SESSION['login'])){
                 $stmt->close();
                 ?>
                 <tr>
-                    <td><?php echo $id ?></td>
-                    <td><?php echo $naam ?></td>
-                    <td><?php echo $woonplaats ?></td>
-                    <td><?php echo $ophaaldatum ?></td>
-                    <td><?php echo $ophaaltijd ?></td>
-                    <td><?php echo $afleverdatum ?></td>
-                    <td><?php echo $aflevertijd ?></td>
-                    <td></td>
-                    <td>
-                      <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
-                            <button type="submit" class="btn btn-success">
-                                <i class="fa fa-check unblock"></i>
-                            </button>
-                        </form>
-                      </td>
-                    </tr>
-                    <?php
+                  <td><?php echo $id ?></td>
+                  <td><?php echo $naam ?></td>
+                  <td><?php echo $woonplaats ?></td>
+                  <td><?php echo $ophaaldatum ?></td>
+                  <td><?php echo $ophaaltijd ?></td>
+                  <td><?php echo $afleverdatum ?></td>
+                  <td><?php echo $aflevertijd ?></td>
+                  <td></td>
+                  <td>
+                    <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
+                          <button type="submit" class="btn btn-success">
+                              <i class="fa fa-check unblock"></i>
+                          </button>
+                      </form>
+                    </td>
+                  </tr>
+                  <?php
           }
           ?>
           </table>
           <?php
         }else{
           // header("Refresh:0; url=/login");
-          echo "GEEN FILMS";
+          echo "<div class='warning'><b>ER ZIJN GEEN GEEN OPEN BESTELLINGEN</b></div>";
         }
       }
     }
