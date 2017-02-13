@@ -103,11 +103,20 @@ if(!empty($_GET['action'])){
     $e = str_replace(' ', '_', $titel);
     header("Refresh:0; url=/film/" . $id);
 
-  }elseif(!empty($_GET['action'])){
-    if($_GET['action'] == 'edit'){
-      $code = $_GET['code'];
-      $edit = true;
-    }
+  }elseif($_GET['action'] == 'edit'){
+    $code = $_GET['code'];
+    $edit = true;
+  }elseif($_GET['action'] == 'reserveer'){
+    $prijs = -7.5;
+    $code = $_GET['code'];
+    $vandaag = date('d-m-Y');
+
+    $stmt = DB::conn()->prepare("INSERT INTO `Reservering` (filmid, persoonid,datum) VALUES(?, ?,?)");
+    $stmt->bind_param('iis', $code, $klantId, $vandaag);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "<div class='succes'><b>UW RESERVERING IS GEPLAAST | U HEEFT €7.50 BETAALD</b></div>";
   }
 }
 
@@ -224,11 +233,14 @@ if(!empty($id)){
               ?>
               <h3><b>Prijs</b></h3>
               <p><b>€7,50</b></p>
-              <form method="post" action="?action=add&code=<?php echo $id ?>">
                 <?php
                 if($dis){
                   ?>
-                  <input type="submit" class="btn btn-success bestel" value="Bestel" disabled>
+                  <form method="post" action="?action=reserveer&code=<?php echo $id ?>">
+                  <!-- <input type="submit" class="btn btn-success bestel" value="Bestel" disabled> -->
+
+                  <input type="submit" class="btn btn-success bestel" value="Reserveer (€7.50)">
+
                   <?php
                 }elseif(empty($_SESSION['login'])){
                   ?>
@@ -237,6 +249,7 @@ if(!empty($id)){
                   <?php
                 }else{
                   ?>
+                  <form method="post" action="?action=add&code=<?php echo $id ?>">
                   <input type="submit" class="btn btn-success bestel" value="Bestel">
                 </form>
                   <?php

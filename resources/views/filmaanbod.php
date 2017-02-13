@@ -97,6 +97,17 @@ if(!empty($_GET['action'])){
         $e = str_replace(' ', '_', $titel);
         header("Refresh:0; url=/film/aanbod");
 
+    }elseif($_GET['action'] == 'reserveer'){
+      $prijs = -7.5;
+      $code = $_GET['code'];
+      $vandaag = date('d-m-Y');
+
+      $stmt = DB::conn()->prepare("INSERT INTO `Reservering` (filmid, persoonid,datum) VALUES(?, ?,?)");
+      $stmt->bind_param('iis', $code, $klantId, $vandaag);
+      $stmt->execute();
+      $stmt->close();
+
+      echo "<div class='succes'><b>UW RESERVERING IS GEPLAAST | U HEEFT €7.50 BETAALD</b></div>";
     }
 }
 ?>
@@ -134,15 +145,18 @@ if(!empty($titel)){
                           <a href=<?php echo"$url" ?>>
                           <img src=<?php echo"$cover" ?> class="thumb_img filmaanbod_img"/></a>
                           <h2 class="textfilmaanbod"><?php echo "$titel"?> </h2>
-                              <form method="post" action="?action=add&code=<?php echo $i ?>">
                                 <?php
                                   if(!empty($_SESSION["login"]) && $count != 0){
                                       ?>
+                                      <form method="post" action="?action=add&code=<?php echo $i ?>">
                                       <button type="submit" class="btn btn-success bestel filmaanbodbestel"><li class="fa fa-shopping-cart"></li></button>
                                       <?php
                                   }elseif($count == 0){
                                     ?>
-                                    <button type="submit" class="btn btn-success bestel filmaanbodbestel" disabled><b>UITVERKOCHT</b></button>
+                                      <form method="post" action="?action=reserveer&code=<?php echo $id ?>">
+                                      <!-- <input type="submit" class="btn btn-success bestel" value="Bestel" disabled> -->
+
+                                      <input type="submit" class="btn btn-success bestel filmaanbodbestel" value="Reserveer (€7.50)">
                                     <?php
                                   }else{
                                     ?>
