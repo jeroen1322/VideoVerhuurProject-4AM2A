@@ -104,7 +104,7 @@ if(!empty($_SESSION['login'])){
                      }
                      elseif($_SESSION['login'][2] === 3){
                          ?>
-                         <li><a href="/baliemedewerker/overzicht" class="naam">OVERZICHT</a></li>
+                         <li><a href="baliemedewerker/inkomendeorders" class="naam">OVERZICHT</a></li>
                          <?php
                      }
                      ?>
