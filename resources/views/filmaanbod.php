@@ -30,7 +30,7 @@ if(!empty($_SESSION['login'])){
     }
 }
 //Pak de foto van de film
-$stmt = DB::conn()->prepare("SELECT id FROM `Film`");
+$stmt = DB::conn()->prepare("SELECT id FROM `Film` ORDER BY id DESC");
 $stmt->execute();
 $stmt->bind_result($titel);
 $film_id = array();
