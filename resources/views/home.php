@@ -151,7 +151,7 @@ if(!empty($ids)){
           $stmt->execute();
           $stmt->close();
 
-          blockMail($naam, $email);
+          // blockMail($naam, $email);
         }
       }
     }
