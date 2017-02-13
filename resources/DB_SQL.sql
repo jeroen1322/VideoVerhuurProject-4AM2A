@@ -121,6 +121,15 @@ ADD `Afhandeling` bool;
 ALTER TABLE `Order`
 ADD `besteld` bool;
 
+create table Reservering(id int auto_increment primary key, filmid int, persoonid int, datum varchar(50));
+alter table Reservering
+add foreign key (filmid)
+references Film(id);
+
+alter table Reservering
+add foreign key (persoonid)
+references Persoon(id);
+
 -- SELECT * FROM `Rol`;
 -- SELECT * FROM `Wachtwoord`;
 SELECT * FROM `Order`;
