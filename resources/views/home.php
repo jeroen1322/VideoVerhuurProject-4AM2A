@@ -115,47 +115,49 @@ while($stmt->fetch()){
 }
 $stmt->close();
 
-foreach($ids as $i){
-  $stmt = DB::conn()->prepare("SELECT Afhandeling FROM `Order` WHERE id=?");
-  $stmt->bind_param('i', $i);
-  $stmt->execute();
-  $stmt->bind_result($afhandeling);
-  $stmt->fetch();
-  $stmt->close();
-
-  if($afhandeling == 0){
-    $stmt = DB::conn()->prepare("SELECT klantid, afleverdatum, ophaaldatum FROM `Order` WHERE id=?");
+if(!empty($ids)){
+  foreach($ids as $i){
+    $stmt = DB::conn()->prepare("SELECT Afhandeling FROM `Order` WHERE id=?");
     $stmt->bind_param('i', $i);
     $stmt->execute();
-    $stmt->bind_result($klantid, $afleverdatum, $ophaaldatum);
+    $stmt->bind_result($afhandeling);
     $stmt->fetch();
     $stmt->close();
 
-    $drieWekenGeleden = date('d-m-Y', strtotime("-3 week"));
-    $today = date('d-m-Y');
-    $drie = strtotime($drieWekenGeleden);
-    $ophaal = strtotime($ophaaldatum);
-
-    if($ophaal < $drie){
-      $stmt = DB::conn()->prepare("SELECT naam, email, rolid FROM `Persoon` WHERE id=?");
-      $stmt->bind_param('i', $klantid);
+    if($afhandeling == 0){
+      $stmt = DB::conn()->prepare("SELECT klantid, afleverdatum, ophaaldatum FROM `Order` WHERE id=?");
+      $stmt->bind_param('i', $i);
       $stmt->execute();
-      $stmt->bind_result($naam, $email, $rolid);
+      $stmt->bind_result($klantid, $afleverdatum, $ophaaldatum);
       $stmt->fetch();
       $stmt->close();
 
-      if($rolid != 5){
-        $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=5 WHERE id=?;");
-        $stmt->bind_param("i", $klantid);
+      $drieWekenGeleden = date('d-m-Y', strtotime("-3 week"));
+      $today = date('d-m-Y');
+      $drie = strtotime($drieWekenGeleden);
+      $ophaal = strtotime($ophaaldatum);
+
+      if($ophaal < $drie){
+        $stmt = DB::conn()->prepare("SELECT naam, email, rolid FROM `Persoon` WHERE id=?");
+        $stmt->bind_param('i', $klantid);
         $stmt->execute();
+        $stmt->bind_result($naam, $email, $rolid);
+        $stmt->fetch();
         $stmt->close();
 
-        blockMail($naam, $email);
+        if($rolid != 5){
+          $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=5 WHERE id=?;");
+          $stmt->bind_param("i", $klantid);
+          $stmt->execute();
+          $stmt->close();
+
+          blockMail($naam, $email);
+        }
       }
     }
   }
-
 }
+
 
 ?>
 <div class="panel panel-default">
