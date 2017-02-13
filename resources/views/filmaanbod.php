@@ -125,7 +125,7 @@ if(!empty($titel)){
             $beschikbaar[] = $exemplaar_id;
         }
         $exm_stmt->close();
-        $count = count($beschikbaar);
+        $count = count($beschikbaar)-1;
 
         ?>
           <div class="filmThumbnail filmAanbodFilm col-md-3">

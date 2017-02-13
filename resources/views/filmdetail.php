@@ -42,7 +42,7 @@ while($exm_stmt->fetch()){
     $beschikbaar[] = $exemplaar_id;
 }
 $exm_stmt->close();
-$count = count($beschikbaar);
+$count = count($beschikbaar)-1;
 
 $cover = "/cover/" . $img;
 $titel = str_replace('_', ' ', $titel);
