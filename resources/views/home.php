@@ -1,5 +1,5 @@
 <?php
-$stmt = DB::conn()->PREPARE("SELECT id FROM Film");
+$stmt = DB::conn()->PREPARE("SELECT id FROM Film ORDER BY id DESC LIMIT 6");
 $stmt->execute();
 $stmt->bind_result($id);
 $film_id = array();
