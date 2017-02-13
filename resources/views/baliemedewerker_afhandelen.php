@@ -16,31 +16,120 @@ if(!empty($_SESSION['login'])){
             $action = $_GET['action'];
             $exm = $_GET['exm'];
             if($action == 'afgehandeld') {
-                $afhandeling = 1;
+              $afhandeling = 1;
 
-                $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=1, openbedrag=0, besteld=1 WHERE id=?;");
-                $stmt->bind_param("i", $code);
+              // $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=1, openbedrag=0, besteld=1 WHERE id=?;");
+              // $stmt->bind_param("i", $code);
+              // $stmt->execute();
+              // $stmt->close();
+
+              $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+              $stmt->bind_param('i', $code);
+              $stmt->execute();
+              $stmt->bind_result($e);
+              while($stmt->fetch()){
+                $exms[] = $e;
+              }
+              $stmt->close();
+
+              foreach($exms as $ex){
+                $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?;");
+                $stmt->bind_param("i", $ex);
                 $stmt->execute();
                 $stmt->close();
 
-                $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
-                $stmt->bind_param('i', $code);
+                $stmt = DB::conn()->prepare("SELECT persoonid FROM `Reservering` WHERE filmid=?");
+                $stmt->bind_param('i', $ex);
                 $stmt->execute();
-                $stmt->bind_result($e);
-                while($stmt->fetch()){
-                  $exms[] = $e;
-                }
+                $stmt->bind_result($persId);
+                $stmt->fetch();
                 $stmt->close();
 
-                foreach($exms as $ex){
-                  $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=1 WHERE id=?;");
-                  $stmt->bind_param("i", $ex);
+                if(!empty($persId)){
+
+                  $besteld = 0;
+                  $afhandeling = 0;
+                  $huidigeWeek = date('d-m-Y');
+                  $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
+
+                  $cart_stmt = DB::conn()->prepare("select count(o.id) from `Order` o where o.klantid =? and ifnull(besteld, false) = false;");
+                  $cart_stmt->bind_param("i", $klantId);
+                  $cart_stmt->execute();
+                  $cart_stmt->bind_result($countorder);
+                  $cart_stmt->fetch();
+                  $cart_stmt->close();
+                  $openBedrag = 0;
+
+                  if($countorder == 0){
+                      $order_id = rand(1, 2100);
+                      $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?)");
+                      $cart_stmt->bind_param("iiiisi", $order_id, $persId, $afhandeling, $openBedrag, $huidigeWeek, $besteld);
+                      $cart_stmt->execute();
+                      $cart_stmt->close();
+                  }
+                  $orderid_stmt = DB::conn()->prepare("select id FROM `Order` WHERE klantid =? AND besteld = 0");
+                  $orderid_stmt->bind_param("i", $klantId);
+                  $orderid_stmt->execute();
+                  $orderid_stmt->bind_result($order_id);
+                  $orderid_stmt->fetch();
+                  $orderid_stmt->close();
+
+                  $stmt = DB::conn()->prepare("INSERT INTO `Orderregel`(exemplaarid, orderid) VALUES(?,?)");
+                  $stmt->bind_param('ii', $ex, $order_id);
                   $stmt->execute();
                   $stmt->close();
+
                 }
+              }
 
-            }
 
+              // $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+              // $stmt->bind_param('i', $code);
+              // $stmt->execute();
+              // $stmt->bind_result($exmid);
+              // $stmt->fetch();
+              // $stmt->close();
+              //
+              // $stmt = DB::conn()->prepare("SELECT klantid FROM `Reservering` WHERE filmid=?");
+              // $stmt->bind_param('i', $);
+              // $stmt->execute();
+              // $stmt->bind_result($klant);
+              // $stmt->fetch();
+              // $stmt->close();
+              //
+              // $besteld = 0;
+              // $afhandeling = 0;
+              // $huidigeWeek = date('d-m-Y');
+              // $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
+              //
+              // $cart_stmt = DB::conn()->prepare("select count(o.id) from `Order` o where o.klantid =? and ifnull(besteld, false) = false;");
+              // $cart_stmt->bind_param("i", $klantId);
+              // $cart_stmt->execute();
+              // $cart_stmt->bind_result($countorder);
+              // $cart_stmt->fetch();
+              // $cart_stmt->close();
+              // $openBedrag = 0;
+              //
+              // if($countorder == 0){
+              //     $order_id = rand(1, 2100);
+              //     $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?)");
+              //     $cart_stmt->bind_param("iiiisi", $order_id, $klant, $afhandeling, $openBedrag, $huidigeWeek, $besteld);
+              //     $cart_stmt->execute();
+              //     $cart_stmt->close();
+              // }
+              // $orderid_stmt = DB::conn()->prepare("select id FROM `Order` WHERE klantid =? AND besteld = 0");
+              // $orderid_stmt->bind_param("i", $klantId);
+              // $orderid_stmt->execute();
+              // $orderid_stmt->bind_result($order_id);
+              // $orderid_stmt->fetch();
+              // $orderid_stmt->close();
+              //
+              // $stmt = DB::conn()->prepare("INSERT INTO `Orderregel`(exemplaarid, orderid), VALUES(?,?)");
+              // $stmt->bind_result('ii', $exmid, $order_id);
+              // $stmt->execute();
+              // $stmt->close();
+
+              }
         }
         ?>
 

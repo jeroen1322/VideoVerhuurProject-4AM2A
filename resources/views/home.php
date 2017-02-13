@@ -146,10 +146,10 @@ if(!empty($ids)){
         $stmt->close();
 
         if($rolid != 5){
-          $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=5 WHERE id=?;");
-          $stmt->bind_param("i", $klantid);
-          $stmt->execute();
-          $stmt->close();
+          // $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=5 WHERE id=?;");
+          // $stmt->bind_param("i", $klantid);
+          // $stmt->execute();
+          // $stmt->close();
 
           // blockMail($naam, $email);
         }
