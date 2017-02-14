@@ -18,10 +18,10 @@ if(!empty($_SESSION['login'])){
             if($action == 'afgehandeld') {
               $afhandeling = 1;
 
-              // $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=1, openbedrag=0, besteld=1 WHERE id=?;");
-              // $stmt->bind_param("i", $code);
-              // $stmt->execute();
-              // $stmt->close();
+              $stmt = DB::conn()->prepare("UPDATE `Order` SET afhandeling=1, openbedrag=0, besteld=1 WHERE id=?;");
+              $stmt->bind_param("i", $code);
+              $stmt->execute();
+              $stmt->close();
 
               $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
               $stmt->bind_param('i', $code);
@@ -38,10 +38,10 @@ if(!empty($_SESSION['login'])){
                 $stmt->execute();
                 $stmt->close();
 
-                $stmt = DB::conn()->prepare("SELECT persoonid FROM `Reservering` WHERE filmid=?");
+                $stmt = DB::conn()->prepare("SELECT id, persoonid FROM `Reservering` WHERE filmid=?");
                 $stmt->bind_param('i', $ex);
                 $stmt->execute();
-                $stmt->bind_result($persId);
+                $stmt->bind_result($resId, $persId);
                 $stmt->fetch();
                 $stmt->close();
 
@@ -59,11 +59,11 @@ if(!empty($_SESSION['login'])){
                   $cart_stmt->fetch();
                   $cart_stmt->close();
                   $openBedrag = 0;
-
+                  $bed = 0;
                   if($countorder == 0){
                       $order_id = rand(1, 2100);
-                      $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?)");
-                      $cart_stmt->bind_param("iiiisi", $order_id, $persId, $afhandeling, $openBedrag, $huidigeWeek, $besteld);
+                      $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, bedrag, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                      $cart_stmt->bind_param("iiidisi", $order_id, $persId, $afhandeling, $bed, $openBedrag, $huidigeWeek, $besteld);
                       $cart_stmt->execute();
                       $cart_stmt->close();
                   }
@@ -79,6 +79,19 @@ if(!empty($_SESSION['login'])){
                   $stmt->execute();
                   $stmt->close();
 
+                  $stmt = DB::conn()->prepare("SELECT naam, email FROM `Persoon` WHERE id=?");
+                  $stmt->bind_param('i', $persId);
+                  $stmt->execute();
+                  $stmt->bind_result($naam, $email);
+                  $stmt->fetch();
+                  $stmt->close();
+
+                  reserveerMail($naam, $email);
+
+                  $stmt = DB::conn()->prepare('DELETE FROM `Reservering` WHERE id=?');
+                  $stmt->bind_param('i', $resId);
+                  $stmt->execute();
+                  $stmt->close();
                 }
               }
 

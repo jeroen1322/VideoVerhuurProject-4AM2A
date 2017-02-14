@@ -53,6 +53,7 @@ if(!empty($_SESSION['login'])){
     $stmt->fetch();
     $stmt->close();
 
+
     $bedrag = $count * 7.50;
 
     $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=1");
@@ -328,11 +329,26 @@ if(!empty($_SESSION['login'])){
                 }
 
                 $aantalFilms = $count;
+
                 if($days <=7){
                   if($bedrag >= 50){
                     $bezorg = "GRATIS";
                   }else{
                     $bezorg = 2;
+                  }
+                  foreach($orderIdResult as $i){
+                    $stmt = DB::conn()->prepare("SELECT bedrag FROM `Order` WHERE id=?");
+                    $stmt->bind_param('i', $i);
+                    $stmt->execute();
+                    $stmt->bind_result($minBedrag);
+                    $stmt->fetch();
+                    $stmt->close();
+
+                    if($minBedrag == 0){
+                      $bedrag = ($minBedrag+$extra)*$aantalFilms;
+                    }else{
+                      $bedrag = (7.5+$extra)*$aantalFilms;
+                    }
                   }
                   echo "<br>Aantal Films: ". $aantalFilms;
                   $a = $bedrag;
@@ -355,8 +371,21 @@ if(!empty($_SESSION['login'])){
                   }else {
                     $extra = $aantalDagen * count($orderIdResult);
                   }
+                  foreach($orderIdResult as $i){
+                    $stmt = DB::conn()->prepare("SELECT bedrag FROM `Order` WHERE id=?");
+                    $stmt->bind_param('i', $i);
+                    $stmt->execute();
+                    $stmt->bind_result($minBedrag);
+                    $stmt->fetch();
+                    $stmt->close();
 
-                  $bedrag = (7.5+$extra)*$aantalFilms;
+                    if(!empty($minBedrag)){
+                      $bedrag = ($minBedrag+$extra)*$aantalFilms;
+                    }else{
+                      $bedrag = (7.5+$extra)*$aantalFilms;
+                    }
+                  }
+
                   if($bedrag >= 50){
                     $bezorg = "GRATIS";
                   }else{
@@ -377,7 +406,20 @@ if(!empty($_SESSION['login'])){
                   echo "<br><br><b>Totaal: €" . $totaal."</b>";
                 }
 
+
                 foreach($orderIdResult as $i){
+                  // $stmt = DB::conn()->prepare("SELECT bedrag FROM `Order` WHERE id=?");
+                  // $stmt->bind_param('i', $i);
+                  // $stmt->execute();
+                  // $stmt->bind_result($minBedrag);
+                  // $stmt->fetch();
+                  // $stmt->close();
+                  //
+                  // if(!empty($minBedrag)){
+                  //   $totaal = $totaal - $minBedrag;
+                  //   echo "TEST";
+                  // }
+
                   $stmt = DB::conn()->prepare("UPDATE `Order` SET bedrag=? WHERE id=?");
                   $stmt->bind_param('di', $totaal, $i);
                   $stmt->execute();

@@ -98,12 +98,12 @@ foreach($orderids as $d){
     $stmt->fetch();
     $stmt->close();
 
-    if(ophaalMail($order, $filmtitel, $naam, $email, $afleverdatum)){
-      $stmt = DB::conn()->prepare("UPDATE `Order` SET reminder=1 WHERE id=?");
-      $stmt->bind_param("i", $d);
-      $stmt->execute();
-      $stmt->close();
-    }
+    // if(ophaalMail($order, $filmtitel, $naam, $email, $afleverdatum)){
+    //   $stmt = DB::conn()->prepare("UPDATE `Order` SET reminder=1 WHERE id=?");
+    //   $stmt->bind_param("i", $d);
+    //   $stmt->execute();
+    //   $stmt->close();
+    // }
   }
 }
 
