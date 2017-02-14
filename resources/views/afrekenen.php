@@ -344,8 +344,8 @@ if(!empty($_SESSION['login'])){
                     $stmt->fetch();
                     $stmt->close();
 
-                    if($minBedrag == 0){
-                      $bedrag = ($minBedrag+$extra)*$aantalFilms;
+                    if($minBedrag == 1){
+                      $bedrag = (0+$extra)*$aantalFilms;
                     }else{
                       $bedrag = (7.5+$extra)*$aantalFilms;
                     }

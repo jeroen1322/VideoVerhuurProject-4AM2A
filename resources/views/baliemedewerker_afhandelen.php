@@ -59,7 +59,7 @@ if(!empty($_SESSION['login'])){
                   $cart_stmt->fetch();
                   $cart_stmt->close();
                   $openBedrag = 0;
-                  $bed = 0;
+                  $bed = 1;
                   if($countorder == 0){
                       $order_id = rand(1, 2100);
                       $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, bedrag, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?, ?)");
