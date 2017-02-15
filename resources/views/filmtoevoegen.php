@@ -95,7 +95,7 @@ if(!empty($_SESSION['login'])){
         $testarray[]= $films;
     }
     $stmt->close();
-    
+
     if($films == null){
         $filmid = 1;
     }
@@ -127,8 +127,9 @@ if(!empty($_SESSION['login'])){
     for($i = 1; $i < 12; $i++){
       $statusid = 1;
       $aantalVerhuur = 0;
-      $add_ex_stmt = DB::conn()->prepare("INSERT INTO Exemplaar (filmid, statusid, aantalVerhuur) VALUES (?, ?, ?)");
-      $add_ex_stmt->bind_param("iii", $id, $statusid, $aantalVerhuur);
+      $reservering = 0;
+      $add_ex_stmt = DB::conn()->prepare("INSERT INTO Exemplaar (filmid, statusid, aantalVerhuur, reservering) VALUES (?, ?, ?, ?)");
+      $add_ex_stmt->bind_param("iiii", $id, $statusid, $aantalVerhuur, $reservering);
       $add_ex_stmt->execute();
       $add_ex_stmt->close();
     }
