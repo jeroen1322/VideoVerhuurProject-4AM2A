@@ -64,7 +64,8 @@ create table Exemplaar(
 id int auto_increment primary key, 
 filmid int, 
 statusid int, 
-aantalVerhuur int
+aantalVerhuur int,
+reservering bool
 );
 
 ALTER TABLE `Orderregel`
@@ -136,8 +137,9 @@ SELECT * FROM `Order`;
 SELECT * FROM `Orderregel`;
 SELECT * FROM `Exemplaar`;
 SELECT * FROM `Film`;
--- SELECT * FROM `Persoon`;
+SELECT * FROM `Persoon`;
 SELECT * FROM `Reservering`;
+
 
 INSERT INTO Wachtwoord(id, wachtwoord) VALUES (1, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
 INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, active, rolid) VALUES ('Eigenaar', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'eigenaar@jeroengrooten.nl', 1, 1, 4);
