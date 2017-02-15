@@ -14,7 +14,7 @@ if(!empty($_SESSION['login'])){
         if(!empty($_GET)){
             $code = $_GET['code'];
             $action = $_GET['action'];
-            $exm = $_GET['exm'];
+
             if($action == 'afgehandeld') {
               $afhandeling = 1;
 
@@ -37,62 +37,6 @@ if(!empty($_SESSION['login'])){
                 $stmt->bind_param("i", $ex);
                 $stmt->execute();
                 $stmt->close();
-
-                $stmt = DB::conn()->prepare("SELECT id, persoonid FROM `Reservering` WHERE filmid=?");
-                $stmt->bind_param('i', $ex);
-                $stmt->execute();
-                $stmt->bind_result($resId, $persId);
-                $stmt->fetch();
-                $stmt->close();
-
-                if(!empty($persId)){
-
-                  $besteld = 0;
-                  $afhandeling = 0;
-                  $huidigeWeek = date('d-m-Y');
-                  $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
-
-                  $cart_stmt = DB::conn()->prepare("select count(o.id) from `Order` o where o.klantid =? and ifnull(besteld, false) = false;");
-                  $cart_stmt->bind_param("i", $klantId);
-                  $cart_stmt->execute();
-                  $cart_stmt->bind_result($countorder);
-                  $cart_stmt->fetch();
-                  $cart_stmt->close();
-                  $openBedrag = 0;
-                  $bed = 1;
-                  if($countorder == 0){
-                      $order_id = rand(1, 2100);
-                      $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, bedrag, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                      $cart_stmt->bind_param("iiidisi", $order_id, $persId, $afhandeling, $bed, $openBedrag, $huidigeWeek, $besteld);
-                      $cart_stmt->execute();
-                      $cart_stmt->close();
-                  }
-                  $orderid_stmt = DB::conn()->prepare("select id FROM `Order` WHERE klantid =? AND besteld = 0");
-                  $orderid_stmt->bind_param("i", $klantId);
-                  $orderid_stmt->execute();
-                  $orderid_stmt->bind_result($order_id);
-                  $orderid_stmt->fetch();
-                  $orderid_stmt->close();
-
-                  $stmt = DB::conn()->prepare("INSERT INTO `Orderregel`(exemplaarid, orderid) VALUES(?,?)");
-                  $stmt->bind_param('ii', $ex, $order_id);
-                  $stmt->execute();
-                  $stmt->close();
-
-                  $stmt = DB::conn()->prepare("SELECT naam, email FROM `Persoon` WHERE id=?");
-                  $stmt->bind_param('i', $persId);
-                  $stmt->execute();
-                  $stmt->bind_result($naam, $email);
-                  $stmt->fetch();
-                  $stmt->close();
-
-                  reserveerMail($naam, $email);
-
-                  $stmt = DB::conn()->prepare('DELETE FROM `Reservering` WHERE id=?');
-                  $stmt->bind_param('i', $resId);
-                  $stmt->execute();
-                  $stmt->close();
-                }
               }
 
 
@@ -186,12 +130,6 @@ if(!empty($_SESSION['login'])){
           </div>
           <?php
             foreach($order_id as $i){
-              $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
-              $stmt->bind_param('i', $i);
-              $stmt->execute();
-              $stmt->bind_result($exmid);
-              $stmt->fetch();
-              $stmt->close();
 
               $stmt = DB::conn()->prepare("SELECT o.id, p.naam, p.adres, p.woonplaats, o.aflevertijd, o.ophaaltijd, o.afleverdatum, o.ophaaldatum FROM Persoon p, `Order` o where afhandeling = 0 and besteld  = 1 and o.id=?;");
               $stmt->bind_param("i", $i);
@@ -210,7 +148,7 @@ if(!empty($_SESSION['login'])){
                 <td><?php echo $ophaaltijd ?></td>
                 <td></td>
                 <td>
-                  <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>&exm=<?php echo $exmid?>">
+                  <form method="post" action="?action=afgehandeld&code=<?php echo $i ?>">
                         <button type="submit" class="btn btn-success">
                             <i class="fa fa-check unblock"></i>
                         </button>
