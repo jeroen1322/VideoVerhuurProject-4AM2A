@@ -360,7 +360,7 @@ if(!empty($_SESSION['login'])){
                   }else{
                     $bezorg = 2;
                   }
-                  $bedrag = ((7.5+$extra)*$aantalFilms)-$korting;
+                  $bedrag = (7.5*$aantalFilms)-$korting;
 
                   echo "<br>Aantal Films: ". $aantalFilms;
                   $a = $bedrag;
