@@ -112,8 +112,8 @@ if(!empty($_SESSION['login'])){
               }
 
               ?>
-              <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
-              <h4>Aflever tijd: <?php echo $_POST['aflvrTijd'] ?></h4>
+              <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4>
+              <h4>Aflevertijd: <?php echo $_POST['aflvrTijd'] ?></h4>
               <hr></hr>
               <h4>Huur periode :
                 <?php
