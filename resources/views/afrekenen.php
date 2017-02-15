@@ -264,6 +264,7 @@ if(!empty($_SESSION['login'])){
                 $stmt->execute();
                 $stmt->close();
               }
+
               ?>
               <h4>Afleverdatum: <?php echo $afleverDatum ?></h4>
               <h4>Aflevertijd: <?php echo $afleverTijd ?></h4>
@@ -302,12 +303,35 @@ if(!empty($_SESSION['login'])){
               }
               $stmt->close();
 
+              $exemplaren = array();
+
               foreach($orderIdResult as $e){
                 $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaldatum=? WHERE id=?");
                 $stmt->bind_param("si", $ophaalDatum, $e);
                 $stmt->execute();
                 $stmt->close();
+
+                $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
+                $stmt->bind_param('i', $e);
+                $stmt->execute();
+                $stmt->bind_result($exId);
+                $stmt->fetch();
+                $stmt->close();
+
+                $stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE id=? AND reservering=1");
+                $stmt->bind_param('i', $exId);
+                $stmt->execute();
+                $stmt->bind_result($id_exemplaar);
+                while($stmt->fetch()){
+                  $exemplaren[] = $id_exemplaar;
+                }
+                $stmt->close();
               }
+              // print_r($exemplaren);
+              $exs = count($exemplaren);
+
+              $korting = 7.5 * $exs;
+
               //Bereken het aantal dagen tussen de aflever en ophaal datum
               $dateBegin = $_POST['afleverDatum'];
               $afleverDatumCalc = strtotime($dateBegin);
@@ -336,20 +360,8 @@ if(!empty($_SESSION['login'])){
                   }else{
                     $bezorg = 2;
                   }
-                  foreach($orderIdResult as $i){
-                    $stmt = DB::conn()->prepare("SELECT bedrag FROM `Order` WHERE id=?");
-                    $stmt->bind_param('i', $i);
-                    $stmt->execute();
-                    $stmt->bind_result($minBedrag);
-                    $stmt->fetch();
-                    $stmt->close();
+                  $bedrag = ((7.5+$extra)*$aantalFilms)-$korting;
 
-                    if($minBedrag == 1){
-                      $bedrag = (0+$extra)*$aantalFilms;
-                    }else{
-                      $bedrag = (7.5+$extra)*$aantalFilms;
-                    }
-                  }
                   echo "<br>Aantal Films: ". $aantalFilms;
                   $a = $bedrag;
                   echo "<br><br>Subtotaal: €".$bedrag;
@@ -371,20 +383,9 @@ if(!empty($_SESSION['login'])){
                   }else {
                     $extra = $aantalDagen * count($orderIdResult);
                   }
-                  foreach($orderIdResult as $i){
-                    $stmt = DB::conn()->prepare("SELECT bedrag FROM `Order` WHERE id=?");
-                    $stmt->bind_param('i', $i);
-                    $stmt->execute();
-                    $stmt->bind_result($minBedrag);
-                    $stmt->fetch();
-                    $stmt->close();
 
-                    if(!empty($minBedrag)){
-                      $bedrag = ($minBedrag+$extra)*$aantalFilms;
-                    }else{
-                      $bedrag = (7.5+$extra)*$aantalFilms;
-                    }
-                  }
+                  $bedrag = ((7.5+$extra)*$aantalFilms)-$korting;
+
 
                   if($bedrag >= 50){
                     $bezorg = "GRATIS";
