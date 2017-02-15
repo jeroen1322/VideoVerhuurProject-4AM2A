@@ -115,7 +115,7 @@ if(!empty($_SESSION['login'])){
               <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4>
               <h4>Aflevertijd: <?php echo $_POST['aflvrTijd'] ?></h4>
               <hr></hr>
-              <h4>Huur periode :
+              <h4>Huurperiode :
                 <?php
                 $days = $_POST['huurPeriode'];
                 if($days == 1){
@@ -185,7 +185,7 @@ if(!empty($_SESSION['login'])){
                 <?php
               }
               ?>
-                <h2>AFLEVER DATUM</h2>
+                <h2>AFLEVERDATUM</h2>
                 <select class="form-control" name="afleverDatum">
                   <?php
                   $ophaalDatum = date('d-m-Y');
@@ -342,9 +342,9 @@ if(!empty($_SESSION['login'])){
 
               ?>
               <form method="post" action="?action=ok">
-              <h4>Aflever datum: <?php echo $_POST['afleverDatum'] ?></h4>
-              <h4>Aflever tijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
-              <h4>Huur periode :
+              <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4>
+              <h4>Aflevertijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
+              <h4>Huurperiode :
                 <?php
                 if($days == 1){
                   echo $days . " dag";
