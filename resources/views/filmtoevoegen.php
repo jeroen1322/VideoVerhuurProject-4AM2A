@@ -95,7 +95,7 @@ if(!empty($_SESSION['login'])){
         $testarray[]= $films;
     }
     $stmt->close();
-    print_r($testarray);
+    
     if($films == null){
         $filmid = 1;
     }
