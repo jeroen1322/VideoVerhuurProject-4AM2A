@@ -37,6 +37,74 @@ if(!empty($_SESSION['login'])){
                 $stmt->bind_param("i", $ex);
                 $stmt->execute();
                 $stmt->close();
+
+                $stmt = DB::conn()->prepare("SELECT filmid FROM `Exemplaar` WHERE id=?");
+                $stmt->bind_param('i', $ex);
+                $stmt->execute();
+                $stmt->bind_result($fId);
+                $stmt->fetch();
+                $stmt->close();
+
+                $stmt = DB::conn()->prepare("SELECT id FROM `Reservering` WHERE filmid=?");
+                $stmt->bind_param('i', $fId);
+                $stmt->execute();
+                $stmt->bind_result($resId);
+                $stmt->fetch();
+                $stmt->close();
+
+                if(!empty($resId)){
+                  $stmt = DB::conn()->prepare("SELECT filmid, persoonid FROM `Reservering` WHERE id=?");
+                  $stmt->bind_param('i', $resId);
+                  $stmt->execute();
+                  $stmt->bind_result($filmid, $persoonid);
+                  $stmt->fetch();
+                  $stmt->close();
+
+                  $besteld = 0;
+                  $afhandeling = 0;
+                  $huidigeWeek = date('d-m-Y');
+                  $volgendeWeek = date('d-m-Y', strtotime("+7 days"));
+                  $openBedrag = 0;
+
+                  $cart_stmt = DB::conn()->prepare("select count(o.id) from `Order` o where o.klantid =? and ifnull(besteld, false) = false;");
+                  $cart_stmt->bind_param("i", $persoonid);
+                  $cart_stmt->execute();
+                  $cart_stmt->bind_result($countorder);
+                  $cart_stmt->fetch();
+                  $cart_stmt->close();
+
+                  if($countorder == 0){
+                      $order_id = rand(1, 2100);
+                      $cart_stmt = DB::conn()->prepare("INSERT INTO `Order` (id, klantid, afhandeling, openbedrag, orderdatum, besteld) VALUES (?, ?, ?, ?, ?, ?)");
+                      $cart_stmt->bind_param("iiiisi", $order_id, $persoonid, $afhandeling, $openBedrag, $huidigeWeek, $besteld);
+                      $cart_stmt->execute();
+                      $cart_stmt->close();
+                  }
+
+                  $orderid_stmt = DB::conn()->prepare("select id FROM `Order` WHERE klantid =? AND besteld = 0");
+                  $orderid_stmt->bind_param("i", $persoonid);
+                  $orderid_stmt->execute();
+                  $orderid_stmt->bind_result($order_id);
+                  $orderid_stmt->fetch();
+                  $orderid_stmt->close();
+
+                  $exm_stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET statusid=2, reservering=1 WHERE id=?");
+                  $exm_stmt->bind_param("i", $ex);
+                  $exm_stmt->execute();
+                  $exm_stmt->close();
+
+                  $or_stmt = DB::conn()->prepare("INSERT INTO `Orderregel` (exemplaarid, orderid) VALUES (?, ?)");
+                  $or_stmt->bind_param("ii", $ex, $order_id);
+                  $or_stmt->execute();
+                  $or_stmt->close();
+                  echo $order_id;
+                  $stmt = DB::conn()->prepare("DELETE FROM `Reservering` WHERE id=?");
+                  $stmt->bind_param('i', $resId);
+                  $stmt->execute();
+                  $stmt->close();
+
+                  echo "<br>test";
+                }
               }
 
 
