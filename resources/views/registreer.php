@@ -51,11 +51,11 @@ if(!empty($_POST)){
         $stmt->bind_param("ssssssiii", $naam, $adres, $postcode, $woonplaats, $telefoonnummer, $email, $id, $active, $rolid);
         $stmt->execute();
 
-        echo "<div class='succes'>Account aangemaakt.</div>";
+        echo "<div class='succes'><b>ACCOUNT AANGEMAAKT. CONTROLLEER UW EMAIL OP EEN CONFIRMATIE EMAIL.</b></div>";
 
         confirmMail($naam, $email, $id);
 
-        header("Refresh:0; url=/login");
+        // header("Refresh:0; url=/login");
       }
     }
 
