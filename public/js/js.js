@@ -8,7 +8,7 @@ $(document).ready(function(){
       speed: 600,
       responsive: true
     });
-  }else if($(window).width() < 710 && $(window).width() > 610){
+  }else if($(window).width() < 1000 && $(window).width() > 610){
     $('.nieuw_film_slider').slick({
       infinite: true,
       slidesToShow: 2,
