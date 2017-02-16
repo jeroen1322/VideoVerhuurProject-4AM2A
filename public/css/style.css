@@ -31,6 +31,12 @@
 }
 
 @media screen and (max-width: 992px) {
+  .table_titel{
+    display: none !important;
+  }
+  .table_omschr{
+    display: none !important;
+  }
   a.btn.btn-success.terug_button {
       margin-top: -50px !important;
       width: 100% !important;

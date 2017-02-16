@@ -27,8 +27,8 @@ if(!empty($_SESSION['login'])){
       <thead>
         <tr>
           <th>Foto</th>
-          <th>Titel</th>
-          <th>Omschrijving</th>
+          <th class="table_titel">Titel</th>
+          <th class="table_omschr">Omschrijving</th>
           <th></th>
         </tr>
       </thead>
@@ -80,8 +80,8 @@ if(!empty($_SESSION['login'])){
         ?>
           <tr>
             <td><a href="<?php echo $URL ?>"><img src="<?php echo $cover ?>" class="winkelmand_img"></a></td>
-            <td><?php echo $titel ?></td>
-            <td><?php echo $omschr ?><td>
+            <td class="table_titel"><?php echo $titel ?></td>
+            <td class="table_omschr"><?php echo $omschr ?><td>
             <td>
               <form method="post" action="?action=delete&code=<?php echo $i ?>">
                 <button type="submit" class="btn btn-success">
