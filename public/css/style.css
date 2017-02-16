@@ -12,6 +12,7 @@
   .details img{
     float: none !important;
     margin: 0 auto !important;
+    padding-right: 0 !important;
   }
   input.btn.btn-success.bestel {
     width: 100% !important;
