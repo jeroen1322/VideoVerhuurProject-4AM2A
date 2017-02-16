@@ -19,6 +19,9 @@
   }
 }
 @media screen and (max-width: 765px) {
+  .dropdown_cart{
+    display: none !important;
+  }
   .table_titel{
     display: none !important;
   }
@@ -45,9 +48,6 @@
 }
 
 @media screen and (max-width: 992px) {
-  .dropdown_cart{
-    display: none !important;
-  }
   a.btn.btn-success.terug_button {
       margin-top: -50px !important;
       width: 100% !important;
