@@ -63,6 +63,9 @@
 }
 
 @media screen and (max-width: 1200px) {
+  a.btn.btn-primary.admin_menu{
+    width: 100% !important;
+  }
   .filmaanbod_img {
     width: 100% !important;
     height: 300px !important;
