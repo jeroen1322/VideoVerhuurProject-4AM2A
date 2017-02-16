@@ -117,7 +117,7 @@ $stmt->close();
 
 if(!empty($ids)){
   foreach($ids as $i){
-    $stmt = DB::conn()->prepare("SELECT Afhandeling FROM `Order` WHERE id=?");
+    $stmt = DB::conn()->prepare("SELECT Afhandeling FROM `Order` WHERE id=? AND besteld=1 AND afhandeling=0");
     $stmt->bind_param('i', $i);
     $stmt->execute();
     $stmt->bind_result($afhandeling);
@@ -136,22 +136,23 @@ if(!empty($ids)){
       $today = date('d-m-Y');
       $drie = strtotime($drieWekenGeleden);
       $ophaal = strtotime($ophaaldatum);
-
-      if($ophaal < $drie){
-        $stmt = DB::conn()->prepare("SELECT naam, email, rolid FROM `Persoon` WHERE id=?");
-        $stmt->bind_param('i', $klantid);
-        $stmt->execute();
-        $stmt->bind_result($naam, $email, $rolid);
-        $stmt->fetch();
-        $stmt->close();
-
-        if($rolid != 5){
-          $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=5 WHERE id=?;");
-          $stmt->bind_param("i", $klantid);
+      if(!empty($ophaal)){
+        if($ophaal < $drie){
+          $stmt = DB::conn()->prepare("SELECT naam, email, rolid FROM `Persoon` WHERE id=?");
+          $stmt->bind_param('i', $klantid);
           $stmt->execute();
+          $stmt->bind_result($naam, $email, $rolid);
+          $stmt->fetch();
           $stmt->close();
 
-          blockMail($naam, $email);
+          if($rolid != 5){
+            $stmt = DB::conn()->prepare("UPDATE `Persoon` SET rolid=5 WHERE id=?;");
+            $stmt->bind_param("i", $klantid);
+            $stmt->execute();
+            $stmt->close();
+
+            blockMail($naam, $email);
+          }
         }
       }
     }
