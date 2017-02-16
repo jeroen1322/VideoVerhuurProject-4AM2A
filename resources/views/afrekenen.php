@@ -463,22 +463,35 @@ if(!empty($_SESSION['login'])){
           if(!empty($orderIdResult)){
             ?>
             <br>
-            <form  method="post" action="?action=afleverDatum">
             <h4>CONTROLEER UW GEGEVENS</h4>
+            <form  method="post" action="?action=afleverDatum">
             <div class="links">
               <ul class="list-group">
-                <li class="list-group-item"><b>Naam: </b><?php echo $naam?></li>
-                <li class="list-group-item"><b>Email: </b><?php echo $email ?></li>
-                <li class="list-group-item"><b>Telefoonnummer: </b><?php echo $telefoonnummer ?></li>
-                <li class="list-group-item"><b>Adres: </b><?php echo $adres ?></li>
-                <li class="list-group-item"><b>Postcode: </b><?php echo $postcode ?></li>
-                <li class="list-group-item"><b>Woonplaats: </b><?php echo $woonplaats ?></li>
+                <li class="list-group-item personalInfo"><b>Naam: </b><?php echo $naam?></li>
+                <li class="list-group-item personalInfo"><b>Email: </b><?php echo $email ?></li>
+                <li class="list-group-item personalInfo"><b>Telefoonnummer: </b><?php echo $telefoonnummer ?></li>
+                <li class="list-group-item personalInfo"><b>Adres: </b><?php echo $adres ?></li>
+                <li class="list-group-item personalInfo"><b>Postcode: </b><?php echo $postcode ?></li>
+                <li class="list-group-item personalInfo"><b>Woonplaats: </b><?php echo $woonplaats ?></li>
 
                 <input type="submit" class="btn btn-success bestel" value="DE GEGEVENS KLOPPEN">
-                </form>
-              </ul>
+              </form><br><br><br>
+                            </ul>
             </div>
             <?php
+            if($klantRolId == 4){
+              ?>
+              <a href="/eigenaar/overzicht?action=edit&code=1">
+              <button class="btn btn-success bestel klopt_niet">DE GEGEVENS KLOPPEN <b>NIET</b></button>
+              </a>
+              <?php
+            }elseif($klantRolId == 1){
+              ?>
+              <a href="/klant/overzicht?action=edit&code=<?php echo $klantId ?>">
+              <button class="btn btn-success bestel klopt_niet">DE GEGEVENS KLOPPEN <b>NIET</b></button>
+              </a>
+              <?php
+            }
           }
         }
       }else{

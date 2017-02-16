@@ -74,6 +74,12 @@
     height: 300px !important;
   }
 }
+button.btn.btn-success.bestel.klopt_niet {
+    background-color: rgba(150,153,153,.6) !important;
+}
+.personalInfo{
+    font-size: 20px;
+}
 .mobile_cart_right{
   display: none;
 }
