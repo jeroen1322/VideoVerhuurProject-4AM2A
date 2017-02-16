@@ -143,13 +143,17 @@ if(!empty($_SESSION['login'])){
     ?>
     </tbody>
     </table>
-    <div class="winkelmand_onder">
-    <a href="/winkelmand/afrekenen">
-    <button class="btn btn-success bestel">AFREKENEN</button>
+    <a href="/film/aanbod">
+      <button class="btn btn-success bestel verder_winkelen">VERDER WINKELEN</button>
     </a>
+
+    <div class="winkelmand_onder">
+      <a href="/winkelmand/afrekenen">
+        <button class="btn btn-success bestel">AFREKENEN</button>
+      </a>
+      </div>
     </div>
-    </div>
-    </div>
+  </div>
     <?php
   }else{
     echo "<div class='warning'>UW WINKELMAND IS LEEG</div>";

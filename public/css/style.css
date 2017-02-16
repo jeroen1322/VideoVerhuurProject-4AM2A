@@ -6,6 +6,9 @@
   }
 }
 @media screen and (max-width: 660px) {
+  .verder_winkelen{
+    width: 52%;
+  }
   .film_info{
     width: 100% !important;
   }
