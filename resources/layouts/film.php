@@ -52,6 +52,30 @@ if(!empty($_SESSION['login'])){
     <div class="navbar navbar-default">
       <div class="container-fluid container">
         <div class="navbar-header">
+          <?php
+            if(!empty($_SESSION['login'])){
+              $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=0");
+              $stmt->bind_param("i", $klantId);
+              $stmt->execute();
+              $stmt->bind_result($order_id);
+              $stmt->fetch();
+              $stmt->close();
+              $stmt = DB::conn()->prepare("select count(exemplaarid) from Orderregel where orderid =?;");
+              $stmt->bind_param("i", $order_id);
+              $stmt->execute();
+              $stmt->bind_result($count);
+              $stmt->fetch();
+              $stmt->close();
+
+              if($count > 0){
+                ?>
+                <ul class="nav navbar-nav mobile_cart_right">
+                  <li><a href="/winkelmand" class="menu_winkelmand"><i class="fa fa-shopping-cart" aria-hidden="true"></i>(<?php echo $count; ?>)</a></li>
+                </ul>
+                <?php
+              }
+            }
+            ?>
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
