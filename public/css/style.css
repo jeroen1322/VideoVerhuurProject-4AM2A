@@ -37,6 +37,17 @@
   .table_omschr{
     display: none !important;
   }
+  .mobile_cart_right{
+    display: block !important;
+    float: right;
+    margin-right: 50px;
+    margin-left: -120px;
+    margin-top: -1px;
+    margin-bottom: 0;
+  }
+  .dropdown_cart{
+    display: none !important;
+  }
   a.btn.btn-success.terug_button {
       margin-top: -50px !important;
       width: 100% !important;
@@ -56,6 +67,9 @@
     width: 100% !important;
     height: 300px !important;
   }
+}
+.mobile_cart_right{
+  display: none;
 }
 .menu_right{
   float: right;
