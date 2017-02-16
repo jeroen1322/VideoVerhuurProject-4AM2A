@@ -1,5 +1,5 @@
 @media screen and (max-width: 593px) {
-  .filmThumbnail.filmAanbodFilm.col-md-3{
+  .filmAanbodItem{
     float: none !important;
     width: 90% !important;
     margin: 0 auto !important;

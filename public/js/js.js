@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  console.log($(window).width());
   if($(window).width() < 610){
     $('.nieuw_film_slider').slick({
       infinite: true,

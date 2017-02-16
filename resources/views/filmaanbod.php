@@ -139,7 +139,7 @@ if(!empty($titel)){
         $count = count($beschikbaar)-1;
 
         ?>
-          <div class="filmThumbnail filmAanbodFilm col-md-3">
+          <div class="filmThumbnail filmAanbodFilm col-md-3 filmAanbodItem">
                   <a href="/">
                       <div class="thumb">
                           <a href=<?php echo"$url" ?>>
