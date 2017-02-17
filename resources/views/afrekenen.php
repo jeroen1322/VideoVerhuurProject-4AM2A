@@ -232,7 +232,11 @@ if(!empty($_SESSION['login'])){
                 $stmt->close();
               }
               ?>
-              <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4>
+              <h4>Afleverdatum: <?php
+              $nlAflever = date('d-F-Y', strtotime($_POST['afleverDatum']));
+              // echo $_POST['afleverDatum'] 
+              echo nlDate($nlAflever);
+              ?></h4>
               <h2>AFLEVERTIJD</h2>
               <form method="post" action="?action=ophaalDatum">
                 <select name="afleverTijd" class="form-control">
