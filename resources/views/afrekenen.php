@@ -164,17 +164,17 @@ if(!empty($_SESSION['login'])){
               $stmt->close();
               $nu = date("d-m-Y");
 
-              $current = strtotime("today");
+              $vandaag = strtotime("today");
               $date    = strtotime($OHdata);
 
-              $datediff = $date - $current;
-              $difference = floor($datediff/(60*60*24));
+              $diff = $date - $vandaag;
+              $days = floor($diff / (60*60*24) );
 
               //$difference > 1 = toekomstige datum
               //$difference > 0 = morgen
               if(!empty($date)){
 
-                if($difference > 1 || $difference > 0){
+                if($days > 0){
                   ?>
                   <div class="vraag">
                     <h4><i>Op <?php echo $OHdata ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan laten bezorgen?</i></h4>
@@ -234,7 +234,7 @@ if(!empty($_SESSION['login'])){
               ?>
               <h4>Afleverdatum: <?php
               $nlAflever = date('d-F-Y', strtotime($_POST['afleverDatum']));
-              // echo $_POST['afleverDatum'] 
+              // echo $_POST['afleverDatum']
               echo nlDate($nlAflever);
               ?></h4>
               <h2>AFLEVERTIJD</h2>
