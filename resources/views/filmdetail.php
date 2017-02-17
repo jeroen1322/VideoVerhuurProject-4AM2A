@@ -234,26 +234,29 @@ if(!empty($id)){
               <h3><b>Prijs</b></h3>
               <p><b>€7,50</b></p>
                 <?php
-                if($dis){
-                  ?>
-                  <form method="post" action="?action=reserveer&code=<?php echo $id ?>">
-                  <!-- <input type="submit" class="btn btn-success bestel" value="Bestel" disabled> -->
+                if($klantRolId != 5){
+                  if($dis){
+                    ?>
+                    <form method="post" action="?action=reserveer&code=<?php echo $id ?>">
+                    <!-- <input type="submit" class="btn btn-success bestel" value="Bestel" disabled> -->
 
-                  <input type="submit" class="btn btn-success bestel" value="Reserveer (€7.50)">
+                    <input type="submit" class="btn btn-success bestel" value="Reserveer (€7.50)">
 
-                  <?php
-                }elseif(empty($_SESSION['login'])){
-                  ?>
-                  <input type="submit" class="btn btn-success bestel" value="Bestel" disabled><br><br><br>
-                  <h5><b>U moet <a href="/login">ingelogd</a> zijn om te kunnen bestellen</b></h5>
-                  <?php
-                }else{
-                  ?>
-                  <form method="post" action="?action=add&code=<?php echo $id ?>">
-                  <input type="submit" class="btn btn-success bestel" value="Bestel">
-                </form>
-                  <?php
+                    <?php
+                  }elseif(empty($_SESSION['login'])){
+                    ?>
+                    <input type="submit" class="btn btn-success bestel" value="Bestel" disabled><br><br><br>
+                    <h5><b>U moet <a href="/login">ingelogd</a> zijn om te kunnen bestellen</b></h5>
+                    <?php
+                  }else{
+                    ?>
+                    <form method="post" action="?action=add&code=<?php echo $id ?>">
+                    <input type="submit" class="btn btn-success bestel" value="Bestel">
+                  </form>
+                    <?php
+                  }
                 }
+
                 ?>
               </form>
               </div>

@@ -497,6 +497,8 @@ if(!empty($_SESSION['login'])){
       }else{
         echo "<div class='warning'><b>U HEEFT GEEN FILMS IN UW WINKELMAND OM TE BESTELLEN</b></div>";
       }
+    }elseif($klantRolId == 5){
+      echo "<div class='blocked'><b>UW ACCOUNT IS GEBLOKKEERD</b></div>";
     }
   ?>
 </div>

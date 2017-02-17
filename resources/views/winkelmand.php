@@ -5,7 +5,7 @@
 <?php
 if(!empty($_SESSION['login'])){
   $klant = $_SESSION['login']['0'];
-
+  $klantRolId = $_SESSION['login'][2];
   //Haal id op van Order op
   $stmt = DB::conn()->prepare("SELECT id FROM `Order` WHERE klantid=? AND besteld=0");
   $stmt->bind_param("i", $klant);
@@ -147,12 +147,18 @@ if(!empty($_SESSION['login'])){
       <button class="btn btn-success bestel verder_winkelen">VERDER WINKELEN</button>
     </a>
 
-    <div class="winkelmand_onder">
-      <a href="/winkelmand/afrekenen">
-        <button class="btn btn-success bestel">AFREKENEN</button>
-      </a>
+    <?php
+    if($klantRolId != 5){
+      ?>
+      <div class="winkelmand_onder">
+        <a href="/winkelmand/afrekenen">
+          <button class="btn btn-success bestel">AFREKENEN</button>
+        </a>
       </div>
-    </div>
+      <?php
+    }
+    ?>
+  </div>
   </div>
     <?php
   }else{
