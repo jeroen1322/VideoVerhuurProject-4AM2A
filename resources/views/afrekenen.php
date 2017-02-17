@@ -1,8 +1,5 @@
 <?php
 if(!empty($_SESSION['login'])){
-  setlocale(LC_TIME, 'NL_nl');
-  setlocale(LC_ALL, 'nl_NL');
-  echo strftime('%a %e %B %Y',time());
   $klantId = $_SESSION['login'][0];
   $klantNaam = $_SESSION['login'][1];
   $klantRolId = $_SESSION['login'][2];
@@ -88,10 +85,10 @@ if(!empty($_SESSION['login'])){
               $totaal = $_POST['totaal'];
 
               foreach($orderIdResult as $e){
-                $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1, reminder=0 WHERE id=?");
-                $stmt->bind_param("si", $ophaalTijd, $e);
-                $stmt->execute();
-                $stmt->close();
+                // $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1, reminder=0 WHERE id=?");
+                // $stmt->bind_param("si", $ophaalTijd, $e);
+                // $stmt->execute();
+                // $stmt->close();
 
                 $stmt = DB::conn()->prepare("SELECT exemplaarid FROM `Orderregel` WHERE orderid=?");
                 $stmt->bind_param("i", $e);
@@ -107,15 +104,19 @@ if(!empty($_SESSION['login'])){
                 $stmt->fetch();
                 $stmt->close();
 
-                $nieuwAantalVerhuur = $aantalVerhuur + 1;
-                $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET aantalVerhuur=? WHERE id=?");
-                $stmt->bind_param('ii', $nieuwAantalVerhuur, $exm_id);
-                $stmt->execute();
-                $stmt->execute();
+                // $nieuwAantalVerhuur = $aantalVerhuur + 1;
+                // $stmt = DB::conn()->prepare("UPDATE `Exemplaar` SET aantalVerhuur=? WHERE id=?");
+                // $stmt->bind_param('ii', $nieuwAantalVerhuur, $exm_id);
+                // $stmt->execute();
+                // $stmt->execute();
               }
 
               ?>
-              <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4>
+              <h4>Afleverdatum:
+                <?php
+                $nlAflever = date('d-F-Y', strtotime($_POST['afleverDatum']));
+                echo nlDate($nlAflever);
+                ?></h4>
               <h4>Aflevertijd: <?php echo $_POST['aflvrTijd'] ?></h4>
               <hr></hr>
               <h4>Huurperiode :
@@ -139,7 +140,11 @@ if(!empty($_SESSION['login'])){
                 ?>
               </h4>
               <hr></hr>
-              <h4>Ophaaldatum: <?php echo $_POST['ophaalDatum'] ?></h4>
+              <h4>Ophaaldatum:
+                <?php
+                $nlOphaal = date('d-F-Y', strtotime($_POST['ophaalDatum']));
+                echo nlDate($nlOphaal);
+                ?></h4>
               <h4>Ophaaltijd: <?php echo $_POST['ophaalTijd'] ?></h4>
               <hr></hr>
               <h2><b>U HEEFT €<?php echo $totaal ?> BETAALD</b></h2>
@@ -194,9 +199,11 @@ if(!empty($_SESSION['login'])){
                   $ophaalDatum = date('d-m-Y');
                   $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
                   for($x=0; $x <= 14; $x++){
-                    $date = date('d-F-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $nlDatum = date('d-F-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $nlDatum = nlDate($nlDatum);
                     ?>
-                    <option value="<?php echo $date ?>"><?php echo $date ?></option>
+                    <option value="<?php echo $date ?>"><?php echo $nlDatum ?></option>
                     <?php
                   }
                   ?>
@@ -269,7 +276,10 @@ if(!empty($_SESSION['login'])){
               }
 
               ?>
-              <h4>Afleverdatum: <?php echo $afleverDatum ?></h4>
+              <h4>Afleverdatum: <?php
+                $nlAflever = date('d-F-Y', strtotime($afleverDatum));
+                echo nlDate($nlAflever);
+              ?></h4>
               <h4>Aflevertijd: <?php echo $afleverTijd ?></h4>
               <h2>OPHAALDATUM</h2>
               <form method="post" action="?action=ophaalTijd">
@@ -283,8 +293,10 @@ if(!empty($_SESSION['login'])){
                   }
                   for($x=0; $x < 14; $x++){
                     $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $nlDatum = date('d-F-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $nlDatum = nlDate($nlDatum);
                     ?>
-                    <option value="<?php echo $date ?>"><?php echo $date ?></option>
+                    <option value="<?php echo $date ?>"><?php echo $nlDatum ?></option>
                     <?php
                   }
                   ?>
@@ -345,7 +357,11 @@ if(!empty($_SESSION['login'])){
 
               ?>
               <form method="post" action="?action=ok">
-              <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4>
+                <h4>Afleverdatum: <?php
+                  $nlAflever = date('d-F-Y', strtotime($_POST['afleverDatum']));
+                  echo nlDate($nlAflever);
+                ?></h4>
+              <!-- <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4> -->
               <h4>Aflevertijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
               <h4>Huurperiode :
                 <?php
@@ -433,7 +449,11 @@ if(!empty($_SESSION['login'])){
                 ?>
               </h4>
               <hr></hr>
-              <h4>Ophaaldatum: <?php echo $_POST['ophaalDatum'] ?></h4>
+              <h4>Ophaaldatum:
+                <?php
+                $nlAflever = date('d-F-Y', strtotime($_POST['ophaalDatum']));
+                echo nlDate($nlAflever);
+                ?></h4>
               <h2>OPHAALTIJD</h2>
                 <select name="ophaalTijd" class="form-control">
                   <?php

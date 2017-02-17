@@ -1,8 +1,9 @@
 <?php
 include(__DIR__ . '/../db.php');
 include(MAIL . '/mailLib.php');
-
+include(__DIR__.'/../library/lib.php');
 session_start();
+
 
 if(!empty($_SESSION['login'])){
   $klantId = $_SESSION['login'][0];
