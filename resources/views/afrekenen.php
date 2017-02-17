@@ -83,9 +83,11 @@ if(!empty($_SESSION['login'])){
 
               $action = $_GET['action'];
               $ophaalTijd = $_POST['ophaalTijd'];
-              $subTotaal = $_POST['subTotaal'];
+              $sub = $_POST['subTotaal'];
+              $subTotaal = number_format($sub, 2);
               $bezorgKosten = $_POST['bezorgKosten'];
-              $totaal = $_POST['totaal'];
+              $tot = $_POST['totaal'];
+              $totaal = number_format($tot, 2);
 
               foreach($orderIdResult as $e){
                 $stmt = DB::conn()->prepare("UPDATE `Order` SET ophaaltijd=?, besteld=1, reminder=0 WHERE id=?");
@@ -363,7 +365,8 @@ if(!empty($_SESSION['login'])){
                   }else{
                     $bezorg = 2;
                   }
-                  $bedrag = (7.5*$aantalFilms)-$korting;
+                  $bedr = (7.5*$aantalFilms)-$korting;
+                  $bedrag = number_format($bedr, 2);
 
                   echo "<br>Aantal Films: ". $aantalFilms;
                   $a = $bedrag;
@@ -374,7 +377,8 @@ if(!empty($_SESSION['login'])){
 
                     echo "<br>Bezorgkosten: €2";
                   }
-                  $totaal = $bezorg + $bedrag;
+                  $tot = $bezorg + $bedrag;
+                  $totaal = number_format($tot, 2);
                   echo "<br><b>Totaal: €" . $totaal."</b>";
 
                 }elseif($days > 7){
