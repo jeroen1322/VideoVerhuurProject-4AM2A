@@ -20,13 +20,13 @@ $klein->respond('/film/aanbod', function ($request, $response, $service) {
   $service->layout('../resources/layouts/default.php');
 });
 
-$klein->respond('/film/aanbod', function ($request, $response, $service) {
-    $service->pageTitle = 'Filmaanbod';
-    $service->render(VIEWS.'/filmaanbod.php');
-});
 
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     $service->layout('../resources/layouts/film.php');
+});
+$klein->respond('/film/aanbod', function ($request, $response, $service) {
+    $service->pageTitle = 'Filmaanbod';
+    $service->render(VIEWS.'/filmaanbod.php');
 });
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     $naam = $request->naam;
