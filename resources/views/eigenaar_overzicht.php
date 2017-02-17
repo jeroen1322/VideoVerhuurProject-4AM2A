@@ -181,7 +181,7 @@ if(!empty($_SESSION['login'])){
                 <?php
                 $aantalVerhuurdPerFilm = array_count_values($films);
 
-                // usort($aantalVerhuurdPerFilm);
+                arsort($aantalVerhuurdPerFilm);
 
                 foreach($aantalVerhuurdPerFilm as $a => $v){
                   $stmt = DB::conn()->prepare("SELECT titel, img FROM `Film` WHERE id=?");
