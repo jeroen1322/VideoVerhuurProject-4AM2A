@@ -1,5 +1,8 @@
 <?php
 if(!empty($_SESSION['login'])){
+  setlocale(LC_TIME, 'NL_nl');
+  setlocale(LC_ALL, 'nl_NL');
+  echo strftime('%a %e %B %Y',time());
   $klantId = $_SESSION['login'][0];
   $klantNaam = $_SESSION['login'][1];
   $klantRolId = $_SESSION['login'][2];
@@ -191,7 +194,7 @@ if(!empty($_SESSION['login'])){
                   $ophaalDatum = date('d-m-Y');
                   $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
                   for($x=0; $x <= 14; $x++){
-                    $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $date = date('d-F-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                     ?>
                     <option value="<?php echo $date ?>"><?php echo $date ?></option>
                     <?php
