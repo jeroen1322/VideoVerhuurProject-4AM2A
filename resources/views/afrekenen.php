@@ -177,7 +177,10 @@ if(!empty($_SESSION['login'])){
                 if($days > 0){
                   ?>
                   <div class="vraag">
-                    <h4><i>Op <?php echo $OHdata ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan laten bezorgen?</i></h4>
+                    <h4><i>Op <?php
+                    $nlAflever = date('d F Y', strtotime($OHdata));
+                    echo nlDate($nlAflever);
+                    ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan laten bezorgen?</i></h4>
                     <form method="post" action="?action=ophaalDatum&afleverDatum=<?php echo $OHdata ?>&afleverTijd=<?php echo $OHtijd?>">
                       <button class="btn btn-primary bestel">JA</button>
                     </form>
