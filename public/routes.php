@@ -24,10 +24,9 @@ $klein->respond('/film/aanbod', function ($request, $response, $service) {
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     $service->layout('../resources/layouts/film.php');
 });
-$klein->respond('/film/aanbod', function ($request, $response, $service) {
-    $service->pageTitle = 'Filmaanbod';
-    $service->render(VIEWS.'/filmaanbod.php');
-});
+
+
+
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     $naam = $request->naam;
     $titelNaam = $naam;
@@ -35,6 +34,11 @@ $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     $titelNaam = strtoupper($titelNaam);
     $service->pageTitle = $titelNaam;
     $service->filmNaam = $naam;
+    $service->render(VIEWS.'/filmdetail.php');
+});
+$klein->respond('/film/aanbod', function ($request, $response, $service) {
+    $service->pageTitle = 'Filmaanbod';
+    $service->render(VIEWS.'/filmaanbod.php');
     $service->render(VIEWS.'/filmdetail.php');
 });
 
