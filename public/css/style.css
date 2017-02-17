@@ -74,6 +74,9 @@
     height: 300px !important;
   }
 }
+select.form-control {
+    color: red !important;
+}
 button.btn.btn-success.bestel.klopt_niet {
     background-color: rgba(150,153,153,.6) !important;
 }
