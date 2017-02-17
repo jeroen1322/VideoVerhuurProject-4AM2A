@@ -117,7 +117,7 @@ if(!empty($_SESSION['login'])){
               <h4>Afleverdatum:
                 <?php
                 $nlAflever = date('d F Y', strtotime($_POST['afleverDatum']));
-                echo nlDate($nlAflever);
+                echo strtolower(nlDate($nlAflever));
                 ?></h4>
               <h4>Aflevertijd: <?php echo $_POST['aflvrTijd'] ?></h4>
               <hr></hr>
@@ -145,7 +145,7 @@ if(!empty($_SESSION['login'])){
               <h4>Ophaaldatum:
                 <?php
                 $nlOphaal = date('d F Y', strtotime($_POST['ophaalDatum']));
-                echo nlDate($nlOphaal);
+                echo strtolower(nlDate($nlOphaal));
                 ?></h4>
               <h4>Ophaaltijd: <?php echo $_POST['ophaalTijd'] ?></h4>
               <hr></hr>
@@ -179,7 +179,7 @@ if(!empty($_SESSION['login'])){
                   <div class="vraag">
                     <h4><i>Op <?php
                     $nlAflever = date('d F Y', strtotime($OHdata));
-                    echo nlDate($nlAflever);
+                    echo strtolower(nlDate($nlAflever));
                     ?>  om <?php echo $OHtijd ?> wordt er bij u een bestelling opgehaald. Wilt u deze bestelling dan laten bezorgen?</i></h4>
                     <form method="post" action="?action=ophaalDatum&afleverDatum=<?php echo $OHdata ?>&afleverTijd=<?php echo $OHtijd?>">
                       <button class="btn btn-primary bestel">JA</button>
@@ -206,7 +206,7 @@ if(!empty($_SESSION['login'])){
                   for($x=0; $x <= 14; $x++){
                     $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                     $nlDatum = date('d F Y', strtotime($ophaalDatum.'+'.$x. 'days'));
-                    $nlDatum = nlDate($nlDatum);
+                    $nlDatum = strtolower(nlDate($nlDatum));
                     ?>
                     <option value="<?php echo $date ?>"><?php echo $nlDatum ?></option>
                     <?php
@@ -238,7 +238,7 @@ if(!empty($_SESSION['login'])){
               <h4>Afleverdatum: <?php
               $nlAflever = date('d F Y', strtotime($_POST['afleverDatum']));
               // echo $_POST['afleverDatum']
-              echo nlDate($nlAflever);
+              echo strtolower(nlDate($nlAflever));
               ?></h4>
               <h2>AFLEVERTIJD</h2>
               <form method="post" action="?action=ophaalDatum">
@@ -287,7 +287,7 @@ if(!empty($_SESSION['login'])){
               ?>
               <h4>Afleverdatum: <?php
                 $nlAflever = date('d F Y', strtotime($afleverDatum));
-                echo nlDate($nlAflever);
+                echo strtolower(nlDate($nlAflever));
               ?></h4>
               <h4>Aflevertijd: <?php echo $afleverTijd ?></h4>
               <h2>OPHAALDATUM</h2>
@@ -303,7 +303,7 @@ if(!empty($_SESSION['login'])){
                   for($x=0; $x < 14; $x++){
                     $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                     $nlDatum = date('d F Y', strtotime($ophaalDatum.'+'.$x. 'days'));
-                    $nlDatum = nlDate($nlDatum);
+                    $nlDatum = strtolower(nlDate($nlDatum));
                     ?>
                     <option value="<?php echo $date ?>"><?php echo $nlDatum ?></option>
                     <?php
@@ -368,7 +368,7 @@ if(!empty($_SESSION['login'])){
               <form method="post" action="?action=ok">
                 <h4>Afleverdatum: <?php
                   $nlAflever = date('d F Y', strtotime($_POST['afleverDatum']));
-                  echo nlDate($nlAflever);
+                  echo strtolower(nlDate($nlAflever));
                 ?></h4>
               <!-- <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4> -->
               <h4>Aflevertijd: <?php echo $_POST['afleverTijd'] ?></h4><hr></hr>
@@ -463,7 +463,7 @@ if(!empty($_SESSION['login'])){
               <h4>Ophaaldatum:
                 <?php
                 $nlAflever = date('d F Y', strtotime($_POST['ophaalDatum']));
-                echo nlDate($nlAflever);
+                echo strtolower(nlDate($nlAflever));
                 ?></h4>
               <h2>OPHAALTIJD</h2>
                 <select name="ophaalTijd" class="form-control">
