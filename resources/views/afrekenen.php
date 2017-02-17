@@ -116,7 +116,7 @@ if(!empty($_SESSION['login'])){
               ?>
               <h4>Afleverdatum:
                 <?php
-                $nlAflever = date('d-F-Y', strtotime($_POST['afleverDatum']));
+                $nlAflever = date('d F Y', strtotime($_POST['afleverDatum']));
                 echo nlDate($nlAflever);
                 ?></h4>
               <h4>Aflevertijd: <?php echo $_POST['aflvrTijd'] ?></h4>
@@ -144,7 +144,7 @@ if(!empty($_SESSION['login'])){
               <hr></hr>
               <h4>Ophaaldatum:
                 <?php
-                $nlOphaal = date('d-F-Y', strtotime($_POST['ophaalDatum']));
+                $nlOphaal = date('d F Y', strtotime($_POST['ophaalDatum']));
                 echo nlDate($nlOphaal);
                 ?></h4>
               <h4>Ophaaltijd: <?php echo $_POST['ophaalTijd'] ?></h4>
@@ -202,7 +202,7 @@ if(!empty($_SESSION['login'])){
                   $ophaalDatum = date('d-m-Y', strtotime($ophaalDatum."+1 day"));
                   for($x=0; $x <= 14; $x++){
                     $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
-                    $nlDatum = date('d-F-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $nlDatum = date('d F Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                     $nlDatum = nlDate($nlDatum);
                     ?>
                     <option value="<?php echo $date ?>"><?php echo $nlDatum ?></option>
@@ -233,7 +233,7 @@ if(!empty($_SESSION['login'])){
               }
               ?>
               <h4>Afleverdatum: <?php
-              $nlAflever = date('d-F-Y', strtotime($_POST['afleverDatum']));
+              $nlAflever = date('d F Y', strtotime($_POST['afleverDatum']));
               // echo $_POST['afleverDatum']
               echo nlDate($nlAflever);
               ?></h4>
@@ -283,7 +283,7 @@ if(!empty($_SESSION['login'])){
 
               ?>
               <h4>Afleverdatum: <?php
-                $nlAflever = date('d-F-Y', strtotime($afleverDatum));
+                $nlAflever = date('d F Y', strtotime($afleverDatum));
                 echo nlDate($nlAflever);
               ?></h4>
               <h4>Aflevertijd: <?php echo $afleverTijd ?></h4>
@@ -299,7 +299,7 @@ if(!empty($_SESSION['login'])){
                   }
                   for($x=0; $x < 14; $x++){
                     $date = date('d-m-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
-                    $nlDatum = date('d-F-Y', strtotime($ophaalDatum.'+'.$x. 'days'));
+                    $nlDatum = date('d F Y', strtotime($ophaalDatum.'+'.$x. 'days'));
                     $nlDatum = nlDate($nlDatum);
                     ?>
                     <option value="<?php echo $date ?>"><?php echo $nlDatum ?></option>
@@ -364,7 +364,7 @@ if(!empty($_SESSION['login'])){
               ?>
               <form method="post" action="?action=ok">
                 <h4>Afleverdatum: <?php
-                  $nlAflever = date('d-F-Y', strtotime($_POST['afleverDatum']));
+                  $nlAflever = date('d F Y', strtotime($_POST['afleverDatum']));
                   echo nlDate($nlAflever);
                 ?></h4>
               <!-- <h4>Afleverdatum: <?php echo $_POST['afleverDatum'] ?></h4> -->
@@ -459,7 +459,7 @@ if(!empty($_SESSION['login'])){
               <hr></hr>
               <h4>Ophaaldatum:
                 <?php
-                $nlAflever = date('d-F-Y', strtotime($_POST['ophaalDatum']));
+                $nlAflever = date('d F Y', strtotime($_POST['ophaalDatum']));
                 echo nlDate($nlAflever);
                 ?></h4>
               <h2>OPHAALTIJD</h2>
