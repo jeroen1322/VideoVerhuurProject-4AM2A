@@ -20,23 +20,16 @@ $klein->respond('/film/aanbod', function ($request, $response, $service) {
   $service->layout('../resources/layouts/default.php');
 });
 
-<<<<<<< HEAD
 $klein->respond('/film/aanbod', function ($request, $response, $service) {
     $service->pageTitle = 'Filmaanbod';
     $service->render(VIEWS.'/filmaanbod.php');
 });
-=======
->>>>>>> master
+
 
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     $service->layout('../resources/layouts/film.php');
 });
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> master
 $klein->respond('/film/[:naam]', function ($request, $response, $service) {
     $naam = $request->naam;
     $titelNaam = $naam;
