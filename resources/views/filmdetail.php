@@ -116,7 +116,7 @@ if(!empty($_GET['action'])){
     $stmt->execute();
     $stmt->close();
 
-    echo "<div class='succes'><b>UW RESERVERING IS GEPLAAST | U HEEFT €7.50 BETAALD</b></div>";
+    echo "<div class='succes'><b>UW RESERVERING IS GEPLAATST | U HEEFT €7.50 BETAALD</b></div>";
   }
 }
 
