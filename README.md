@@ -48,9 +48,42 @@ Het bestand moet er nu zo uit zien:
 
 </IfModule>
 ```
+
 __Activeer URL Rewriting__
 ```
 sudo a2enmod rewrite
+```
+
+__Clone de repository__ 
+Ga eerst naar */usr/www/html*
+Voer dan het volgende Git command uit
+```
+git clone https://github.com/jeroen1322/tempovideo-basis.git
+``` 
+
+__Verplaats de files naar */html*__
+```
+cd tempovideo-basis
+```
+```
+mv * ../
+```
+
+__Voeg het volgende toe aan de .conf bestand__
+*Voeg dit toe onder de DocumentRoot*
+```
+        <Directory />
+            RewriteEngine On
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^ routes.php [L]
+            AllowOverride None
+            Order allow,deny
+            allow from all
+        </Directory>
+```
+
+```
+sudo nano /etc/apache2/sites-available/000-default.conf
 ```
 
 __Start Apache opnieuw op__
