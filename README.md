@@ -99,3 +99,15 @@ __Start Apache opnieuw op__
 ```
 sudo service apache2 restart
 ```
+
+__Voer de Database in__
+```
+mysql -u root -p
+```
+Kopieer de SQL uit het bestand /resources/DB_SQL.sql 
+Plak de SQL in de terminal en voer het uit.
+
+__Verander de DB inloggegevens in /resources/db.php__
+```
+sudo nano /var/www/html/resources/db.php
+```
