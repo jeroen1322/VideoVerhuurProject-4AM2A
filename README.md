@@ -56,6 +56,15 @@ sudo a2enmod rewrite
 
 __Clone de repository__ 
 Ga eerst naar */usr/www/html*
+```
+cd /usr/www/html
+```
+
+Installeer Git
+```
+sudo apt-get install git
+```
+
 Voer dan het volgende Git command uit
 ```
 git clone https://github.com/jeroen1322/tempovideo-basis.git
