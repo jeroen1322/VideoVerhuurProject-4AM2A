@@ -78,8 +78,15 @@ cd tempovideo-basis
 mv * ../
 ```
 
-__Voeg het volgende toe aan de .conf bestand__
-*Voeg dit toe onder de DocumentRoot*
+__Pas 000-default.conf aan__
+```
+sudo nano /etc/apache2/sites-available/000-default.conf
+```
+Verander de DocumentRoot naar
+```
+/var/www/html/public
+```
+Voeg dit onder de DocumentRoot toe
 ```
         <Directory />
             RewriteEngine On
@@ -89,10 +96,6 @@ __Voeg het volgende toe aan de .conf bestand__
             Order allow,deny
             allow from all
         </Directory>
-```
-
-```
-sudo nano /etc/apache2/sites-available/000-default.conf
 ```
 
 __Start Apache opnieuw op__
