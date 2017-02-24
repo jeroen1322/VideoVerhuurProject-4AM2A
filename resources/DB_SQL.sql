@@ -153,9 +153,17 @@ INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, w
 INSERT INTO Wachtwoord(id, wachtwoord) VALUES (4, '$2y$10$GjFXmwAmtSTX5f7WR3IIpebLaNCCv0ehFZCE1lEttXhcYGgCp9EB.');
 INSERT INTO Persoon (naam, adres, postcode, woonplaats, telefoonnummer, email, wachtwoordid, active, rolid) VALUES ('Hans Odijk', 'columbuslaan 540', '3526 EP', 'Utrecht', '0302815100', 'klant@jeroengrooten.nl', 4, 1, 1);
 
-use tempovideo_sara;
-create table TussenGenre(filmid int, genreid int, primary key (filmid, genreid));
-create table Genre(genreid int primary key, omschr varchar(50));
+create table TussenGenre(
+filmid int, 
+genreid int, 
+primary key (filmid, genreid)
+);
+
+create table Genre(
+genreid int primary key, 
+omschr varchar(50)
+);
+
 alter table Film drop column Genre;
 alter table Film add column uploaddatum varchar(25);
 alter table TussenGenre
@@ -164,7 +172,7 @@ references Film(id);
 
 alter table TussenGenre
 add foreign key (genreid)
-references Genre(id);
+references Genre(genreid);
 
 select * from Film;
 select omschr from Genre;
@@ -194,3 +202,5 @@ insert into Genre values (19, "Sciencefiction");
 insert into Genre values (20, "Sport");
 insert into Genre values (21, "Thriller");
 insert into Genre values (22, "Western");
+
+SELECT * FROM Genre;
