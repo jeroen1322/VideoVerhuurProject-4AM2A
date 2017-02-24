@@ -123,7 +123,7 @@ if(!empty($_SESSION['login'])){
             $gen = $_POST['genre'];
             $nieuweTitel = $_POST['titel'];
             $nieuweOmschr = $_POST['omschr'];
-            if($gen != '' && $nieuweTitel != '' && $nieuweOmschr != ''){
+            if(!empty($_POST)){
               //Gegevens invoeren in Film tabel
               $stmt = DB::conn()->prepare("UPDATE `Film` SET `titel`=? WHERE id=?");
               $stmt->bind_param("ss", $nieuweTitel, $code);
