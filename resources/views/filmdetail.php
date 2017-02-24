@@ -38,6 +38,20 @@ while($stmt->fetch()){
 }
 $stmt->close();
 
+$stmt = DB::conn()->prepare("SELECT genreid FROM TussenGenre WHERE filmid=?");
+$stmt->bind_param('i', $id);
+$stmt->execute();
+$stmt->bind_result($genreid);
+$stmt->fetch();
+$stmt->close();
+
+$stmt = DB::conn()->prepare("SELECT omschr FROM Genre WHERE genreid=?");
+$stmt->bind_param('i', $genreid);
+$stmt->execute();
+$stmt->bind_result($genre);
+$stmt->fetch();
+$stmt->close();
+
 $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
 $exm_stmt->bind_param("i", $id);
 $exm_stmt->execute();
@@ -211,7 +225,7 @@ if(!empty($id)){
                 $i = 0;
                 foreach($acteurs as $a){
                   $i = $i + 1;
-                  if(!empty($a)){                    
+                  if(!empty($a)){
                     ?>
                     <p><?php echo $i?> | <?php echo $a ?><p>
                       <?php
@@ -220,6 +234,7 @@ if(!empty($id)){
                 ?>
               <h3>Genre</h3>
               <p><?php echo $genre ?></p>
+              <br>
               <?php
               $dis = false;
               if($count >=4){
