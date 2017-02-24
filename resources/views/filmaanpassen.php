@@ -54,10 +54,10 @@ if(!empty($_SESSION['login'])){
       <?php
 
       foreach($film_id as $i){
-        $stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM `Film` WHERE id=?");
+        $stmt = DB::conn()->prepare("SELECT id, titel, omschr, img FROM `Film` WHERE id=?");
         $stmt->bind_param("i", $i);
         $stmt->execute();
-        $stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
+        $stmt->bind_result($id, $titel, $omschr, $img);
         $stmt->fetch();
         $stmt->close();
         $cover = "/cover/" . $img;
