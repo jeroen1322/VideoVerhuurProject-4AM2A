@@ -26,10 +26,10 @@ if(!empty($_SESSION['login'])){
           <input type="text" name="titel" placeholder="Titel" class="form-control" autocomplete="off" required>
 
           <input type="text" name="acteur1" placeholder="Acteur" class="form-control" autocomplete="off" required>
-          <input type="text" name="acteur2" placeholder="Acteur" class="form-control" autocomplete="off" required>
-          <input type="text" name="acteur3" placeholder="Acteur" class="form-control" autocomplete="off" required>
-          <input type="text" name="acteur4" placeholder="Acteur" class="form-control" autocomplete="off" required>
-          <input type="text" name="acteur5" placeholder="Acteur" class="form-control" autocomplete="off" required>
+          <input type="text" name="acteur2" placeholder="Acteur" class="form-control" autocomplete="off">
+          <input type="text" name="acteur3" placeholder="Acteur" class="form-control" autocomplete="off">
+          <input type="text" name="acteur4" placeholder="Acteur" class="form-control" autocomplete="off">
+          <input type="text" name="acteur5" placeholder="Acteur" class="form-control" autocomplete="off">
 
           <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off" required>
           <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off" required>

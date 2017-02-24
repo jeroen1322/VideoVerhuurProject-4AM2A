@@ -211,9 +211,11 @@ if(!empty($id)){
                 $i = 0;
                 foreach($acteurs as $a){
                   $i = $i + 1;
-                  ?>
-                  <p><?php echo $i?> | <?php echo $a ?><p>
-                  <?php
+                  if(!empty($a)){                    
+                    ?>
+                    <p><?php echo $i?> | <?php echo $a ?><p>
+                      <?php
+                  }
                 }
                 ?>
               <h3>Genre</h3>
