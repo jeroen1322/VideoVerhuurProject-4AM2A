@@ -75,7 +75,11 @@ REFERENCES Exemplaar(id);
 create table Film(
 id int primary key, 
 titel varchar(50), 
-acteur varchar(100), 
+acteur1 varchar(100),
+acteur2 varchar(100),
+acteur3 varchar(100),
+acteur4 varchar(100),
+acteur5 varchar(100),
 omschr varchar(200)
 );
 
