@@ -24,14 +24,19 @@ if(!empty($_SESSION['login'])){
 
 $film = $this->filmNaam;
 //Pak de foto van de film
-$stmt = DB::conn()->prepare("SELECT id, titel, acteur, omschr, genre, img FROM Film WHERE id=?");
+$stmt = DB::conn()->prepare("SELECT id, titel, acteur1, acteur2, acteur3, acteur4, acteur5, omschr, img FROM Film WHERE id=?");
 $stmt->bind_param("s", $film);
 $stmt->execute();
 
-$stmt->bind_result($id, $titel, $acteur, $omschr, $genre, $img);
-$stmt->fetch();
+$stmt->bind_result($id, $titel, $acteur1, $acteur2, $acteur3, $acteur4, $acteur5, $omschr, $img);
+while($stmt->fetch()){
+  $acteurs[] = $acteur1;
+  $acteurs[] = $acteur2;
+  $acteurs[] = $acteur3;
+  $acteurs[] = $acteur4;
+  $acteurs[] = $acteur5;
+}
 $stmt->close();
-
 
 $exm_stmt = DB::conn()->prepare("SELECT id FROM `Exemplaar` WHERE filmid=? AND statusid=1");
 $exm_stmt->bind_param("i", $id);
@@ -202,7 +207,15 @@ if(!empty($id)){
               <h3>Omschrijving</h3>
               <p><?php echo $omschr ?></p>
               <h3>Acteurs</h3>
-              <p><?php echo $acteur ?></p>
+                <?php
+                $i = 0;
+                foreach($acteurs as $a){
+                  $i = $i + 1;
+                  ?>
+                  <p><?php echo $i?> | <?php echo $a ?><p>
+                  <?php
+                }
+                ?>
               <h3>Genre</h3>
               <p><?php echo $genre ?></p>
               <?php

@@ -24,7 +24,13 @@ if(!empty($_SESSION['login'])){
         <h1>FILM TOEVOEGEN</h1>
         <form method="post" enctype="multipart/form-data">
           <input type="text" name="titel" placeholder="Titel" class="form-control" autocomplete="off" required>
-          <input type="text" name="acteur" placeholder="Acteurs" class="form-control" autocomplete="off" required>
+
+          <input type="text" name="acteur1" placeholder="Acteur" class="form-control" autocomplete="off" required>
+          <input type="text" name="acteur2" placeholder="Acteur" class="form-control" autocomplete="off" required>
+          <input type="text" name="acteur3" placeholder="Acteur" class="form-control" autocomplete="off" required>
+          <input type="text" name="acteur4" placeholder="Acteur" class="form-control" autocomplete="off" required>
+          <input type="text" name="acteur5" placeholder="Acteur" class="form-control" autocomplete="off" required>
+
           <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off" required>
           <input type="text" name="genre" placeholder="Genre" class="form-control" autocomplete="off" required>
           <input type="file" name="img" placeholder="FOTO" class="form-control" accept="image/*" required>
@@ -45,7 +51,14 @@ if(!empty($_SESSION['login'])){
 
   if(!empty($_POST)){
   $titel = $_POST['titel'];
-  $acteur = $_POST['acteur'];
+
+  $acteur1 = $_POST['acteur1'];
+  $acteur2 = $_POST['acteur2'];
+  $acteur3 = $_POST['acteur3'];
+  $acteur4 = $_POST['acteur4'];
+  $acteur5 = $_POST['acteur5'];
+
+
   $oms = $_POST['oms'];
   $genre = $_POST['genre'];
   $img = $_FILES['img'];
@@ -109,8 +122,8 @@ if(!empty($_SESSION['login'])){
     }
 
     //Gegevens invoeren in Film tabel
-    $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur, omschr, genre, img) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssss", $filmid, $uploadName, $acteur, $oms, $genre, $name);
+    $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur1, acteur2, acteur3, acteur4, acteur5, omschr,  img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssssss", $filmid, $uploadName, $acteur1, $acteur2, $acteur3, $acteur4, $acteur5, $oms, $name);
     $stmt->execute();
 
 
