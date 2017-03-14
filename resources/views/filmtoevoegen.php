@@ -33,7 +33,7 @@ if(!empty($_SESSION['login'])){
 
           <input type="text" name="oms" placeholder="Omschrijving" class="form-control" autocomplete="off" required>
 
-          <select class="form-control" name="genre">
+          <select class="form-control" name="genretest[]" multiple="true">
             <?php
             $stmt = DB::conn()->prepare("SELECT genreid FROM `Genre`");
             $stmt->execute();
@@ -50,7 +50,7 @@ if(!empty($_SESSION['login'])){
               $stmt->fetch();
               $stmt->close();
               ?>
-              <option value="<?php echo $g ?>"><?php echo $genreOmschr ?></option>
+              <option value="<?php echo $g ?>" name="genre[]"><?php echo $genreOmschr ?></option>
               <?php
             }
             ?>
@@ -81,9 +81,13 @@ if(!empty($_SESSION['login'])){
   $acteur4 = $_POST['acteur4'];
   $acteur5 = $_POST['acteur5'];
 
+  $genres = $_POST['genretest'];
+
+
+
 
   $oms = $_POST['oms'];
-  $genre = $_POST['genre'];
+
   $img = $_FILES['img'];
   $uploadName = $titel;
   $uploadName = str_replace(' ', '_', $uploadName);
@@ -143,17 +147,26 @@ if(!empty($_SESSION['login'])){
         $stmt->close();
         $filmid = $filmidlast + 1;
     }
-    print_r($genre);
+
     //Gegevens invoeren in Film tabel
-    $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur1, acteur2, acteur3, acteur4, acteur5, omschr,  img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = DB::conn()->prepare("INSERT INTO Film (id, titel, acteur1, acteur2, acteur3, acteur4, acteur5, omschr,  img, uploaddatum) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate())");
     $stmt->bind_param("issssssss", $filmid, $uploadName, $acteur1, $acteur2, $acteur3, $acteur4, $acteur5, $oms, $name);
     $stmt->execute();
     $stmt->close();
 
-    $stmt = DB::conn()->prepare("INSERT INTO TussenGenre(filmid, genreid) VALUES (?, ?)");
-    $stmt->bind_param('ii', $filmid, $genre);
+    foreach ($genres as $i) {
+
+
+    $stmt = DB::conn()->prepare("insert into TussenGenre (filmid, genreid) values (?, ?)");
+    $stmt->bind_param("ii", $filmid, $i);
     $stmt->execute();
     $stmt->close();
+  }
+
+
+
+
+
 
     //EXEMPLAAR
     $ex_stmt = DB::conn()->prepare("SELECT id FROM Film WHERE titel=? and id=?");
@@ -174,7 +187,7 @@ if(!empty($_SESSION['login'])){
     }
     header("Refresh:0; url=/film/$filmid");
   }else{
-    echo "<div class='alert'><b>U HEEFT GEEN GELDIG FOTO BESTAND GEUPLOAD</b></div>";
+    echo "<div class='alert'><b>U HEEFT GEEN GELDIG FOTOBESTAND GEUPLOAD</b></div>";
   }
   DB::conn()->close();
   }
